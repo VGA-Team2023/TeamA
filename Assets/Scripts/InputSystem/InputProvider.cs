@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UniRx;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// Inputの情報を提供するクラス
@@ -19,8 +20,12 @@ public class InputProvider
     private Vector3 _moveDir;
     [Tooltip("入力直後")]
     private Dictionary<InputType, Action> _onEnterInputDic = new Dictionary<InputType, Action>();
+    [Tooltip("入力直後(Async)")]
+    private Dictionary<InputType, Func<UniTaskVoid>> _onEnterInputAsyncDic = new Dictionary<InputType, Func<UniTaskVoid>>();
     [Tooltip("入力解除")]
     private Dictionary<InputType, Action> _onExitInputDic = new Dictionary<InputType, Action>();
+    [Tooltip("入力直後(Async)")]
+    private Dictionary<InputType, Func<UniTaskVoid>> _onExitInputAsyncDic = new Dictionary<InputType, Func<UniTaskVoid>>();
     [Tooltip("入力中")]
     private Dictionary<InputType, bool> _isStayInputDic = new Dictionary<InputType, bool>();
 
@@ -44,6 +49,9 @@ public class InputProvider
         _inputMap.Player.Move.canceled += context => _moveDir = Vector3.zero;
         _inputMap.Player.Jump.performed += context => ExecuteInput(InputType.Jump, InputMode.Enter);
         _inputMap.Player.Jump.canceled += context => ExecuteInput(InputType.Jump, InputMode.Exit);
+        _inputMap.Player.Attack.performed += context => ExecuteInput(InputType.Attack, InputMode.Enter);
+        _inputMap.Player.Attack.canceled += context => ExecuteInput(InputType.Attack, InputMode.Exit);
+        
 
         _isInstanced = true;
     }
@@ -58,7 +66,9 @@ public class InputProvider
             for (int i = 0; i < Enum.GetValues(typeof(InputType)).Length; i++)
             {
                 _onEnterInputDic[(InputType)i] = null;
+                _onEnterInputAsyncDic[(InputType)i] = null;
                 _onExitInputDic[(InputType)i] = null;
+                _onExitInputAsyncDic[(InputType)i] = null;
                 _isStayInputDic[(InputType)i] = false;
             }
             return;
@@ -66,7 +76,9 @@ public class InputProvider
         for (int i = 0; i < Enum.GetValues(typeof(InputType)).Length; i++)
         {
             _onEnterInputDic.Add((InputType)i, null);
+            _onEnterInputAsyncDic.Add((InputType)i, null);
             _onExitInputDic.Add((InputType)i, null);
+            _onExitInputAsyncDic.Add((InputType)i, null);
             _isStayInputDic.Add((InputType)i, false);
         }
     }
@@ -77,16 +89,19 @@ public class InputProvider
     /// <param name="input"></param>
     private void ExecuteInput(InputType input, InputMode type)
     {
-
+        Debug.Log(input);
         switch (type)
         {
             case InputMode.Enter:
                 //入力開始処理を実行する
                 _onEnterInputDic[input]?.Invoke();
+                _onEnterInputAsyncDic[input]?.Invoke();
+                SetStayInput(input, true);
                 break;
             case InputMode.Exit:
                 // 入力解除処理を実行する
                 _onExitInputDic[input]?.Invoke();
+                _onExitInputAsyncDic[input]?.Invoke();
                 SetStayInput(input, false);
                 break;
             default:
@@ -112,7 +127,12 @@ public class InputProvider
         _onEnterInputDic[type] += action;
     }
 
-    public void SetStayInput(InputType type, bool isBool)
+    public void SetEnterInputAsync(InputType type, Func<UniTaskVoid> func) 
+    {
+        _onEnterInputAsyncDic[type] += func;
+    }
+
+    private void SetStayInput(InputType type, bool isBool)
     {
         Debug.Log($"{type}が{isBool}になっています");
         _isStayInputDic[type] = isBool;
@@ -126,6 +146,11 @@ public class InputProvider
         _onExitInputDic[type] += action;
     }
 
+    public void SetExitInputAsync(InputType type, Func<UniTaskVoid> func)
+    {
+        _onExitInputAsyncDic[type] += func;
+    }
+
     /// <summary>
     /// 特定の入力で呼び出される登録したActionを削除する
     /// </summary>
@@ -134,12 +159,22 @@ public class InputProvider
         _onEnterInputDic[type] -= action;
     }
 
+    public void LiftEnterInputAsync(InputType type, Func<UniTaskVoid> func)
+    {
+        _onEnterInputAsyncDic[type] -= func;
+    }
+
     /// <summary>
     ///特定の入力終わった時に呼び出される登録したActionを削除する
     /// </summary>
     public void LiftExitInput(InputType type, Action action)
     {
         _onExitInputDic[type] -= action;
+    }
+
+    public void LiftExitInputAsync(InputType type, Func<UniTaskVoid> func)
+    {
+        _onExitInputAsyncDic[type] -= func;
     }
 
 
@@ -161,30 +196,11 @@ public class InputProvider
     {
         /// <summary>キャンセルの処理</summary>
         Cancel,
-        /// <summary>ADS</summary>
-        ADS,
-        /// <summary>攻撃入力</summary>
-        Fire,
-        /// <summary>スキル１</summary>
-        Skill1,
-        /// <summary>スキル２</summary>
-        Skill2,
         /// <summary>インタラクト</summary>
         Interact,
-        /// <summary>しゃがむ</summary>
-        Crouch,
-        /// <summary>ダッシュ</summary>
-        Sprint,
-        /// <summary>物を落とす</summary>
-        Drop,
+        /// <summary>攻撃</summary>
+        Attack,
         /// <summary>ジャンプをする</summary>
         Jump,
-        /// <summary>武器を装備する </summary>
-        EquipWepon,
-        /// <summary> </summary>
-        EquipMelee,
-        /// <summary>アイテムを装備する</summary>
-        EquipItem,
-
     }
 }
