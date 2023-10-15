@@ -9,6 +9,9 @@ public class PlayerEnvroment
 {
     public PlayerStateType PlayerState => _playerState;
     public Transform PlayerTransform;
+    [NonSerialized] public PlayerAnimation PlayerAnim;
+    [Tooltip("向いている方向")]
+    [NonSerialized] public Vector2 LastDir;
 
     private PlayerStateType _playerState;
 
