@@ -4,8 +4,9 @@ using System;
 [Flags]
 public enum PlayerStateType
 {
-    Run = 1,
-    Attack = 2,
-    Damage = 4,
-    Jump = 8,
+    Walk = 1,
+    Run = 2,
+    Attack = 4,
+    Damage = 8,
+    Jump = 16,
 }
