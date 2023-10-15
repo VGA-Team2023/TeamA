@@ -3,44 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System;
+using UniRx;
 
-public class PlayerAttack : IPlayerState
+public class PlayerAttack : IPlayerState, IPlayerAttack
 {
+    public IReadOnlyReactiveProperty<float> CurrentWaterNum => _currentWaterNum;
+    public IReadOnlyReactiveProperty<float> MaxWaterNum => _maxWaterNum;
+
     [SerializeField] private Transform _attackPos;
     [SerializeField] private Collider2D _attackCollider;
-
-    [Header("一秒あたりの水の消費量")]
+    [Header("最初の最大の水の量")]
+    [SerializeField] private float _firstMaxWater;
+    [Header("水の消費量")]
     [SerializeField] private float _waterConsumption;
+
+    private readonly ReactiveProperty<float> _currentWaterNum = new ReactiveProperty<float>();
+    private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
+    
     private PlayerEnvroment _env;
+
+
     public void SetUp(PlayerEnvroment env)
     {
-        InputProvider.Instance.SetEnterInputAsync(InputProvider.InputType.Attack, AttackAsync);
         _env = env;
+        _maxWaterNum.Value = _firstMaxWater; 
+        _currentWaterNum.Value = _firstMaxWater;
     }
 
     public void Update()
     {
-        if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack)) 
+        
+    }
+
+    public void FixedUpdate()
+    {
+        if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack))
+        {
+            Attack();
+        }
+        else
         {
 
         }
     }
 
-    public void FixedUpdate()
+    private void Attack()
     {
 
     }
-    private async UniTaskVoid AttackAsync()
-    {
-        if (_env.PlayerState.HasFlag(PlayerStateType.Attack)) return;
-
-        _attackCollider.enabled = true;
-        _env.AddState(PlayerStateType.Attack);
-        await _env.PlayerAnim.AttackAnim();
-        _attackCollider.enabled = false;
-        _env.RemoveState(PlayerStateType.Attack);
-    }
-
+    
     public void Dispose()
     {
 
