@@ -22,4 +22,9 @@ public class PlayerAnimation
         _anim.SetTrigger("Attack");
         await UniTask.WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98, cancellationToken: _token);
     }
+
+    public void AttackAnim(bool isAttack) 
+    {
+        _anim.SetBool("Attack", isAttack);
+    }
 }

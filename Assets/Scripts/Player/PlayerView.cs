@@ -26,6 +26,7 @@ public class PlayerView : MonoBehaviour
 
     private void AdjustmentWaterBar()
     {
+        Debug.Log(_currentWater / _maxWater);
         _currentWaterImage.DOFillAmount(_currentWater / _maxWater, 0.5f);
     }
 

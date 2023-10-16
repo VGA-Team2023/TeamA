@@ -14,6 +14,7 @@ public class PlayerJump : IPlayerState
     [SerializeField] private string _groundTag;
 
     private PlayerEnvroment _env;
+    private bool _isTwoJumps;
     private bool _isGround;
     Collider2D[] _buffer = new Collider2D[10];
 
@@ -44,6 +45,7 @@ public class PlayerJump : IPlayerState
             if (_buffer[i].CompareTag(_groundTag))
             {
                 _isGround = true;
+                _isTwoJumps = true;
                 break;
             }
         }
@@ -52,7 +54,14 @@ public class PlayerJump : IPlayerState
     private void Jump()
     {
         if (_isGround)
-        _rb.AddForce(Vector3.up * _jumpPower, ForceMode2D.Impulse);
+        {
+            _rb.AddForce(Vector3.up * _jumpPower, ForceMode2D.Impulse);
+        }
+        else if (_isTwoJumps) 
+        {
+            _isTwoJumps = false;
+            _rb.AddForce(Vector3.up * _jumpPower, ForceMode2D.Impulse);
+        }
     }
 
     public void Dispose()
