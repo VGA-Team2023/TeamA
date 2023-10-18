@@ -51,6 +51,8 @@ public class InputProvider
         _inputMap.Player.Jump.canceled += context => ExecuteInput(InputType.Jump, InputMode.Exit);
         _inputMap.Player.Attack.performed += context => ExecuteInput(InputType.Attack, InputMode.Enter);
         _inputMap.Player.Attack.canceled += context => ExecuteInput(InputType.Attack, InputMode.Exit);
+        _inputMap.Player.Dash.performed += context => ExecuteInput(InputType.Dash, InputMode.Enter);
+        _inputMap.Player.Dash.canceled += context => ExecuteInput(InputType.Dash, InputMode.Exit);
         
 
         _isInstanced = true;
@@ -202,5 +204,7 @@ public class InputProvider
         Attack,
         /// <summary>ジャンプをする</summary>
         Jump,
+        /// <summary>ダッシュ</summary>
+        Dash,
     }
 }
