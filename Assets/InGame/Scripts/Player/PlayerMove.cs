@@ -74,11 +74,11 @@ public class PlayerMove : IPlayerState
 
     private void MoveDirSprite()
     {
-        if (_dir.x == -1) 
+        if (_dir.x < -0.5f) 
         {
             _env.PlayerTransform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        else if(_dir.x == 1)
+        else if(_dir.x > 0.5f)
         {
             _env.PlayerTransform.rotation = new Quaternion(0, 0, 0, 0);
         }

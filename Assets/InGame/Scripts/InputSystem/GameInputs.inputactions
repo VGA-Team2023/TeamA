@@ -294,6 +294,17 @@
                 },
                 {
                     "name": "",
+                    "id": "803d2081-9f00-4e0d-bb69-fd8eef3b392d",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d1ea218e-d6d2-49a7-be88-d4cf2ec89373",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -305,8 +316,30 @@
                 },
                 {
                     "name": "",
+                    "id": "fa0dc642-879e-4048-b59c-213a53982842",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "bc37c8e0-a7a6-416c-a93c-0e46210a9678",
                     "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fe7fe12-03f6-496f-94b1-d142a7a98f2d",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
