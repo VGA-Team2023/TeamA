@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < _playerStateList.Count; i++)
         {
-            _playerStateList[i].SetUp(_playerEnvroment);
+            _playerStateList[i].SetUp(_playerEnvroment, _token);
         }
     }
 

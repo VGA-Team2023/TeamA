@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class PlayerInteract : IPlayerState
 {
@@ -11,7 +12,7 @@ public class PlayerInteract : IPlayerState
     [SerializeField] private float _maxDistance;
     private PlayerEnvroment _env;
 
-    public void SetUp(PlayerEnvroment env)
+    public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
         _env = env;
         InputProvider.Instance.SetEnterInput(InputProvider.InputType.Interact, Interact);

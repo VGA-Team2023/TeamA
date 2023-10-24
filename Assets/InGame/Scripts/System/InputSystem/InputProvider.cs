@@ -12,12 +12,15 @@ using Cysharp.Threading.Tasks;
 public class InputProvider
 {
     public Vector3 MoveDir => _moveDir;
+    public Vector2 EimDir => _eimDir;
     public static InputProvider Instance => _instance;
 
     [Tooltip("InputSystemで生成したクラス")]
     private GameInputs _inputMap;
     [Tooltip("移動する向き")]
     private Vector3 _moveDir;
+    [Tooltip("エイムの入力している向き")]
+    private Vector2 _eimDir;
     [Tooltip("入力直後")]
     private Dictionary<InputType, Action> _onEnterInputDic = new Dictionary<InputType, Action>();
     [Tooltip("入力直後(Async)")]
@@ -45,6 +48,8 @@ public class InputProvider
         _inputMap = new GameInputs();
         _inputMap.Enable();
         InirializeInput();
+        _inputMap.Player.Eim.performed += context => _eimDir = context.ReadValue<Vector2>(); 
+        _inputMap.Player.Eim.canceled += context => _eimDir = Vector2.zero; 
         _inputMap.Player.Move.performed += context => _moveDir = context.ReadValue<Vector2>();
         _inputMap.Player.Move.canceled += context => _moveDir = Vector3.zero;
         _inputMap.Player.Jump.performed += context => ExecuteInput(InputType.Jump, InputMode.Enter);

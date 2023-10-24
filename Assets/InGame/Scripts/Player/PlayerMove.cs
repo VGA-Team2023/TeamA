@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading;
 
 public class PlayerMove : IPlayerState
 {
@@ -15,7 +16,7 @@ public class PlayerMove : IPlayerState
     private Vector3 _dir;
     private PlayerEnvroment _env;
 
-    public void SetUp(PlayerEnvroment env)
+    public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
         _env = env;
     }

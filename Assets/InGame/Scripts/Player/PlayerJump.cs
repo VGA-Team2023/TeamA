@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class PlayerJump : IPlayerState
 {
@@ -18,7 +19,7 @@ public class PlayerJump : IPlayerState
     private bool _isGround;
     Collider2D[] _buffer = new Collider2D[10];
 
-    public void SetUp(PlayerEnvroment env)
+    public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
         InputProvider.Instance.SetEnterInput(InputProvider.InputType.Jump, Jump);
         _env = env;
