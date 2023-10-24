@@ -41,7 +41,6 @@ public class PlayerView : MonoBehaviour
 
     private void AdjustmentHpBar() 
     {
-        Debug.Log(_currentHp / _maxHp);
         _currentHpImage.DOFillAmount(_currentHp / _maxHp, 0.5f);
     }
 
