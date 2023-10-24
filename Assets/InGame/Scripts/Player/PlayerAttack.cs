@@ -5,18 +5,22 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
+using System.Threading;
 
 public class PlayerAttack : IPlayerState, IPlayerAttack
 {
     public IReadOnlyReactiveProperty<float> CurrentWaterNum => _currentWaterNum;
     public IReadOnlyReactiveProperty<float> MaxWaterNum => _maxWaterNum;
 
-    [SerializeField] private Transform _attackPos;
-    [SerializeField] private Collider2D _attackCollider;
+    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Transform _muzzle;
+    [SerializeField] private Transform _eimPos;
     [Header("最初の最大の水の量")]
     [SerializeField] private float _firstMaxWater;
-    [Header("１秒間の水の消費量")]
+    [Header("１発の水の消費量")]
     [SerializeField] private float _waterConsumption;
+    [Header("連射のレート")]
+    [SerializeField] private float _waterRate;
 
     private readonly ReactiveProperty<float> _currentWaterNum = new ReactiveProperty<float>();
     private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
@@ -24,35 +28,42 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
     private PlayerEnvroment _env;
 
 
-    public void SetUp(PlayerEnvroment env)
+    public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
         _env = env;
         _maxWaterNum.Value = _firstMaxWater;
         _currentWaterNum.Value = _firstMaxWater;
+        InputProvider.Instance.SetEnterInputAsync(InputProvider.InputType.Attack, Attack);
     }
 
     public void Update()
     {
-
+        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
     }
 
     public void FixedUpdate()
     {
-        if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack))
-        {
-            Attack();
-        }
-        else
-        {
-            CancelAttak();
-        }
+
     }
 
-    private void Attack()
+    private async UniTaskVoid Attack()
     {
-        _currentWaterNum.Value -= Time.deltaTime * _waterConsumption;
-        _env.PlayerAnim.AttackAnim(true);
         _env.AddState(PlayerStateType.Attack);
+        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+
+        do
+        {
+            Debug.Log("打ちます");
+            _currentWaterNum.Value -= _waterConsumption;
+            _env.PlayerAnim.AttackAnim(true);
+
+            var bulletCs = UnityEngine.Object.Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
+            bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
+            await UniTask.WaitForSeconds(_waterRate);
+        }
+        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+        
+        _env.RemoveState(PlayerStateType.Attack);
     }
 
     private void CancelAttak() 
