@@ -5,5 +5,6 @@ using UnityEngine;
 
 public interface IHealth
 {
-   //public void 
+    public void ApplyDamage(float damageNum);
+    public void ApplyHeal(float healNum);
 }

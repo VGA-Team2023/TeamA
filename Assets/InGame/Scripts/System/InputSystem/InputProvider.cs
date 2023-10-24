@@ -53,7 +53,8 @@ public class InputProvider
         _inputMap.Player.Attack.canceled += context => ExecuteInput(InputType.Attack, InputMode.Exit);
         _inputMap.Player.Dash.performed += context => ExecuteInput(InputType.Dash, InputMode.Enter);
         _inputMap.Player.Dash.canceled += context => ExecuteInput(InputType.Dash, InputMode.Exit);
-        
+        _inputMap.Player.Interact.performed += context => ExecuteInput(InputType.Interact, InputMode.Enter);
+        _inputMap.Player.Interact.canceled += context => ExecuteInput(InputType.Interact, InputMode.Exit);
 
         _isInstanced = true;
     }
@@ -91,7 +92,6 @@ public class InputProvider
     /// <param name="input"></param>
     private void ExecuteInput(InputType input, InputMode type)
     {
-        Debug.Log(input);
         switch (type)
         {
             case InputMode.Enter:
@@ -136,7 +136,6 @@ public class InputProvider
 
     private void SetStayInput(InputType type, bool isBool)
     {
-        Debug.Log($"{type}が{isBool}になっています");
         _isStayInputDic[type] = isBool;
     }
 
