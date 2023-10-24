@@ -8,9 +8,12 @@ using DG.Tweening;
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Image _currentWaterImage;
+    [SerializeField] private Image _currentHpImage;
 
     private float _maxWater;
     private float _currentWater;
+    private float _maxHp;
+    private float _currentHp;
 
     public void SetCurrentWater(float num)
     {
@@ -22,6 +25,24 @@ public class PlayerView : MonoBehaviour
     public void SetMaxWater(float num)
     {
         _maxWater = num;
+    }
+
+    public void SetHpView(float num)
+    {
+        _currentHp = num;
+        AdjustmentHpBar();
+    }
+
+    public void SetMaxHpView(float num) 
+    {
+        _maxHp = num;
+    }
+
+
+    private void AdjustmentHpBar() 
+    {
+        Debug.Log(_currentHp / _maxHp);
+        _currentHpImage.DOFillAmount(_currentHp / _maxHp, 0.5f);
     }
 
     private void AdjustmentWaterBar()
