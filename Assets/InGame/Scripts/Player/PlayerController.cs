@@ -7,7 +7,7 @@ using UnityEngine;
 using UniRx;
 
 /// <summary>
-/// PlayerのStateをコントロールするクラス
+/// PlayerのRootクラス
 /// </summary>
 public class PlayerController : MonoBehaviour
 {

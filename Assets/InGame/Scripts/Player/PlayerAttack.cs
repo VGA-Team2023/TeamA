@@ -38,7 +38,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     public void Update()
     {
-        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+
     }
 
     public void FixedUpdate()
@@ -53,7 +53,6 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
         do
         {
-            Debug.Log("打ちます");
             _currentWaterNum.Value -= _waterConsumption;
             _env.PlayerAnim.AttackAnim(true);
 
