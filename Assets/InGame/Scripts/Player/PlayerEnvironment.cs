@@ -7,13 +7,22 @@ using System;
 [Serializable]
 public class PlayerEnvroment
 {
+    public PlayerEnvroment(Transform playerTransform, PlayerAnimation playerAnimation) 
+    {
+        _playerAnimation = playerAnimation;
+        _playerTransform = playerTransform;
+    }
+
     public PlayerStateType PlayerState => _playerState;
-    public Transform PlayerTransform;
-    [NonSerialized] public PlayerAnimation PlayerAnim;
+    public Transform PlayerTransform => _playerTransform;
+    public PlayerAnimation PlayerAnim => _playerAnimation;
+
     [Tooltip("向いている方向")]
     [NonSerialized] public Vector2 LastDir;
 
     private PlayerStateType _playerState;
+    private PlayerAnimation _playerAnimation;
+    private Transform _playerTransform;
 
     /// <summary>
     /// 状態を追加する

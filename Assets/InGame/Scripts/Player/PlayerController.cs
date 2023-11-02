@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     private List<IPlayerState> _playerStateList = new List<IPlayerState>();
     [SerializeField] private PlayerAnimation _playerAnim;
     [SerializeField] private PlayerView _playerView;
-    [SerializeField] private PlayerEnvroment _playerEnvroment;
     [SerializeField] private PlayerHp _playerHp;
 
+    private PlayerEnvroment _playerEnvroment;
     private CancellationToken _token;
 
     void Start()
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #region SetUp
-    public void SetUp() 
+    public void SetUp()
     {
         _playerAnim.SetUp(_token);
         _playerHp.SetUp();
@@ -46,15 +46,14 @@ public class PlayerController : MonoBehaviour
 
     private void SetUpEnv()
     {
-        _playerEnvroment.PlayerTransform = transform;
-        _playerEnvroment.PlayerAnim = _playerAnim;
+        _playerEnvroment = new PlayerEnvroment(transform, _playerAnim);
     }
     #endregion
 
-    private void BindView() 
+    private void BindView()
     {
-        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView);
-        _playerHp.MaxHp.Subscribe(_playerView.SetMaxHpView);
+        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView).AddTo(this);
+        _playerHp.MaxHp.Subscribe(_playerView.SetMaxHpView).AddTo(this);
 
         for (int i = 0; i < _playerStateList.Count; i++)
         {
