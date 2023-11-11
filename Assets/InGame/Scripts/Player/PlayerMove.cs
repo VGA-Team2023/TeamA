@@ -15,6 +15,7 @@ public class PlayerMove : IPlayerState
 
     private Vector3 _dir;
     private PlayerEnvroment _env;
+    private int _walkSE;
 
     public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
@@ -44,7 +45,7 @@ public class PlayerMove : IPlayerState
     {
         if (_dir == Vector3.zero)
         {
-            _env.RemoveState(PlayerStateType.Walk);
+            _env.RemoveState(PlayerStateType.Run);
         }
         else
         {
@@ -64,6 +65,7 @@ public class PlayerMove : IPlayerState
         }
         else
         {
+            _walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;

@@ -9,7 +9,7 @@ using UniRx;
 /// <summary>
 /// PlayerのRootクラス
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerRoot
 {
     [SerializeReference, SubclassSelector]
     private List<IPlayerState> _playerStateList = new List<IPlayerState>();
@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// ViewとModleの結び付け
+    /// </summary>
     private void BindView()
     {
         _playerHp.CurrentHp.Subscribe(_playerView.SetHpView).AddTo(this);
@@ -67,7 +70,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    /// <summary>
+    /// PlayerStateを検索して返す
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public T SeachState<T>() where T : class
+    {
+        for (int i = 0; i < _playerStateList.Count; i++) 
+        {
+            if (_playerStateList[i] is T) 
+            {
+                return _playerStateList as T;
+            }
+        }
+        return default;
+    }
+
+    private void Update()
     {
         for (int i = 0; i < _playerStateList.Count; i++)
         {
