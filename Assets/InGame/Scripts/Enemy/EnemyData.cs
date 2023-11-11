@@ -6,7 +6,7 @@ using UnityEngine;
 //ボスと同じところ
 [CreateAssetMenu(menuName = "MyScriptable/Create EnemyData")]
 
-public class EnemyDate : ScriptableObject
+public class EnemyData : ScriptableObject
 {
     [SerializeField, Tooltip("巡回する距離")]
     float _moveDistance = 0f;

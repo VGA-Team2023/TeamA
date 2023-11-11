@@ -7,8 +7,8 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [SerializeField, Tooltip("雑魚敵のデータ")]
-    EnemyDate _enemyDate = default;
-    public EnemyDate EnemyDataSource => _enemyDate;
+    EnemyData _enemyDate = default;
+    public EnemyData EnemyDataSource => _enemyDate;
 
     Rigidbody2D _rb = default;
 
