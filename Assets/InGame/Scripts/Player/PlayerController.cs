@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     /// </summary>
     private void BindView()
     {
-        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView).AddTo(this);
         _playerHp.MaxHp.Subscribe(_playerView.SetMaxHpView).AddTo(this);
+        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView).AddTo(this);
 
         for (int i = 0; i < _playerStateList.Count; i++)
         {
