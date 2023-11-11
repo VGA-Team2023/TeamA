@@ -11,6 +11,7 @@ public class MainStageScene : MonoBehaviour
 
     private void Awake()
     {
-        _playerObj.GetComponent<IHealth>().OnDead.Subscribe(_ => _restartController.Restart()).AddTo(gameObject);
+        _playerObj.GetComponent<IHealth>().OnDead.Subscribe(_ => _restartController?.Restart()).AddTo(gameObject);
+        CriAudioManager.Instance.PlayBGM("CueSheet_0", "BGM_stage1");
     }
 }
