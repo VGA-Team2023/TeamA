@@ -21,7 +21,6 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
     [SerializeField] private float _waterConsumption;
     [Header("連射のレート")]
     [SerializeField] private float _waterRate;
-
     private readonly ReactiveProperty<float> _currentWaterNum = new ReactiveProperty<float>();
     private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
 
@@ -54,10 +53,12 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
         do
         {
             _currentWaterNum.Value -= _waterConsumption;
-            _env.PlayerAnim.AttackAnim(true);
+            //_env.PlayerAnim.AttackAnim(true);
 
-            var bulletCs = UnityEngine.Object.Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
+            var bulletCs = UnityEngine.Object.
+                Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
+            CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_attack");
             await UniTask.WaitForSeconds(_waterRate);
         }
         while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
