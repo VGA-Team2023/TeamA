@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8160517638583927134}
   - component: {fileID: 4481997414839804321}
   - component: {fileID: 248567110055144692}
+  - component: {fileID: 5942025424823485883}
   m_Layer: 0
-  m_Name: CurrentHpImage
+  m_Name: ActiveHpImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 8808394789597985414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,3 +76,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5942025424823485883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808394789597985414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1000e96776fd87f42841e3b369f2659f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiScale: {x: 0.8, y: 0.8, z: 0.8}
