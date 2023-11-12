@@ -24,7 +24,7 @@ public class PlayerView : MonoBehaviour
     {
         _currentWater = num;
         AdjustmentWaterBar();
-        Debug.Log($"現在の水の残量は{num}");
+        //Debug.Log($"現在の水の残量は{num}");
     }
 
     public void SetMaxWater(float num)
@@ -89,7 +89,6 @@ public class PlayerView : MonoBehaviour
 
     private void AdjustmentWaterBar()
     {
-        Debug.Log(_currentWater / _maxWater);
         _currentWaterImage.DOFillAmount(_currentWater / _maxWater, 0.5f);
     }
 
