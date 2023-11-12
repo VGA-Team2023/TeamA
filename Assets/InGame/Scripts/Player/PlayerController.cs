@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     /// <summary>
     /// PlayerStateを検索して返す
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">検索されたState</typeparam>
     /// <returns></returns>
     public T SeachState<T>() where T : class
     {
