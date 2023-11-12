@@ -65,7 +65,7 @@ public class PlayerMove : IPlayerState
         }
         else
         {
-            _walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
+            //_walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;
