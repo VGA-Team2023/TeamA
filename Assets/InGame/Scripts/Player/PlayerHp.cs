@@ -10,8 +10,8 @@ using System;
 /// </summary>
 public class PlayerHp : MonoBehaviour, IHealth 
 {
-    public IReactiveProperty<float> MaxHp => _maxHp;
-    public IReactiveProperty<float> CurrentHp => _currentHp;
+    public IReadOnlyReactiveProperty<float> MaxHp => _maxHp;
+    public IReadOnlyReactiveProperty<float> CurrentHp => _currentHp;
     public IObservable<Unit> OnDead => _onDead;
 
     [Header("最大のHp")]
@@ -34,8 +34,6 @@ public class PlayerHp : MonoBehaviour, IHealth
         {
             _onDead.OnNext(Unit.Default);
         }
-
-        Debug.Log(_currentHp.Value);
     }
 
     public void ApplyHeal(float healNum)
