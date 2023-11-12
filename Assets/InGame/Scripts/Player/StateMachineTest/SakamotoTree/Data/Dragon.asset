@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8884082664703331692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fefc5dd74a839c84da6f09f050efb8f6, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  Guid: 8caa99c2aa7e44a4cb9fe02c483c7333
+  Position: {x: 393.6, y: 109.60003}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  NodeChildren:
+  - {fileID: 4000768296726074028}
+--- !u!114 &-3328490722810714187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b3449d72d6e114396e34e99b2034d7, type: 3}
+  m_Name: Selector
+  m_EditorClassIdentifier: 
+  Guid: c09130faede8cda40b644a50b23062c7
+  Position: {x: 178.61247, y: 93.6825}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  NodeChildren:
+  - {fileID: 6590616023478940472}
+  - {fileID: -8884082664703331692}
+  - {fileID: 7241624431046400965}
+--- !u!114 &-3315964178118901382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c2a6d34614c54488b7f9dea74748a1, type: 3}
+  m_Name: LongRangeAttackNode
+  m_EditorClassIdentifier: 
+  Guid: 3ca26bae97ed5094c81b00c546f13127
+  Position: {x: 610.9999, y: -154.66667}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  _attackParam: 
+  _firingStart: 4
+  _attackEndNum: 9
+  _bulletPrefab: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a64447fdd4c8ce4d9f3d138b49946f2, type: 3}
+  m_Name: Dragon
+  m_EditorClassIdentifier: 
+  RootNode: {fileID: 8377746811037790813}
+  Nodes:
+  - {fileID: 8377746811037790813}
+  - {fileID: 6590616023478940472}
+  - {fileID: -3328490722810714187}
+  - {fileID: 5303940916811663007}
+  - {fileID: -8884082664703331692}
+  - {fileID: 4000768296726074028}
+  - {fileID: 7241624431046400965}
+  - {fileID: 2545617614859088516}
+  - {fileID: 5529006383045642853}
+  - {fileID: -3315964178118901382}
+--- !u!114 &2545617614859088516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c854abe0991058947a43472e887134cc, type: 3}
+  m_Name: IfRemainingStrength
+  m_EditorClassIdentifier: 
+  Guid: b16282fed95084740b5bcfdb057887f9
+  Position: {x: 497.5999, y: 346.28278}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  Child: {fileID: 0}
+  _remainingStrength: 0
+  _lowStrengthState: 2
+  _highStrengthState: 1
+--- !u!114 &4000768296726074028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23f63d1ec309974eb57856bfa70a718, type: 3}
+  m_Name: IfReceiveDamage
+  m_EditorClassIdentifier: 
+  Guid: 79452b593afe1bc47a273c9350a4d11e
+  Position: {x: 553.7625, y: 148.22754}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  Child: {fileID: 0}
+  _invincibleTime: 1
+--- !u!114 &5303940916811663007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee5788c06a61954bb7375c1d3109fdf, type: 3}
+  m_Name: IfCheckThePerimeter
+  m_EditorClassIdentifier: 
+  Guid: 81da646b700527d439879ea4223c632d
+  Position: {x: 591.8101, y: -17.192509}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  Child: {fileID: 0}
+  _sensingDistance: 10
+  _approachingState: 2
+  _distanceState: 1
+--- !u!114 &5529006383045642853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d1a15d3cb97b84683092bedd62bc0e, type: 3}
+  m_Name: DownNode
+  m_EditorClassIdentifier: 
+  Guid: 36717da0d3deeb54897849e661bb5f71
+  Position: {x: 0, y: 0}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  _enemyDownPrefab: {fileID: 0}
+--- !u!114 &6590616023478940472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fefc5dd74a839c84da6f09f050efb8f6, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  Guid: f5acbc061d3150b45af0f6f432f18c68
+  Position: {x: 393.5999, y: -115.20004}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  NodeChildren:
+  - {fileID: 5303940916811663007}
+  - {fileID: -3315964178118901382}
+--- !u!114 &7241624431046400965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fefc5dd74a839c84da6f09f050efb8f6, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  Guid: 6b498852b1a9e8a4ba393d270c2b1558
+  Position: {x: 356.57, y: 253.89499}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  NodeChildren:
+  - {fileID: 2545617614859088516}
+--- !u!114 &8377746811037790813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fdac88533688747ab0a971b7937d99, type: 3}
+  m_Name: RootNode
+  m_EditorClassIdentifier: 
+  Guid: 5066f5843829fad4394f0eb84ca1c491
+  Position: {x: 0, y: 0}
+  NodeScale: {x: 0, y: 0, z: 0}
+  Description: 
+  Child: {fileID: -3328490722810714187}
