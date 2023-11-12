@@ -12,3 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00bf447527c1e84fbc660fe44316121, type: 3}
   m_Name: BossData_forest
   m_EditorClassIdentifier: 
+  _attackChangeDistance: 0
+  _borderDistance: 0
+  _moveSpeed: 0
+  _hp: 0
+  _bossAniCom: {fileID: 22100000, guid: 149a7f2724198c44e94b1f9972732ed4, type: 2}
+  _battleStartClip: {fileID: 0}
+  _battleEndClip: {fileID: 0}
+  _seList: []
