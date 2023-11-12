@@ -2,21 +2,29 @@
 using Action2D;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+//[RequireComponent(typeof(Collider2D))]
+
 /// <summary>  敵（ボス）の共通処理を持つ基底クラス  </summary>
 public abstract class BossBase : MonoBehaviour
 {
     [SerializeField, Tooltip("対応するBossData")] BossData _bossDataSource = default;
     public BossData BossDataSource => _bossDataSource;
 
-    [SerializeField, Tooltip("SEを鳴らすAudioSource")] AudioSource _seAudioSource = default;
-    public AudioSource SEAudioSource => _seAudioSource;
-
     Rigidbody2D _rigidbody2 = default;
 
+    [Tooltip("Animator。任意のAnimationControllerを割り当てる用")]Animator _bossAnimator = default;
+    public Animator BossAnimator => _bossAnimator;
+
+    CriAudioManager _criAudioManager = default;
+    public CriAudioManager BossCriAudioManager => _criAudioManager;
 
     private void Awake()
     {
         _rigidbody2 = GetComponent<Rigidbody2D>();
+        _bossAnimator = GetComponent<Animator>();
+        _bossAnimator.runtimeAnimatorController = _bossDataSource.BossAniCon;   //Bossの種類に合わせて指定のコントローラーを割り当てる
+        _criAudioManager = CriAudioManager.Instance;
     }
     private void Update()
     {
@@ -84,5 +92,20 @@ public abstract class BossBase : MonoBehaviour
         if (distance > _bossDataSource.AttackChangeDistance) LongRangeAttack();  //遠距離攻撃
         else CloseRangeAttack();  //近距離攻撃
     }
+
+    //*****以下はアニメーションイベントから呼ぶ用のメソッド*****
+
+    /// <summary> 近距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
+    public void CloseRangeAttackSE()
+    {
+        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+    }
+
+    /// <summary> 遠距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
+    public void LongRangeAttackSE()
+    {
+        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+    }
+
 
 }
