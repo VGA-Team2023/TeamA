@@ -7,32 +7,30 @@ public class BossForest : BossBase
 {
     public override void BattleStart()
     {
-        //バトル開始時の演出：未定
+        if (CurrentBossState == BossState.Await)
+        {
+            //バトル開始時の演出：未定
+            //アニメーションイベント：BossStateをInGameに変える
+        }
     }
 
     public override void BattleEnd()
     {
-        //バトル終了時の演出：姿が変わる　→　シーン遷移
+        //アニメーション：姿が変わる
+        //アニメーションイベント：シーン遷移
     }
 
-
-    public override void CloseRangeAttack()
+    public override void ShortRangeAttack()
     {
-        //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ
+        //アニメーション
+        //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ、SE
     }
 
 
     public override void LongRangeAttack()
     {
-
-        //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ
+        //アニメーション
+        //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ、SE
     }
-
-    public override void Damaged()
-    {
-
-    }
-
-
 
 }

@@ -21,16 +21,21 @@ public class BossData : ScriptableObject
     public float MoveSpeed => _moveSpeed;
 
     [SerializeField, Tooltip("デフォルトHP")]
-    float _hp = 0f;
-    public float Hp => _hp;
+    float _dafaultHp = 0f;
+    public float DefaultHp => _dafaultHp;
 
-    [SerializeField, Tooltip("近距離攻撃時にプレイヤーへ与えるダメージ")]
-    float _closeAttackDamage = 0f;
-    public float CloseAttackDamage => _closeAttackDamage;
+    /// <summary> このプロパティは、プレイヤー側から指定する場合は削除する </summary>
+    [SerializeField, Tooltip("プレイヤーから受けるダメージの大きさ")]
+    float  _receiveDamageSize = 0f;
+    public float ReceiveDamageSize => _receiveDamageSize;
 
-    [SerializeField, Tooltip("遠距離攻撃時にプレイヤーへ与えるダメージ")]
-    float _longAttackDamage = 0f;
-    public float LongAttackDamage => _longAttackDamage;
+    [SerializeField, Tooltip("近距離攻撃時にプレイヤーへ与えるダメージの大きさ")]
+    float _shortAttackDamageSize = 0f;
+    public float ShortAttackDamageSize => _shortAttackDamageSize;
+
+    [SerializeField, Tooltip("遠距離攻撃時にプレイヤーへ与えるダメージの大きさ")]
+    float _longAttackDamageSize = 0f;
+    public float LongAttackDamageSize => _longAttackDamageSize;
 
     [SerializeField, Tooltip("対応するAnimationOverrideController")]
     AnimatorOverrideController _bossAniCom = default;
@@ -44,9 +49,12 @@ public class BossData : ScriptableObject
     AnimationClip _battleEndClip = default;
     public AnimationClip BattleEndClip => _battleEndClip;
 
-
     [SerializeField, Tooltip("SEのリスト")]
     List<AudioClip> _seList = default;
     public List<AudioClip> SEList => _seList;
+
+    [SerializeField, Tooltip("撃退後の移動先シーン名")]
+    string _sceneName = "";
+    public string SceneName => _sceneName;  
 
 }
