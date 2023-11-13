@@ -52,13 +52,14 @@ public abstract class BossBase : MonoBehaviour
         {
             Vector2 pPos = GameManager.Instance.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
             float distance = MeasureDistance(pPos); //Playerとの距離を測る
-
             if (distance > _bossDataSource.BorderDistance) //距離が離れてたら
             {
+                _bossAnimator.SetBool("Walk", true);
                 MoveToPlayer(pPos); //Playerに近づく
             }
             else
             {
+                _bossAnimator.SetBool("Walk", false);
                 Attack(distance);   //攻撃する
             }
 
@@ -113,18 +114,24 @@ public abstract class BossBase : MonoBehaviour
     /// <summary> 被ダメージ処理。水かプレイヤーから呼ばれる</summary>
     public void Damaged()
     {
-        //ダメージ計算
-        if (_currentHp > 0)
+        if (_currentbossState == BossState.InBattle)
         {
-            _currentHp -= _bossDataSource.ReceiveDamageSize;
-            Debug.Log("ボスのHP：" + _currentHp.ToString("0000000"));
-        }
-        //被ダメージアニメーション
-        if (_currentHp < 0)  //撃破
-        {
-            ChangeBossState();
-            Debug.Log("ボスを撃破した！");
-            BattleEnd();    //戦闘終了演出
+            _bossAnimator.SetTrigger("Damaged");    //被ダメージアニメーション
+
+            //ダメージ計算
+            if (_currentHp > 0)
+            {
+                _currentHp -= _bossDataSource.ReceiveDamageSize;
+                Debug.Log("ボスの残りHP：" + _currentHp.ToString("0000000"));
+            }
+
+            if (_currentHp <= 0)  //撃破
+            {
+                ChangeBossState();
+                Debug.Log("ボスを撃破した！");
+                BattleEnd();    //戦闘終了演出
+            }
+
         }
     }
 
@@ -134,6 +141,16 @@ public abstract class BossBase : MonoBehaviour
     {
         if (distance > _bossDataSource.AttackChangeDistance) LongRangeAttack();  //遠距離攻撃
         else ShortRangeAttack();  //近距離攻撃
+    }
+
+    private void OnDrawGizmos()
+    {
+        //近接攻撃の範囲描画
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, _bossDataSource.AttackChangeDistance);
+        //遠距離攻撃の範囲
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(this.transform.position, _bossDataSource.BorderDistance);
     }
 
     //*****以下はアニメーションイベントから呼ぶ用のメソッド*****
@@ -173,10 +190,12 @@ public abstract class BossBase : MonoBehaviour
         SceneManager.LoadScene(_bossDataSource.SceneName);  //フェード等の演出周りはα後に追加する
     }
 
+    /// <summary> ボスの状態（BossState）を変える。アニメーションイベントから呼ぶ </summary>
     public void ChangeBossState()
     {
-        if(_currentbossState == BossState.Await) _currentbossState = BossState.InBattle;
-        else if(_currentbossState == BossState.InBattle)_currentbossState = BossState.OutBattle;
-
+        BossState _oldState = _currentbossState;
+        if (_oldState == BossState.Await) _currentbossState = BossState.InBattle;
+        else if (_oldState == BossState.InBattle) _currentbossState = BossState.OutBattle;
+        Debug.Log($"ボスのステートが変更されました{_oldState} -> {_currentbossState}");
     }
 }
