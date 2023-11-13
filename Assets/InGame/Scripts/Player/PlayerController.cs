@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UniRx;
+using Action2D;
 
 /// <summary>
 /// PlayerのRootクラス
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     void Start()
     {
         _token = this.GetCancellationTokenOnDestroy();
+        GameManager.Instance.PlayerEnvroment = _playerEnvroment;
         SetUp();
         BindView();
     }
