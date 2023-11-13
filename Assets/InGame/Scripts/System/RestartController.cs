@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UniRx.Triggers;
 using UnityEngine;
 
 /// <summary> リスタート時の処理 </summary>
@@ -11,14 +8,12 @@ public class RestartController : MonoBehaviour
     Transform _restartPos = default;
     public Transform ReStartPos => _restartPos;
 
-    /// <summary> Restartするときに呼ばれる </summary>
+    /// <summary> Playerが死亡したら呼ばれる </summary>
     public void Restart()
     {
         //Playerのインスタンスがあったら消す。シングルトンとの兼ね合い
-        //値リセット系の処理
-
-        //Playerのスポーン
-        Instantiate(_pController.gameObject, _restartPos.position, _restartPos.rotation);
+        Destroy(_pController.gameObject);       
+        Instantiate(_pController.gameObject, _restartPos.position, _restartPos.rotation);   //Playerのスポーン
     }
 
 
