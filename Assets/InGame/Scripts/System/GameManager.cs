@@ -8,8 +8,7 @@ namespace Action2D
     public class GameManager
     {
         public static GameManager Instance => _instance;
-        public PlayerEnvroment PlayerEnvroment => _playerEnvroment;
-        private PlayerEnvroment _playerEnvroment;
+        public PlayerEnvroment PlayerEnvroment { get; set; }
         private static GameManager _instance = new GameManager();
     }
 }
