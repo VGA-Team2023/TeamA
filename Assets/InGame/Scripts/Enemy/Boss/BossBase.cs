@@ -25,7 +25,7 @@ public abstract class BossBase : MonoBehaviour
     CriAudioManager _criAudioManager = default;
     public CriAudioManager BossCriAudioManager => _criAudioManager;
 
-    [Tooltip("現在のHP")] float _currentHp = 0f;
+    [SerializeField, Tooltip("現在のHP")] float _currentHp = 0f;
 
     /// <summary> ボスの状態を管理するEnum </summary>
     public enum BossState
@@ -43,7 +43,7 @@ public abstract class BossBase : MonoBehaviour
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _bossAnimator = GetComponent<Animator>();
         _bossAnimator.runtimeAnimatorController = _bossDataSource.BossAniCon;   //Bossの種類に合わせて指定のコントローラーを割り当てる
-        _criAudioManager = CriAudioManager.Instance;
+        //_criAudioManager = CriAudioManager.Instance;
         _currentHp = _bossDataSource.DefaultHp;
     }
     private void Update()
@@ -54,12 +54,12 @@ public abstract class BossBase : MonoBehaviour
             float distance = MeasureDistance(pPos); //Playerとの距離を測る
             if (distance > _bossDataSource.BorderDistance) //距離が離れてたら
             {
-                _bossAnimator.SetBool("Walk", true);
+                _bossAnimator.SetBool("Move", true);
                 MoveToPlayer(pPos); //Playerに近づく
             }
             else
             {
-                _bossAnimator.SetBool("Walk", false);
+                _bossAnimator.SetBool("Move", false);
                 Attack(distance);   //攻撃する
             }
 
