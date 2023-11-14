@@ -22,5 +22,14 @@ MonoBehaviour:
   _bossAniCom: {fileID: 22100000, guid: 149a7f2724198c44e94b1f9972732ed4, type: 2}
   _battleStartClip: {fileID: 7400000, guid: f8310579292aa3945b38d4f7c3b6894e, type: 2}
   _battleEndClip: {fileID: 7400000, guid: d1eaef3c393224a49a54f911bd717c90, type: 2}
-  _seList: []
   _sceneName: 
+  _seTypeList:
+  - BattleEnd
+  - LongRangeAttack
+  - ShortRangeAttack
+  - Damaged
+  _seFileList:
+  - enemy_boss_purification
+  - Enemy_boss_attack_1
+  - Enemy_attack_boss_2
+  - 
