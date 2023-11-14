@@ -34,6 +34,7 @@ public class FadeScript : MonoBehaviour
     {
         _fadeImage.enabled = true;
         _anim.SetTrigger(_fadeOut);
+        await UniTask.Delay(2);
         await UniTask.WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f
                                 , cancellationToken: _cancellationToken);
         _fadeImage.color = _fadeColor;

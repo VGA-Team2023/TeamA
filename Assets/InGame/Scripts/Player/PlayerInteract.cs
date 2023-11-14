@@ -47,7 +47,7 @@ public class PlayerInteract : IPlayerState
 
     public void Dispose()
     {
-        
+        InputProvider.Instance.LiftEnterInput(InputProvider.InputType.Interact, Interact);
     }
 
 }
