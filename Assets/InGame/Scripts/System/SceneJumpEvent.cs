@@ -26,12 +26,12 @@ public class SceneJumpEvent : MonoBehaviour
             var sceneMoveCs = playerRoot.SeachState<IPlayerSceneMove>();
             sceneMoveCs.SceneMoveStart();
             NextSceneLoad().Forget();
-            SceneManager.LoadScene("ForestSceneBoss");
         }
     }
 
     public async UniTask NextSceneLoad()
     {
         await _fadeScript.FadeOut();
+        SceneManager.LoadScene("ForestSceneBoss");
     }
 }
