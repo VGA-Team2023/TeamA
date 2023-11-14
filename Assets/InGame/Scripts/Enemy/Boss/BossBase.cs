@@ -1,5 +1,6 @@
 //日本語対応
 using Action2D;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +10,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 
 /// <summary>  敵（ボス）の共通処理を持つ基底クラス  </summary>
-public abstract class BossBase :  IEnemyDamaged
+public abstract class BossBase : IEnemyDamaged
 {
     [SerializeField, Tooltip("対応するBossData")] BossData _bossDataSource = default;
     public BossData BossDataSource => _bossDataSource;
@@ -23,9 +24,10 @@ public abstract class BossBase :  IEnemyDamaged
     public bool OnScreen => _onScreen;
 
     CriAudioManager _criAudioManager = default;
-    public CriAudioManager BossCriAudioManager => _criAudioManager;
 
     [SerializeField, Tooltip("現在のHP")] float _currentHp = 0f;
+
+   [Tooltip("SEを対応させるDictionary")] Dictionary<string, string> _sePairDic = new Dictionary<string, string>();
 
     /// <summary> ボスの状態を管理するEnum </summary>
     public enum BossState
@@ -43,8 +45,15 @@ public abstract class BossBase :  IEnemyDamaged
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _bossAnimator = GetComponent<Animator>();
         _bossAnimator.runtimeAnimatorController = _bossDataSource.BossAniCon;   //Bossの種類に合わせて指定のコントローラーを割り当てる
-        //_criAudioManager = CriAudioManager.Instance;
+        _criAudioManager = CriAudioManager.Instance;
         _currentHp = _bossDataSource.DefaultHp;
+
+        ///SEの名前とFileを対応させる
+        for(int i = 0; i < _bossDataSource.SeTypeList.Count; i++)
+        {
+            _sePairDic.Add(_bossDataSource.SeTypeList[i], _bossDataSource.SeFileList[i]);
+        }
+        
     }
     private void Update()
     {
@@ -52,17 +61,20 @@ public abstract class BossBase :  IEnemyDamaged
         {
             Vector2 pPos = GameManager.Instance.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
             float distance = MeasureDistance(pPos); //Playerとの距離を測る
-            if (distance > _bossDataSource.BorderDistance) //距離が離れてたら
-            {
-                _bossAnimator.SetBool("Move", true);
-                MoveToPlayer(pPos); //Playerに近づく
-            }
-            else
-            {
-                _bossAnimator.SetBool("Move", false);
-                Attack(distance);   //攻撃する
-            }
 
+            if (pPos != null)
+            {
+                if (distance > _bossDataSource.BorderDistance) //距離が離れてたら
+                {
+                    _bossAnimator.SetBool("Move", true);
+                    MoveToPlayer(pPos); //Playerに近づく
+                }
+                else
+                {
+                    _bossAnimator.SetBool("Move", false);
+                    Attack(distance);   //攻撃する
+                }
+            }
         }
     }
 
@@ -158,29 +170,26 @@ public abstract class BossBase :  IEnemyDamaged
     /// <summary> 近距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
     public void ShortRangeAttackSE()
     {
-        Debug.Log("近距離攻撃時のSEを鳴らす");
-        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"] );
     }
 
     /// <summary> 遠距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
     public void LongRangeAttackSE()
     {
-        Debug.Log("遠距離攻撃時のSEを鳴らす");
-        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
     }
 
     /// <summary> 被ダメージSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
     public void DamagedSE()
     {
         Debug.Log("被ダメージ時のSEを鳴らす");
-        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+        //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["Damaged"]);
     }
 
     /// <summary> バトル終了時の（元の姿に戻る）SEを鳴らす。アニメーションイベントから呼ぶ  </summary>
     public void BattleEndSE()
     {
-        Debug.Log("撃退時のSEを鳴らす");
-        //BossCriAudioManager.PlaySE();     //SE納品後コメントイン
+        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BattleEnd"]);
     }
 
     /// <summary> イベントシーンへ遷移する。アニメーションイベントから呼ぶ  </summary>
