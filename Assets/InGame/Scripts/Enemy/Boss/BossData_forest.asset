@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackChangeDistance: 5
   _borderDistance: 8
-  _moveSpeed: 100
-  _dafaultHp: 10000
+  _moveSpeed: 1
+  _dafaultHp: 1
   _receiveDamageSize: 100
   _shortAttackDamageSize: 30
   _longAttackDamageSize: 10
