@@ -50,7 +50,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
         _env.AddState(PlayerStateType.Attack);
         Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
 
-        do
+        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value)
         {
             _currentWaterNum.Value -= _waterConsumption;
             //_env.PlayerAnim.AttackAnim(true);
@@ -61,7 +61,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
             CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_attack");
             await UniTask.WaitForSeconds(_waterRate);
         }
-        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+        
         
         _env.RemoveState(PlayerStateType.Attack);
     }
