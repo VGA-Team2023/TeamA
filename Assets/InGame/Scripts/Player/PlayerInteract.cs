@@ -21,24 +21,26 @@ public class PlayerInteract : IPlayerState
 
     public void Update()
     {
-       
+
     }
 
     public void FixedUpdate()
     {
-        
+
     }
 
-    public void Interact() 
+    public void Interact()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
         Debug.Log("きた");
-        var isHit = Physics2D.BoxCast(_env.PlayerTransform.position + (Vector3)(_env.LastDir* 2), Vector2.one * _boxScale, 0, _env.LastDir, _maxDistance, _layerMask);
+        var isHit = Physics2D.BoxCast(_env.PlayerTransform.position + (Vector3)(_env.LastDir * 2), Vector2.one * _boxScale, 0, _env.LastDir, _maxDistance, _layerMask);
         GizmoHelper.OnDrawBox(_env.PlayerTransform.position + (Vector3)(_env.LastDir * 2), _env.LastDir, _boxScale, _maxDistance, isHit);
-        if(isHit.collider != null) 
+        if (isHit.collider != null)
         {
-           Debug.Log("当たってます");  
+            Debug.Log("当たってます");
         }
-        if (isHit.collider != null && isHit.collider.TryGetComponent<IInteractEvent>(out var interactEvent)) 
+        if (isHit.collider != null && isHit.collider.TryGetComponent<IInteractEvent>(out var interactEvent))
         {
             Debug.Log(isHit);
             interactEvent.Execute();
