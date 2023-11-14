@@ -9,6 +9,7 @@ public class TestBullet : MonoBehaviour
     [SerializeField] private float _speed;
     [TagName]
     [SerializeField] private string _groundTag;
+    [SerializeField] private int _damage;
 
     private Vector2 _playerForward;
 
@@ -24,8 +25,13 @@ public class TestBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(_groundTag)) 
+        if (collision.CompareTag(_groundTag))
         {
+            Destroy(gameObject);
+        }
+        else if (collision.TryGetComponent<IEnemyDamaged>(out var damage)) 
+        {
+            damage.Damaged();
             Destroy(gameObject);
         }
 
