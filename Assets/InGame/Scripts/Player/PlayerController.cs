@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     void Start()
     {
         _token = this.GetCancellationTokenOnDestroy();
-        GameManager.Instance.PlayerEnvroment = _playerEnvroment;
         SetUp();
         BindView();
     }
@@ -49,6 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     private void SetUpEnv()
     {
         _playerEnvroment = new PlayerEnvroment(transform, _playerAnim);
+        GameManager.Instance.PlayerEnvroment = _playerEnvroment;
     }
     #endregion
 
