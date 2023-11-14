@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     #region SetUp
     public void SetUp()
     {
-        _playerAnim.SetUp(_token);
-        _playerHp.SetUp();
         SetUpEnv();
         SetUpState();
+        _playerAnim.SetUp(_token);
+        _playerHp.SetUp(_playerEnvroment, SeachState<PlayerKnockback>());
     }
 
     private void SetUpState()
