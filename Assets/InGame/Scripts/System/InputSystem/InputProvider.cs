@@ -101,15 +101,15 @@ public class InputProvider
         {
             case InputMode.Enter:
                 //入力開始処理を実行する
+                SetStayInput(input, true);
                 _onEnterInputDic[input]?.Invoke();
                 _onEnterInputAsyncDic[input]?.Invoke();
-                SetStayInput(input, true);
                 break;
             case InputMode.Exit:
                 // 入力解除処理を実行する
+                SetStayInput(input, false);
                 _onExitInputDic[input]?.Invoke();
                 _onExitInputAsyncDic[input]?.Invoke();
-                SetStayInput(input, false);
                 break;
             default:
                 break;

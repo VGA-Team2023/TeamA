@@ -38,6 +38,12 @@ public class PlayerHp : MonoBehaviour, IHealth
 
     public void ApplyHeal(float healNum)
     {
+        //上限以上回復しないように
+        if (_currentHp.Value + healNum > _maxHp.Value) 
+        {
+            healNum = _maxHp.Value - _currentHp.Value;
+        }
+
         _currentHp.Value += healNum;
     }
 
