@@ -38,7 +38,7 @@ public class PlayerHp : MonoBehaviour, IHealth
             _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
 
         _currentHp.Value -= damageNum;
-        await _knockback.Knockback();
+        await _knockback.Knockback(attackDir);
         if (_currentHp.Value < 1) 
         {
             _onDead.OnNext(Unit.Default);

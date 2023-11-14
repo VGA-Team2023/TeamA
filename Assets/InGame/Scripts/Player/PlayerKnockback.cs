@@ -37,8 +37,6 @@ public class PlayerKnockback : IPlayerState
     {
         _env.AddState(PlayerStateType.Damage);
         _rb.velocity = Vector2.zero;
-        Debug.Log(dir);
-        await UniTask.Delay(2);
         _rb.AddForce(dir * _knockBackSpeed, ForceMode2D.Impulse);
         await _env.PlayerAnim.KnockBackAnim();
         _env.RemoveState(PlayerStateType.Damage);
