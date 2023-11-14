@@ -1,37 +1,70 @@
 using UnityEngine;
-using Action2D;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-/// <summary> ƒŠƒXƒ^[ƒg‚Ìˆ— </summary>
+/// <summary> ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ </summary>
 public class RestartController : MonoBehaviour
 {
-    [SerializeField, Tooltip("Player‚ÌPrefab")] PlayerController _pController = default;
-    [SerializeField] GameObject _scenePlayer;
-    [SerializeField] GameObject _playerPrefab;
-    [Tooltip("ƒŠƒXƒ^[ƒg‚·‚éÀ•W")]
-    Transform _restartPos = default;
+    public static RestartController Instance;
+
+    [SerializeField] private PlayerController _playerController = default;
+
+    private Transform _restartPos = default;
+    private string _sceneName = default;
     public Transform ReStartPos => _restartPos;
-    private GameObject _playerObj;
+    public string SceneName => _sceneName;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+
+        Instance = this;
+    }
 
     private void Start()
     {
-        _playerObj = _scenePlayer;
+        _restartPos = (GameManager.Instance.GetRespawnTransform().position != Vector3.zero) ? GameManager.Instance.GetRespawnTransform() : _restartPos;
+        _sceneName = GameManager.Instance.SceneName;
+
+#if UNITY_EDITOR
+        Debug.Log($"GameManagerã‹ã‚‰èª­ã¿è¾¼ã‚“ã RespawnTransform:{_restartPos}");
+        Debug.Log($"GameManagerã‹ã‚‰èª­ã¿è¾¼ã‚“ã SceneName:{_sceneName}");
+#endif
+
+        if (_sceneName == SceneManager.GetActiveScene().name)
+        {
+            _playerController.transform.position = _restartPos.position;
+        }
     }
 
-    /// <summary> Player‚ª€–S‚µ‚½‚çŒÄ‚Î‚ê‚é </summary>
+    /// <summary> Playerï¿½ï¿½ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Î‚ï¿½ï¿½ </summary>
     public GameObject Restart()
     {
-        //Player‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚ ‚Á‚½‚çÁ‚·BƒVƒ“ƒOƒ‹ƒgƒ“‚Æ‚ÌŒ“‚Ë‡‚¢
-        Destroy(_playerObj);       
-        _playerObj = Instantiate(_playerPrefab, _restartPos.position, _restartPos.rotation);   //Player‚ÌƒXƒ|[ƒ“
-        _pController = _playerObj.GetComponentInChildren<PlayerController>();
-        return _playerObj;
+        if (_sceneName != SceneManager.GetActiveScene().name)
+        {
+            SceneManager.LoadScene(_sceneName);
+        }
+
+        //Destroy(_playerObj);
+        //_playerObj = Instantiate(_playerPrefab, _restartPos.position, _restartPos.rotation); //Playerï¿½ÌƒXï¿½|ï¿½[ï¿½ï¿½
+        _playerController.transform.position = _restartPos.position;
+        return _playerController.gameObject;
     }
 
-
-    /// <summary> ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ğ’Ê‰ß‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é </summary>
-    /// <param name="restartPos">ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÌÀ•W</param>
-    public void SetRestartPos(Transform restartPos)
+    /// <summary> ï¿½`ï¿½Fï¿½bï¿½Nï¿½|ï¿½Cï¿½ï¿½ï¿½gï¿½ï¿½Ê‰ß‚ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½ </summary>
+    /// <param name="pos">ï¿½`ï¿½Fï¿½bï¿½Nï¿½|ï¿½Cï¿½ï¿½ï¿½gï¿½Ìï¿½ï¿½W</param>
+    public void SetRestartPos(Transform pos, string scene)
     {
-        _restartPos = restartPos;
+        _restartPos = pos;
+        _sceneName = scene;
+        GameManager.Instance.SetSaveData(new Vector2(_restartPos.position.x, _restartPos.position.y), _sceneName);
+    }
+
+    public void SceneTest()
+    {
+        SceneManager.LoadScene("CheckPontTestScene2");
     }
 }

@@ -1,14 +1,44 @@
-//日本語対応
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Action2D
+public class GameManager : MonoBehaviour
 {
-    public class GameManager
+    public static GameManager Instance;
+
+    public PlayerEnvroment PlayerEnvroment { get; set; }
+
+    private Vector2 _respawnTransform;
+    private string _sceneName;
+
+    public Vector2 RespawnTransform => _respawnTransform;
+    public string SceneName => _sceneName;
+
+    private void Awake()
     {
-        public static GameManager Instance => _instance;
-        public PlayerEnvroment PlayerEnvroment { get; set; }
-        private static GameManager _instance = new GameManager();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public Transform GetRespawnTransform()
+    {
+        GameObject respawnObject = new GameObject("RespawnObject");
+        respawnObject.transform.position = new Vector3(_respawnTransform.x, _respawnTransform.y, 0f);
+
+        return respawnObject.transform;
+    }
+
+    public void SetSaveData(Vector2 pos, string name)
+    {
+        _respawnTransform = pos;
+        _sceneName = name;
     }
 }

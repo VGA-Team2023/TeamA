@@ -1,19 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
-/// <summary> ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ğ’Ê‰ß‚·‚é‚Æ‚«‚Ìˆ— </summary>
+/// <summary> ï¿½`ï¿½Fï¿½bï¿½Nï¿½|ï¿½Cï¿½ï¿½ï¿½gï¿½ï¿½Ê‰ß‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½ </summary>
 public class CheckPoint : MonoBehaviour
 {
-    [SerializeField] RestartController _restartCon = default; //ˆê’USerializeField‚É‚µ‚Ä‚Ü‚·B‘½”’u‚­‚Ì‚ÅƒVƒ“ƒOƒ‹ƒgƒ“‚É‚µ‚½‚çƒCƒ“ƒXƒ^ƒ“ƒX‚Å’T‚µ‚½‚¢
-    [SerializeField, Tooltip("‰ñ•œ‚·‚éHP‚Ì‘å‚«‚³")] float _healHpSize = 0f;
+    [SerializeField] private float _healHpSize = 0f;
+
+    private string _sceneName;
+
+    private void Start()
+    {
+        _sceneName = SceneManager.GetActiveScene().name;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerHp>(out var playerHp))
         {
-            playerHp.ApplyHeal(_healHpSize);    //Player‚ÌHP‚ğ‰ñ•œ‚·‚é
-            _restartCon.SetRestartPos(gameObject.transform);        //ƒŠƒXƒ^[ƒg‚ÌÀ•W‚ğ•Ï‚¦‚é
-            Debug.Log($"ƒŠƒXƒ^[ƒgÀ•W‚ğ{gameObject.transform.position}‚É•ÏXB");
+            playerHp.ApplyHeal(_healHpSize); //Playerï¿½ï¿½HPï¿½ï¿½ï¿½ñ•œ‚ï¿½ï¿½ï¿½
+            RestartController.Instance.SetRestartPos(transform, _sceneName); //ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½gï¿½Ìï¿½ï¿½Wï¿½ï¿½Ï‚ï¿½ï¿½ï¿½
+#if UNITY_EDITOR
+            Debug.Log($"ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½Wï¿½ï¿½{gameObject.transform.position}ï¿½É•ÏXï¿½B");
+#endif
         }
     }
 }
