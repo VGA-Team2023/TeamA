@@ -47,6 +47,9 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     private async UniTaskVoid Attack()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         _env.AddState(PlayerStateType.Attack);
         Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
 

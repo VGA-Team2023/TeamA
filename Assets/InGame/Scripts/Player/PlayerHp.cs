@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// PlayerのHPクラス
@@ -20,16 +21,24 @@ public class PlayerHp : MonoBehaviour, IHealth
     private Subject<Unit> _onDead = new Subject<Unit>();
     private ReactiveProperty<float> _maxHp = new ReactiveProperty<float>();
     private ReactiveProperty<float> _currentHp = new ReactiveProperty<float>();
+    private PlayerEnvroment _env;
+    private PlayerKnockback _knockback;
 
-    public void SetUp()
+    public void SetUp(PlayerEnvroment env, PlayerKnockback knockback)
     {
+        _env = env;
         _maxHp.Value = _defaultMaxHp;
         _currentHp.Value = _defaultMaxHp;
+        _knockback = knockback;
     }
 
-    public void ApplyDamage(float damageNum)
+    public async UniTask ApplyDamage(float damageNum, Vector2 attackDir)
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         _currentHp.Value -= damageNum;
+        await _knockback.Knockback();
         if (_currentHp.Value < 1) 
         {
             _onDead.OnNext(Unit.Default);
@@ -38,6 +47,9 @@ public class PlayerHp : MonoBehaviour, IHealth
 
     public void ApplyHeal(float healNum)
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         //上限以上回復しないように
         if (_currentHp.Value + healNum > _maxHp.Value) 
         {

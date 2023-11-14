@@ -36,6 +36,9 @@ public class PlayerJump : IPlayerState
 
     private void GroundCheck()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         var col = Physics2D.OverlapBoxNonAlloc(_env.PlayerTransform.position, size, 0, _buffer, _groundLayer);
         Debug.DrawRay(_env.PlayerTransform.position, size);
 
