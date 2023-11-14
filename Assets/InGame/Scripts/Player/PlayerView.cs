@@ -36,6 +36,8 @@ public class PlayerView : MonoBehaviour
     {
         _currentHp = (int)num;
 
+        if(_currentHp < 0) _currentHp = 0;
+
         //アクティブにするインスタンスがないとき
         if (_maxHpImage.Count < num)
         {
