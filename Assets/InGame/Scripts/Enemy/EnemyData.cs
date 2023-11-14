@@ -16,6 +16,18 @@ public class EnemyData : ScriptableObject
     float _lookDistance = 0f;
     public float LookDistance => _lookDistance;
 
+    [SerializeField, Tooltip("攻撃距離")]
+    float _attackDistance = 0f;
+
+    [SerializeField, Tooltip("攻撃間隔(秒)")]
+    float _attackInterval = 0f;
+    public float AttackInterval => _attackInterval;
+    public float AttackDistance => _attackDistance;
+
+    [SerializeField, Tooltip("攻撃力")]
+    float _attackValue = 0f;
+    public float AttackValue => _attackValue;
+
     [SerializeField, Tooltip("移動速度")]
     float _moveSpeed = 0f;
     public float MoveSpeed => _moveSpeed;
