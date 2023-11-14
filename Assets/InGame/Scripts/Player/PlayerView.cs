@@ -35,6 +35,20 @@ public class PlayerView : MonoBehaviour
     public void SetHpView(float num)
     {
         _currentHp = (int)num;
+
+        //アクティブにするインスタンスがないとき
+        if (_maxHpImage.Count < num)
+        {
+            var sum = num - _maxHpImage.Count;
+
+            //増えた数分プールに増やす
+            for (int j = 0; j < sum; j++)
+            {
+                _maxHpImage.Add(Instantiate(_withoutHpObj, _withoutHpInsPos).GetComponent<Image>());
+                _currentHpImage.Add(Instantiate(_activeHpObj, _activeHpInsPos).GetComponent<Image>());
+            }
+        }
+
         for (int i = 0; i < _currentHp; i++) 
         {
             _currentHpImage[i].enabled = true;
