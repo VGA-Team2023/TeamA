@@ -1,4 +1,5 @@
 //日本語対応
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,11 +32,12 @@ public class DamageBossToPlayer : MonoBehaviour
 
     /// <summary> Playerに攻撃が当たったときにダメージを与える </summary>
     /// <param name="collision"></param>
-    private void OnTriggerEnter2D(Collider2D collision)     //アニメーション納品後、不都合あればOnCollisionEnter2Dに変える可能性あり
+    private  void OnTriggerEnter2D(Collider2D collision)     //アニメーション納品後、不都合あればOnCollisionEnter2Dに変える可能性あり
     {
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
         {
-            playerHp.ApplyDamage(_damageSize);
+            Vector2 _knockBackDir = playerHp.transform.position - collision.transform.position;
+              playerHp.ApplyDamage(_damageSize, _knockBackDir.normalized).Forget();
         }
 
     }
