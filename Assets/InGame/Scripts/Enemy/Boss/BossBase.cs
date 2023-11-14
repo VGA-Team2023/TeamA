@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 
 /// <summary>  敵（ボス）の共通処理を持つ基底クラス  </summary>
-public abstract class BossBase : MonoBehaviour
+public abstract class BossBase :  IEnemyDamaged
 {
     [SerializeField, Tooltip("対応するBossData")] BossData _bossDataSource = default;
     public BossData BossDataSource => _bossDataSource;
@@ -112,7 +112,7 @@ public abstract class BossBase : MonoBehaviour
     public abstract void LongRangeAttack();
 
     /// <summary> 被ダメージ処理。水かプレイヤーから呼ばれる</summary>
-    public void Damaged()
+    public override void Damaged()
     {
         if (_currentbossState == BossState.InBattle)
         {
@@ -122,7 +122,7 @@ public abstract class BossBase : MonoBehaviour
             if (_currentHp > 0)
             {
                 _currentHp -= _bossDataSource.ReceiveDamageSize;
-                Debug.Log("ボスの残りHP：" + _currentHp.ToString("0000000"));
+                Debug.Log(this.gameObject.name + "の残りHP：" + _currentHp.ToString("0000000"));
             }
 
             if (_currentHp <= 0)  //撃破
