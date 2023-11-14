@@ -140,6 +140,7 @@ public abstract class BossBase : IEnemyDamaged
             if (_currentHp <= 0)  //撃破
             {
                 ChangeBossState();
+                _bossAnimator.SetBool("Move", false);
                 Debug.Log("ボスを撃破した！");
                 BattleEnd();    //戦闘終了演出
             }
