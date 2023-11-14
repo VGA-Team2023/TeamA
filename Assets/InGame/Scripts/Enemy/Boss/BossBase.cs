@@ -1,5 +1,4 @@
 //日本語対応
-using Action2D;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;

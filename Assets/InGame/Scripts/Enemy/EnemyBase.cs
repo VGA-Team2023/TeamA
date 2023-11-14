@@ -1,7 +1,6 @@
 //日本語対応
 using System.Collections;
 using System.Collections.Generic;
-using Action2D;
 using UnityEngine;
 
 [RequireComponent(typeof(PolygonCollider2D))]
