@@ -1,19 +1,30 @@
 using UnityEngine;
+using Action2D;
 
 /// <summary> リスタート時の処理 </summary>
 public class RestartController : MonoBehaviour
 {
     [SerializeField, Tooltip("PlayerのPrefab")] PlayerController _pController = default;
+    [SerializeField] GameObject _scenePlayer;
+    [SerializeField] GameObject _playerPrefab;
     [Tooltip("リスタートする座標")]
     Transform _restartPos = default;
     public Transform ReStartPos => _restartPos;
+    private GameObject _playerObj;
+
+    private void Start()
+    {
+        _playerObj = _scenePlayer;
+    }
 
     /// <summary> Playerが死亡したら呼ばれる </summary>
-    public void Restart()
+    public GameObject Restart()
     {
         //Playerのインスタンスがあったら消す。シングルトンとの兼ね合い
-        Destroy(_pController.gameObject);       
-        Instantiate(_pController.gameObject, _restartPos.position, _restartPos.rotation);   //Playerのスポーン
+        Destroy(_playerObj);       
+        _playerObj = Instantiate(_playerPrefab, _restartPos.position, _restartPos.rotation);   //Playerのスポーン
+        _pController = _playerObj.GetComponentInChildren<PlayerController>();
+        return _playerObj;
     }
 
 
