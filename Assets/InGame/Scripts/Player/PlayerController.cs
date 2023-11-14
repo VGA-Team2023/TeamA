@@ -83,9 +83,10 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
         {
             if (_playerStateList[i] is T) 
             {
-                return _playerStateList as T;
+                return _playerStateList[i] as T;
             }
         }
+        Debug.LogError("指定されたステートが見つかりませんでした");
         return default;
     }
 
