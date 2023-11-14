@@ -41,6 +41,6 @@ public class EnemyData : ScriptableObject
     public List<AudioClip> SEList => _seList;
 
     [SerializeField, Tooltip("AnimationOverrideController")]
-    Animator _enemyAnimCom = default;
-    public Animator EnemyAnimCon => _enemyAnimCom;
+    AnimatorOverrideController _enemyAnimCom = default;
+    public AnimatorOverrideController EnemyAnimCon => _enemyAnimCom;
 }

@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &829486578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyDate: {fileID: 11400000, guid: 3d3211129b8edff41bda70af46cf70a3, type: 2}
+  _enemyAnim: {fileID: 0}
   _playerPos: {fileID: 2117889392}
   _attack: {fileID: 1845031036}
   _tagName: Player
@@ -592,6 +593,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1498422546
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.2951899
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158489273643853209, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785290364280943334, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_Name
+      value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785290364280943334, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
 --- !u!1 &1845031034
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +879,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!1001 &5593942084917233983
+--- !u!1001 &5007706372315189278
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -827,11 +889,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 990516279646528951, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.64
+      value: 4.56
       objectReference: {fileID: 0}
     - target: {fileID: 990516279646528951, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.59
+      value: -1.73
       objectReference: {fileID: 0}
     - target: {fileID: 990516279646528951, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -884,6 +946,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 903878784}
   - {fileID: 829486583}
-  - {fileID: 5593942084917233983}
+  - {fileID: 5007706372315189278}
   - {fileID: 2117889392}
   - {fileID: 1458253111}
+  - {fileID: 1498422546}
