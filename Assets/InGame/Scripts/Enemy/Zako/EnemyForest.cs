@@ -1,6 +1,5 @@
 //日本語対応
-using System.Collections;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class EnemyForest : EnemyBase
@@ -14,22 +13,15 @@ public class EnemyForest : EnemyBase
     public override void Attack()
     {
         //攻撃するときの音や攻撃
-        _time += Time.deltaTime;
-        if (_time > EnemyDataSource.AttackInterval && _attack.enabled == false)
-        {
-            Debug.Log("マンドラゴラの攻撃");
-            _attack.enabled = true;
-        }
-        if (_time > EnemyDataSource.AttackValue + 0.5f)
-        {
-            _attack.enabled = false;
-            _time = 0f;
-        }
+        Debug.Log("マンドラゴラの攻撃");
+        EnemyAnimator.SetTrigger("ShortRangeAttack");
+        _time = 0f;
     }
 
     public override void Damaged()
     {
         //自分がダメージを食らうときの音やエフェクト
+        EnemyAnimator.SetTrigger("Damage");
         Debug.Log("マンドラゴラがプレイヤーに攻撃されてる");
     }
 
@@ -37,6 +29,12 @@ public class EnemyForest : EnemyBase
     {
         //死んだときのアニメーションやエフェクト,死んだ個体の処理
         Debug.Log("マンドラゴラ死にました");
+        EnemyAnimator.SetBool("Die", true);
+    }
+
+    public void ForestDie()
+    {
+        gameObject.SetActive(false);
     }
 
     //アニメーションが間に合わないため仮
@@ -46,7 +44,8 @@ public class EnemyForest : EnemyBase
             || collision.gameObject.tag == _tagName)
         {
             Debug.Log("マンドラゴラの攻撃成功");
-            //pHp.ApplyDamage(EnemyDataSource.AttackValue);
+            Vector2 knockBackDir = pHp.transform.position - collision.transform.position;
+            pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
         }
     }
 }
