@@ -62,9 +62,4 @@ public class RestartController : MonoBehaviour
         _sceneName = scene;
         GameManager.Instance.SetSaveData(new Vector2(_restartPos.position.x, _restartPos.position.y), _sceneName);
     }
-
-    public void SceneTest()
-    {
-        SceneManager.LoadScene("CheckPontTestScene2");
-    }
 }
