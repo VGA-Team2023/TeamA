@@ -36,7 +36,7 @@ public class DamageBossToPlayer : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
         {
-            Vector2 _knockBackDir = playerHp.transform.position - collision.transform.position;
+            Vector2 _knockBackDir = playerHp.transform.position - transform.position;
               playerHp.ApplyDamage(_damageSize, _knockBackDir.normalized).Forget();
         }
 
