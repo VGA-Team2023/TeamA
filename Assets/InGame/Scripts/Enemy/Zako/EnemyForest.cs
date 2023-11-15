@@ -44,7 +44,7 @@ public class EnemyForest : EnemyBase
             || collision.gameObject.tag == _tagName)
         {
             Debug.Log("マンドラゴラの攻撃成功");
-            Vector2 knockBackDir = pHp.transform.position - collision.transform.position;
+            Vector2 knockBackDir = pHp.transform.position - transform.position;
             pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
         }
     }

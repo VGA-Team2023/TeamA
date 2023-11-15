@@ -29,6 +29,7 @@ public abstract class EnemyBase : IEnemyDamaged
     bool _isRight = true;
     [Tooltip("時間はかる")]
     float _time = 999;
+    int _seNum = -1;
 
     private void Awake()
     {
@@ -54,6 +55,12 @@ public abstract class EnemyBase : IEnemyDamaged
             //距離が離れているとき巡回させる
             if (distance > _enemyDate.LookDistance)
             {
+                if (_seNum == -1) 
+                {
+                    Debug.Log("流した");
+                   _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+                }
+
                 Wander();
                 _time = _enemyDate.AttackInterval;
             }
@@ -61,6 +68,13 @@ public abstract class EnemyBase : IEnemyDamaged
             //見つけられる距離かつプレイヤーとの距離が近い場合,攻撃
             else if (transform.position.x - pPos.x < _enemyDate.AttackDistance && distance < _enemyDate.AttackDistance)
             {
+                if (_seNum != -1) 
+                {
+                    Debug.Log("止めた");
+                    CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                    _seNum = -1;
+                }
+
                 _time += Time.deltaTime;
                 //攻撃するときは移動を中止
                 _rb.velocity = Vector2.zero;
