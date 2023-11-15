@@ -17,7 +17,7 @@ MonoBehaviour:
   _attackDistance: 2
   _attackInterval: 1
   _attackValue: 1
-  _moveSpeed: 5
+  _moveSpeed: 2
   _hp: 5
   _seList: []
   _enemyAnimCom: {fileID: 22100000, guid: b1f6e920f0efdc34aa37e007920b919e, type: 2}
