@@ -10,6 +10,10 @@ public class PlayerKnockback : IPlayerState
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Vector2 _knockBackDirection;
     [SerializeField] private float _knockBackSpeed;
+    [Header("動けない時間")]
+    [SerializeField] private float _stuckTime;
+    [Header("無敵時間")]
+    [SerializeField] private float _invincibleTime;
 
     private PlayerEnvroment _env;
 
@@ -35,10 +39,19 @@ public class PlayerKnockback : IPlayerState
 
     public async UniTask Knockback(Vector2 dir) 
     {
+        Invincible().Forget();
         _env.AddState(PlayerStateType.Damage);
         _rb.velocity = Vector2.zero;
+        Debug.Log(dir);
         _rb.AddForce(dir * _knockBackSpeed, ForceMode2D.Impulse);
-        await _env.PlayerAnim.KnockBackAnim();
+        await UniTask.WaitForSeconds(_stuckTime);
         _env.RemoveState(PlayerStateType.Damage);
+    }
+
+    private async UniTask Invincible()
+    {
+        _env.AddState(PlayerStateType.Invincible);
+        await _env.PlayerAnim.InvincibleTimeAnim(_invincibleTime / 3);
+        _env.RemoveState(PlayerStateType.Invincible);
     }
 }
