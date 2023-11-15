@@ -105,8 +105,9 @@ public abstract class BossBase : IEnemyDamaged
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
         //移動
-        Vector2 moveDir = new Vector2(playerPos.x, transform.position.y);
-        _rigidbody2d.AddForce(moveDir * BossDataSource.MoveSpeed);
+        Vector2 moveDir = new Vector2(playerPos.x, transform.position.y).normalized;
+       // _rigidbody2d.AddForce(moveDir * BossDataSource.MoveSpeed);
+        _rigidbody2d.velocity = moveDir * BossDataSource.MoveSpeed;
 
     }
 
@@ -151,6 +152,7 @@ public abstract class BossBase : IEnemyDamaged
     /// <param name="distance">Playerとの距離</param>
     public void Attack(float distance)
     {
+        _rigidbody2d.velocity = Vector2.zero;
         if (distance > _bossDataSource.AttackChangeDistance) LongRangeAttack();  //遠距離攻撃
         else ShortRangeAttack();  //近距離攻撃
     }
@@ -196,7 +198,7 @@ public abstract class BossBase : IEnemyDamaged
     public void ChangeScene()
     {
         //イベントシーンへ遷移
-        SceneManager.LoadScene(_bossDataSource.SceneName);  //フェード等の演出周りはα後に追加する
+        //SceneManager.LoadScene(_bossDataSource.SceneName);  //フェード等の演出周りはα後に追加する
     }
 
     /// <summary> ボスの状態（BossState）を変える。アニメーションイベントから呼ぶ </summary>
