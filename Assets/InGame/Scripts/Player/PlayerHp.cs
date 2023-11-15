@@ -35,7 +35,8 @@ public class PlayerHp : MonoBehaviour, IHealth
     public async UniTask ApplyDamage(float damageNum, Vector2 attackDir)
     {
         if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
-            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)||
+            _env.PlayerState.HasFlag(PlayerStateType.Invincible)) return;
 
         _currentHp.Value -= damageNum;
         await _knockback.Knockback(attackDir);

@@ -10,4 +10,5 @@ public enum PlayerStateType
     Damage = 8,
     Jump = 16,
     Inoperable = 32,
+    Invincible = 64,
 }

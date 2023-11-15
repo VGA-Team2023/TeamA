@@ -30,11 +30,11 @@ public class PlayerAnimation
         _anim.SetBool("Attack", isAttack);
     }
 
-    public async UniTask KnockBackAnim() 
+    public async UniTask InvincibleTimeAnim(float invincibleTime) 
     {
         //_anim.SetTrigger("KnockBack");
         //await UniTask.WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98, cancellationToken: _token);
-        await _spriteRenderer.DOFade(0, 1).SetLoops(3, LoopType.Yoyo);
+        await _spriteRenderer.DOFade(0, invincibleTime).SetLoops(3, LoopType.Yoyo);
         _spriteRenderer.color = new Color(1, 1, 1, 1);
     }
 }
