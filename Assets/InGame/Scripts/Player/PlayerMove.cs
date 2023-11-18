@@ -30,6 +30,9 @@ public class PlayerMove : IPlayerState
 
     public void FixedUpdate()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Dash))
         {
             Run();

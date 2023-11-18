@@ -36,13 +36,16 @@ public class PlayerJump : IPlayerState
 
     private void GroundCheck()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         var col = Physics2D.OverlapBoxNonAlloc(_env.PlayerTransform.position, size, 0, _buffer, _groundLayer);
         Debug.DrawRay(_env.PlayerTransform.position, size);
 
         if (0 < col)
         {
             if (_isGround) return;
-            CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_landing");
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
             _isGround = true;
             _isTwoJumps = true;
         }
@@ -67,6 +70,6 @@ public class PlayerJump : IPlayerState
 
     public void Dispose()
     {
-
+        InputProvider.Instance.LiftEnterInput(InputProvider.InputType.Jump, Jump);
     }
 }

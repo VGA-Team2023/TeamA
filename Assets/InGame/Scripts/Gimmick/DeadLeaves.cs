@@ -5,6 +5,12 @@ using UnityEngine;
 /// <summary> ギミック：枯葉 </summary>
 public class DeadLeaves : MonoBehaviour
 {
+    [SerializeField] Sprite _leafSprite;
+    [SerializeField] SpriteRenderer _deadLeafRenderer;
+    [SerializeField] LayerMask _waterLayer;
+    //Animationがないのでテスト用本来は SetNewCollider
+    [SerializeField] Collider2D _leafColliderMock;
+
     BoxCollider2D _defaultCollider = default;
     Animator _deadLeavesAnim = default;
     private void Start()
@@ -17,7 +23,8 @@ public class DeadLeaves : MonoBehaviour
     public void Attacked()
     {
         //枯葉が開くアニメーション再生
-        _deadLeavesAnim.SetBool("IsAttacked", true);
+        //_deadLeavesAnim.SetBool("IsAttacked", true);
+        _deadLeafRenderer.sprite = _leafSprite;
     }
 
 
@@ -37,5 +44,14 @@ public class DeadLeaves : MonoBehaviour
     public void SetNewCollider()
     {
         gameObject.AddComponent<PolygonCollider2D>();   //とりあえずポリゴンにしてます。仕様や不具合に合わせて変更
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("BulletWater")) 
+        {
+            Attacked();
+            _leafColliderMock.enabled = true;
+        }
     }
 }

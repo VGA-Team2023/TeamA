@@ -23,6 +23,9 @@ public class PlayerEimPoint : IPlayerState
 
     public void Update()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         _dir = InputProvider.Instance.EimDir;
         _eimPos.position = _eimPos.transform.position + _env.PlayerTransform.position - _savePos;
         _savePos = _env.PlayerTransform.position;
