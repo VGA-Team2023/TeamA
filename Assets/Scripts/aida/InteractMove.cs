@@ -29,7 +29,6 @@ public class InteractMove : MonoBehaviour
             if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Interact))
             {
                 Debug.Log("InterAct");
-                //何らかのプレイヤーのアニメーション
             }
         }
     }
