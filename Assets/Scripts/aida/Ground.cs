@@ -15,7 +15,7 @@ public class Ground : MonoBehaviour
     {
         if(_env.PlayerTransform.transform.position.y <= _fallPosition.y)
         {
-            _env.PlayerTransform.position = _spawnPosition.position; 
+            _env.PlayerTransform.position = _spawnPosition.position;
         }
     }
 }
