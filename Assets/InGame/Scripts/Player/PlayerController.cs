@@ -7,17 +7,17 @@ using UnityEngine;
 using UniRx;
 
 /// <summary>
-/// PlayerのStateをコントロールするクラス
+/// PlayerのRootクラス
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerRoot
 {
     [SerializeReference, SubclassSelector]
     private List<IPlayerState> _playerStateList = new List<IPlayerState>();
     [SerializeField] private PlayerAnimation _playerAnim;
     [SerializeField] private PlayerView _playerView;
-    [SerializeField] private PlayerEnvroment _playerEnvroment;
     [SerializeField] private PlayerHp _playerHp;
 
+    private PlayerEnvroment _playerEnvroment;
     private CancellationToken _token;
 
     void Start()
@@ -28,12 +28,12 @@ public class PlayerController : MonoBehaviour
     }
 
     #region SetUp
-    public void SetUp() 
+    public void SetUp()
     {
-        _playerAnim.SetUp(_token);
-        _playerHp.SetUp();
         SetUpEnv();
         SetUpState();
+        _playerAnim.SetUp(_token);
+        _playerHp.SetUp(_playerEnvroment, SeachState<PlayerKnockback>());
     }
 
     private void SetUpState()
@@ -46,15 +46,18 @@ public class PlayerController : MonoBehaviour
 
     private void SetUpEnv()
     {
-        _playerEnvroment.PlayerTransform = transform;
-        _playerEnvroment.PlayerAnim = _playerAnim;
+        _playerEnvroment = new PlayerEnvroment(transform, _playerAnim);
+        GameManager.Instance.PlayerEnvroment = _playerEnvroment;
     }
     #endregion
 
-    private void BindView() 
+    /// <summary>
+    /// ViewとModleの結び付け
+    /// </summary>
+    private void BindView()
     {
-        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView);
-        _playerHp.MaxHp.Subscribe(_playerView.SetMaxHpView);
+        _playerHp.MaxHp.Subscribe(_playerView.SetMaxHpView).AddTo(this);
+        _playerHp.CurrentHp.Subscribe(_playerView.SetHpView).AddTo(this);
 
         for (int i = 0; i < _playerStateList.Count; i++)
         {
@@ -68,7 +71,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    /// <summary>
+    /// PlayerStateを検索して返す
+    /// </summary>
+    /// <typeparam name="T">検索されたState</typeparam>
+    /// <returns></returns>
+    public T SeachState<T>() where T : class
+    {
+        for (int i = 0; i < _playerStateList.Count; i++) 
+        {
+            if (_playerStateList[i] is T) 
+            {
+                return _playerStateList[i] as T;
+            }
+        }
+        Debug.LogError("指定されたステートが見つかりませんでした");
+        return default;
+    }
+
+    private void Update()
     {
         for (int i = 0; i < _playerStateList.Count; i++)
         {

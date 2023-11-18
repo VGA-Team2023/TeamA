@@ -11,8 +11,7 @@ public class PlayerJump : IPlayerState
     [SerializeField] private float _jumpPower;
     [Header("着地判定の大きさ")]
     [SerializeField] private Vector2 size;
-    [TagName]
-    [SerializeField] private string _groundTag;
+    [SerializeField] private LayerMask _groundLayer;
 
     private PlayerEnvroment _env;
     private bool _isTwoJumps;
@@ -37,18 +36,22 @@ public class PlayerJump : IPlayerState
 
     private void GroundCheck()
     {
-        var col = Physics2D.OverlapBoxNonAlloc(_env.PlayerTransform.position, size, 0, _buffer);
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
+        var col = Physics2D.OverlapBoxNonAlloc(_env.PlayerTransform.position, size, 0, _buffer, _groundLayer);
         Debug.DrawRay(_env.PlayerTransform.position, size);
 
-        for (int i = 0; i < col; i++)
+        if (0 < col)
+        {
+            if (_isGround) return;
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
+            _isGround = true;
+            _isTwoJumps = true;
+        }
+        else if(col == 0)
         {
             _isGround = false;
-            if (_buffer[i].CompareTag(_groundTag))
-            {
-                _isGround = true;
-                _isTwoJumps = true;
-                break;
-            }
         }
     }
 
@@ -67,6 +70,6 @@ public class PlayerJump : IPlayerState
 
     public void Dispose()
     {
-
+        InputProvider.Instance.LiftEnterInput(InputProvider.InputType.Jump, Jump);
     }
 }

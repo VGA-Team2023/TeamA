@@ -345,6 +345,17 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a4f9fae1-34c9-4da0-a5c5-99992b906c3d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d1ea218e-d6d2-49a7-be88-d4cf2ec89373"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",

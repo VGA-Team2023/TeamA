@@ -21,7 +21,6 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
     [SerializeField] private float _waterConsumption;
     [Header("連射のレート")]
     [SerializeField] private float _waterRate;
-
     private readonly ReactiveProperty<float> _currentWaterNum = new ReactiveProperty<float>();
     private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
 
@@ -38,7 +37,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     public void Update()
     {
-        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+
     }
 
     public void FixedUpdate()
@@ -48,20 +47,24 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     private async UniTaskVoid Attack()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         _env.AddState(PlayerStateType.Attack);
         Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
 
-        do
+        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value)
         {
-            Debug.Log("打ちます");
             _currentWaterNum.Value -= _waterConsumption;
-            _env.PlayerAnim.AttackAnim(true);
+            //_env.PlayerAnim.AttackAnim(true);
 
-            var bulletCs = UnityEngine.Object.Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
+            var bulletCs = UnityEngine.Object.
+                Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_attack");
             await UniTask.WaitForSeconds(_waterRate);
         }
-        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+        
         
         _env.RemoveState(PlayerStateType.Attack);
     }
@@ -74,6 +77,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     public void Dispose()
     {
+        InputProvider.Instance.LiftEnterInputAsync(InputProvider.InputType.Attack, Attack);
         _maxWaterNum.Dispose();
         _currentWaterNum.Dispose();
     }
