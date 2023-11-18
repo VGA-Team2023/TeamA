@@ -46,7 +46,6 @@ public class TimeLimitGround : MonoBehaviour
                 break;
             case State.Init:
                 Debug.Log("Init");
-                totalTime += Time.deltaTime;
                 if (ReceiveForce())
                 {
                     totalTime = 0;
