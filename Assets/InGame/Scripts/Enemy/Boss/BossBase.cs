@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 
 /// <summary>  敵（ボス）の共通処理を持つ基底クラス  </summary>
-public abstract class BossBase : IEnemyDamaged
+public abstract class BossBase :MonoBehaviour,  IReceiveWater
 {
     [SerializeField, Tooltip("対応するBossData")] BossData _bossDataSource = default;
     public BossData BossDataSource => _bossDataSource;
@@ -123,8 +123,8 @@ public abstract class BossBase : IEnemyDamaged
     /// <summary> 遠距離攻撃。 Attackメソッドから呼ばれる</summary>
     public abstract void LongRangeAttack();
 
-    /// <summary> 被ダメージ処理。水かプレイヤーから呼ばれる</summary>
-    public override void Damaged()
+    /// <summary> 被ダメージ処理。水から呼ばれる</summary>
+    public  void ReceiveWater()
     {
         if (_currentbossState == BossState.InBattle)
         {
