@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class EnemyForest : EnemyBase
+public class ZakoForest : ZakoBase
 {
     [SerializeField, Tooltip("攻撃(仮)")]
     BoxCollider2D _attack = default;
