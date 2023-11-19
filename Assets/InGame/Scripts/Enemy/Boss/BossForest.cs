@@ -22,12 +22,6 @@ public class BossForest : BossBase
         }
     }
 
-    public override void BattleEnd()
-    {
-        //アニメーション：姿が変わる
-        BossAnimator.SetTrigger("BattleEnd");
-        //アニメーションイベント：シーン遷移
-    }
 
     public override void ShortRangeAttack()
     {
