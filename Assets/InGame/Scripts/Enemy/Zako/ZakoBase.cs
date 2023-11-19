@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public abstract class ZakoBase : IEnemyDamaged
+public abstract class ZakoBase : MonoBehaviour, IReceiveWater
 {
     [SerializeField, Tooltip("雑魚敵のデータ")]
     ZakoData _enemyDate = default;
@@ -55,10 +55,10 @@ public abstract class ZakoBase : IEnemyDamaged
             //距離が離れているとき巡回させる
             if (distance > _enemyDate.LookDistance)
             {
-                if (_seNum == -1) 
+                if (_seNum == -1)
                 {
                     Debug.Log("流した");
-                   _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+                    _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
                 }
 
                 Wander();
@@ -68,7 +68,7 @@ public abstract class ZakoBase : IEnemyDamaged
             //見つけられる距離かつプレイヤーとの距離が近い場合,攻撃
             else if (transform.position.x - pPos.x < _enemyDate.AttackDistance && distance < _enemyDate.AttackDistance)
             {
-                if (_seNum != -1) 
+                if (_seNum != -1)
                 {
                     Debug.Log("止めた");
                     CriAudioManager.Instance.SE.Stop(_seNum + 1);
@@ -172,14 +172,13 @@ public abstract class ZakoBase : IEnemyDamaged
     /// <summary>攻撃</summary>
     public abstract void Attack();
 
+    /// <summary>死亡時</summary>
+    public abstract void Die();
+
     /// <summary> 被ダメージ </summary>
-    public override void Damaged()
+    public void ReceiveWater()
     {
         _enemyAnim.SetTrigger("Damage");
         _enemyHp--;
     }
-
-    /// <summary>死亡時</summary>
-    public abstract void Die();
-
 }
