@@ -6,13 +6,14 @@ public abstract class EnemyBase : MonoBehaviour, IReceiveWater
     [SerializeField, Tooltip("Playerとの距離")]
     float _distance = 0f;
     public float Distance => _distance;
+    [Tooltip("GameManagerのインスタンス")]
+    GameManager _gm = default;
+    public GameManager GManager => _gm;
 
     private void Update()
     {
-        if (GameManager.Instance != null)
-        {
-            _distance = MeasureDistance();
-        }
+        _gm = GameManager.Instance;
+        if (_gm != null) _distance = MeasureDistance();
     }
 
     /// <summary> 水があたったときに呼ばれる。 </summary>
@@ -34,7 +35,7 @@ public abstract class EnemyBase : MonoBehaviour, IReceiveWater
     /// <returns>Playerとの距離</returns>
     public float MeasureDistance()
     {
-        Vector2 pPos = GameManager.Instance.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
+        Vector2 pPos = _gm.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
         float distance = Vector2.Distance(this.transform.position, pPos);   //Playerとの距離
         return distance;
     }
