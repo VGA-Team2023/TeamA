@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public abstract class EnemyBase : IEnemyDamaged
+public abstract class ZakoBase : IEnemyDamaged
 {
     [SerializeField, Tooltip("雑魚敵のデータ")]
-    EnemyData _enemyDate = default;
-    public EnemyData EnemyDataSource => _enemyDate;
+    ZakoData _enemyDate = default;
+    public ZakoData EnemyDataSource => _enemyDate;
 
     [SerializeField, Tooltip("雑魚敵のアニメーター")]
     Animator _enemyAnim = default;
