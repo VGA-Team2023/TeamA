@@ -1,10 +1,10 @@
-using Cysharp.Threading.Tasks;
+ï»¿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-/// <summary> ƒMƒ~ƒbƒNF“Å‚Ì‹““® </summary>
+/// <summary> ã‚®ãƒŸãƒƒã‚¯ï¼šæ¯’ã®æŒ™å‹• </summary>
 public class Poison : WaterGimmickBase
 {
-    [SerializeField, Tooltip("Player‚É—^‚¦‚éƒ_ƒ[ƒW")]
+    [SerializeField, Tooltip("Playerã«ä¸ãˆã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸")]
     float _damageSizeToPlayer = 0f;
     Collider2D _collider = default;
     Animator _poisonAnim = default;
@@ -17,7 +17,7 @@ public class Poison : WaterGimmickBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Player‚ª“–‚½‚Á‚½‚Æ‚«‚Éƒ_ƒ[ƒW—^‚¦‚é
+        //PlayerãŒå½“ãŸã£ãŸã¨ãã«ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸ãˆã‚‹
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
         {
             playerHp.ApplyDamage(_damageSizeToPlayer, Vector2.zero).Forget();
@@ -26,7 +26,7 @@ public class Poison : WaterGimmickBase
 
     public override void WeightActive()
     {
-        //“Å‚ªÁ‚¦‚Ä’Ê‚ê‚é‚æ‚¤‚É‚È‚é
+        //æ¯’ãŒæ¶ˆãˆã¦é€šã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹
         _poisonAnim.SetBool("IsAttacked", true);
     }
 }
