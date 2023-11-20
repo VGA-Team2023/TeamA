@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary> ギミック：毒の挙動 </summary>
-public class Poison : MonoBehaviour
+public class Poison : WaterGimmickBase
 {
+    [SerializeField, Tooltip("Playerに与えるダメージ")]
+    float _damageSizeToPlayer = 0f;
     Collider2D _collider = default;
     Animator _poisonAnim = default;
     private void Start()
@@ -14,16 +15,18 @@ public class Poison : MonoBehaviour
         _poisonAnim = GetComponent<Animator>();
     }
 
-    /// <summary> Playerから攻撃を受けたときに呼ばれる </summary>
-    public void Detoxification()
-    {
-        //毒が消えて通れるようになる。Triggerはアニメーションでオンにしてます
-        _poisonAnim.SetBool("IsAttacked", true);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Playerが当たったときにダメージ与えるとか
+        //Playerが当たったときにダメージ与える
+        if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+        {
+            playerHp.ApplyDamage(_damageSizeToPlayer, Vector2.zero).Forget();
+        }
     }
 
+    public override void WeightActive()
+    {
+        //毒が消えて通れるようになる
+        _poisonAnim.SetBool("IsAttacked", true);
+    }
 }
