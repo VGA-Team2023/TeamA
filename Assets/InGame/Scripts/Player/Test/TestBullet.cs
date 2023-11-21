@@ -29,9 +29,9 @@ public class TestBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else if (collision.TryGetComponent<IEnemyDamaged>(out var damage)) 
+        else if (collision.TryGetComponent<IReceiveWater>(out var damage)) 
         {
-            damage.Damaged();
+            damage.ReceiveWater();
             Destroy(gameObject);
         }
 
