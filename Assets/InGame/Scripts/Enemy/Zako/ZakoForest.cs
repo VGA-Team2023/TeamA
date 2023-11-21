@@ -9,21 +9,19 @@ public class ZakoForest : ZakoBase
     [SerializeField, Tooltip("仮のタグ")]
     string _tagName = string.Empty;
 
-    float _time = 999;
     public override void Attack()
     {
         //攻撃するときの音や攻撃
         Debug.Log("マンドラゴラの攻撃");
         EnemyAnimator.SetTrigger("ShortRangeAttack");
-        _time = 0f;
     }
 
-    public override void Damaged()
-    {
-        //自分がダメージを食らうときの音やエフェクト
-        EnemyAnimator.SetTrigger("Damage");
-        Debug.Log("マンドラゴラがプレイヤーに攻撃されてる");
-    }
+    //public override void Damaged()
+    //{
+    //    //自分がダメージを食らうときの音やエフェクト
+    //    EnemyAnimator.SetTrigger("Damage");
+    //    Debug.Log("マンドラゴラがプレイヤーに攻撃されてる");
+    //}
 
     public override void Die()
     {
