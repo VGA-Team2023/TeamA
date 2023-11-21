@@ -10,9 +10,13 @@ public abstract class EnemyBase : MonoBehaviour, IReceiveWater
     GameManager _gm = default;
     public GameManager GManager => _gm;
 
-    private void Update()
+    protected virtual void Start()
     {
         _gm = GameManager.Instance;
+        Debug.Log("test");
+    }
+    protected virtual void Update()
+    {
         if (_gm != null) _distance = MeasureDistance();
     }
 
