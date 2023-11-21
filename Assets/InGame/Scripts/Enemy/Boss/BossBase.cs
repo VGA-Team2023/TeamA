@@ -48,8 +48,9 @@ public abstract class BossBase : EnemyBase
         _currentHp = _bossDataSource.DefaultHp;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         ///SEの名前とFileを対応させる
         for (int i = 0; i < _bossDataSource.SeTypeList.Count; i++)
         {
@@ -57,8 +58,9 @@ public abstract class BossBase : EnemyBase
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         if (_currentbossState == BossState.InBattle)
         {
             if (GManager != null)
