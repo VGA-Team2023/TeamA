@@ -1,16 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary> ギミック：枯葉 </summary>
-public class DeadLeaves : MonoBehaviour
+public class DeadLeaves : WaterGimmickBase
 {
-    [SerializeField] Sprite _leafSprite;
-    [SerializeField] SpriteRenderer _deadLeafRenderer;
-    [SerializeField] LayerMask _waterLayer;
-    //Animationがないのでテスト用本来は SetNewCollider
-    [SerializeField] Collider2D _leafColliderMock;
-
     BoxCollider2D _defaultCollider = default;
     Animator _deadLeavesAnim = default;
     private void Start()
@@ -19,22 +11,9 @@ public class DeadLeaves : MonoBehaviour
         _deadLeavesAnim = GetComponent<Animator>();
     }
 
-    /// <summary> Playerから攻撃を受けたときに呼ばれる </summary>
-    public void Attacked()
+    public override void WeightActive()
     {
-        //枯葉が開くアニメーション再生
-        //_deadLeavesAnim.SetBool("IsAttacked", true);
-        _deadLeafRenderer.sprite = _leafSprite;
-    }
-
-
-    /// <summary> 
-    /// 通れないようにつけていたデカいコライダーを破棄する。
-    /// アニメーションイベントから呼ぶ 
-    /// </summary>
-    public void DestroyDefaultCollider()
-    {
-        Destroy(_defaultCollider);
+        _deadLeavesAnim.SetBool("IsAttacked", true);
     }
 
     /// <summary>
@@ -46,12 +25,13 @@ public class DeadLeaves : MonoBehaviour
         gameObject.AddComponent<PolygonCollider2D>();   //とりあえずポリゴンにしてます。仕様や不具合に合わせて変更
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /// <summary> 
+    /// 通れないようにつけていたデカいコライダーを破棄する。
+    /// アニメーションイベントから呼ぶ 
+    /// </summary>
+    public void DestroyDefaultCollider()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("BulletWater")) 
-        {
-            Attacked();
-            _leafColliderMock.enabled = true;
-        }
+        Destroy(_defaultCollider);
     }
+
 }
