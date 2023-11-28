@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using System.Threading;
 
-public class FadeScript : MonoBehaviour 
+public class FadeScript : MonoBehaviour
 {
     [SerializeField] private Animator _anim;
     [AnimationParameter]

@@ -60,6 +60,11 @@ public class PlayerHp : MonoBehaviour, IHealth
         _currentHp.Value += healNum;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+      //  collision
+    }
+
     private void OnDestroy()
     {
         _maxHp.Dispose();
