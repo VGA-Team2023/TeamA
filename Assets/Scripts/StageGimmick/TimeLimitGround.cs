@@ -13,15 +13,8 @@ public class TimeLimitGround : MonoBehaviour
         Wait,
         Init,
         Corpse,
-        Reactive,
     }
 
-    //崩れる前のスプライト
-    [SerializeField] private SpriteRenderer beforeImage = null;
-    //崩れた後のスプライト
-    [SerializeField] private SpriteRenderer afterImage = null;
-    //現在のスプライト
-  　private SpriteRenderer currentImage = null;
     //足場が崩れるまでの時間
     [SerializeField] private float timeLimit = 5f;
     //プレイヤーが足場に乗っている時間
@@ -33,9 +26,7 @@ public class TimeLimitGround : MonoBehaviour
     public void Start()
     {
         state = State.Wait;
-        currentImage = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        currentImage.sprite = beforeImage.sprite;
     }
 
     private void Update()
@@ -55,17 +46,6 @@ public class TimeLimitGround : MonoBehaviour
             case State.Corpse:
                 Debug.Log("Corpse");
                 Corpse();
-                if (ReceiveForce())
-                {
-                    totalTime = 0;
-                    state = State.Reactive;
-                }
-                break;
-            case State.Reactive:
-                Debug.Log("Reactive");
-                Reactive();
-                totalTime = 0;
-                state = State.Wait;
                 break;
         }
     }
@@ -80,19 +60,12 @@ public class TimeLimitGround : MonoBehaviour
         return false;
     }
 
-    //アニメーションイベントから呼び出す
-    private void Reactive()
-    {
-        currentImage.sprite = beforeImage.sprite;
-        col.enabled = true;
-        Debug.Log("Reactive");
-    }
+   
 
     //アニメーションイベントから呼び出す
     private void Corpse()
     {
-        currentImage.sprite = afterImage.sprite;
-        col.enabled = false;
+        Destroy(gameObject);
         Debug.Log("Corpse");
     }
 
