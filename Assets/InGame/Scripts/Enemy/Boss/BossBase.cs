@@ -1,4 +1,5 @@
 //日本語対応
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -160,6 +161,17 @@ public abstract class BossBase : EnemyBase
 
     /// <summary> 遠距離攻撃。 Attackメソッドから呼ばれる</summary>
     public abstract void LongRangeAttack();
+
+    /// <summary> Player接触時にダメージを与える </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+        {
+            Vector2 _knockBackDir = playerHp.transform.position - transform.position;
+            playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir).Forget();
+        }
+    }
 
     /// <summary> 近距離攻撃と遠距離攻撃のボーダーをギズモで描画 </summary>
     private void OnDrawGizmos()
