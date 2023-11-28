@@ -25,6 +25,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
     private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
 
     private PlayerEnvroment _env;
+    private bool _isAttack;
 
 
     public void SetUp(PlayerEnvroment env, CancellationToken token)
@@ -52,20 +53,24 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
         _env.AddState(PlayerStateType.Attack);
 
-        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value)
+        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value 
+               && !_isAttack)
         {
+            _isAttack = true;
+            await UniTask.WaitForSeconds(_waterRate);
             _currentWaterNum.Value -= _waterConsumption;
-            //_env.PlayerAnim.AttackAnim(true);
+            _env.PlayerAnim.AttackAnim(true);
 
             var bulletCs = UnityEngine.Object.
                 Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
+            _isAttack = false;
             CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_attack");
-            await UniTask.WaitForSeconds(_waterRate);
         }
         
         
         _env.RemoveState(PlayerStateType.Attack);
+        _env.PlayerAnim.AttackAnim(false);
     }
 
     private void CancelAttak() 

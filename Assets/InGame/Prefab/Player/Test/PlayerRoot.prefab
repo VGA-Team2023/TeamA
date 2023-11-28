@@ -114,6 +114,7 @@ MonoBehaviour:
   - rid: 7437309108187037697
   _playerAnim:
     _anim: {fileID: 8416521812250085170}
+    _spriteRenderer: {fileID: 0}
   _playerView: {fileID: 4244580185595192257}
   _playerHp: {fileID: 1097736323819194479}
   references:
@@ -153,7 +154,7 @@ MonoBehaviour:
       data:
         _rb: {fileID: 2655534580916577381}
         _jumpPower: 10
-        size: {x: 5, y: 5}
+        size: {x: 0.7, y: 2.3}
         _groundLayer:
           serializedVersion: 2
           m_Bits: 0
