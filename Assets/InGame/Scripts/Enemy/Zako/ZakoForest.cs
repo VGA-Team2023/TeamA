@@ -16,23 +16,12 @@ public class ZakoForest : ZakoBase
         EnemyAnimator.SetTrigger("ShortRangeAttack");
     }
 
-    //public override void Damaged()
-    //{
-    //    //自分がダメージを食らうときの音やエフェクト
-    //    EnemyAnimator.SetTrigger("Damage");
-    //    Debug.Log("マンドラゴラがプレイヤーに攻撃されてる");
-    //}
-
-    public override void Die()
+    public override void Exit()
     {
         //死んだときのアニメーションやエフェクト,死んだ個体の処理
-        Debug.Log("マンドラゴラ死にました");
+        Debug.Log("マンドラゴラ浄化");
+        EnemyAnimator.SetBool("Move", false);
         EnemyAnimator.SetBool("Die", true);
-    }
-
-    public void ForestDie()
-    {
-        gameObject.SetActive(false);
     }
 
     //アニメーションが間に合わないため仮
@@ -42,8 +31,8 @@ public class ZakoForest : ZakoBase
             || collision.gameObject.tag == _tagName)
         {
             Debug.Log("マンドラゴラの攻撃成功");
-            Vector2 knockBackDir = pHp.transform.position - transform.position;
-            pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
+            //Vector2 knockBackDir = pHp.transform.position - transform.position;
+            //pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
         }
     }
 }
