@@ -10,6 +10,7 @@ public class TestBullet : MonoBehaviour
     [TagName]
     [SerializeField] private string _groundTag;
     [SerializeField] private int _damage;
+    [SerializeField] private GameObject _effect;
 
     private Vector2 _playerForward;
 
@@ -27,10 +28,13 @@ public class TestBullet : MonoBehaviour
     {
         if (collision.CompareTag(_groundTag))
         {
+            Debug.Log("きた");
+            Instantiate(_effect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         else if (collision.TryGetComponent<IReceiveWater>(out var damage)) 
         {
+            Instantiate(_effect, transform);
             damage.ReceiveWater();
             Destroy(gameObject);
         }
