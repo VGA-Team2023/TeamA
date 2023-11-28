@@ -13,7 +13,7 @@ public class DeadLeaves : WaterGimmickBase
 
     public override void WeightActive()
     {
-        _deadLeavesAnim.SetBool("IsAttacked", true);
+        _deadLeavesAnim.SetBool("IsWeightActive", true);
     }
 
     /// <summary>
