@@ -51,7 +51,6 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
             _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
 
         _env.AddState(PlayerStateType.Attack);
-        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
 
         while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value)
         {

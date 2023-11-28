@@ -30,6 +30,16 @@ public class PlayerAnimation
         _anim.SetBool("Attack", isAttack);
     }
 
+    public void WalkAnim(bool isWalk) 
+    {
+        _anim.SetBool("Walk", isWalk);
+    }
+
+    public void RunAnim(bool isRun) 
+    {
+        _anim.SetBool("Run", isRun);
+    }
+
     public async UniTask InvincibleTimeAnim(float invincibleTime) 
     {
         //_anim.SetTrigger("KnockBack");

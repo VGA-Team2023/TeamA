@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
 
     private PlayerEnvroment _playerEnvroment;
     private CancellationToken _token;
+    private ReactiveProperty<Collider2D> _onTriggerEnter = new();
 
     void Start()
     {
@@ -103,6 +104,11 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
         {
             _playerStateList[i].FixedUpdate();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _onTriggerEnter.Value = collision;
     }
 
     private void OnDestroy()
