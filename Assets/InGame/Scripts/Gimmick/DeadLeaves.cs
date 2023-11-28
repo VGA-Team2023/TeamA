@@ -3,35 +3,28 @@ using UnityEngine;
 /// <summary> ギミック：枯葉 </summary>
 public class DeadLeaves : WaterGimmickBase
 {
-    BoxCollider2D _defaultCollider = default;
+    [SerializeField, Tooltip("デフォルトのコライダー")] Collider2D _defaultCollider = default;
+    [SerializeField, Tooltip("新しいコライダー")] Collider2D _newCollider = default;
     Animator _deadLeavesAnim = default;
     private void Start()
     {
-        _defaultCollider = GetComponent<BoxCollider2D>();
         _deadLeavesAnim = GetComponent<Animator>();
+        _newCollider.enabled = false;   
     }
 
     public override void WeightActive()
     {
+        ChangeCollider();
         _deadLeavesAnim.SetBool("IsWeightActive", true);
     }
 
-    /// <summary>
-    /// 葉が開いたあとの形に合わせてコライダーをつける
-    /// アニメーションイベントから呼ぶ 
-    /// </summary>
-    public void SetNewCollider()
-    {
-        gameObject.AddComponent<PolygonCollider2D>();   //とりあえずポリゴンにしてます。仕様や不具合に合わせて変更
-    }
-
     /// <summary> 
-    /// 通れないようにつけていたデカいコライダーを破棄する。
-    /// アニメーションイベントから呼ぶ 
+    /// コライダーを書き換える
     /// </summary>
-    public void DestroyDefaultCollider()
+    public void ChangeCollider()
     {
-        Destroy(_defaultCollider);
+        _defaultCollider.isTrigger = true;
+        _newCollider.enabled=true;
     }
 
 }
