@@ -23,7 +23,7 @@ public abstract class StageBase : MonoBehaviour
     /// <summary>
     /// Playerが死んだときの流れ
     /// </summary>
-    private void PlayerDead() 
+    public void PlayerDead() 
     {
         _onDeadDisposable?.Dispose();
         var obj = _restartController.Restart();
