@@ -1,14 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using UnityEngine;
 using UnityEngine.UI;
 
-//•ö‚ê‚é‘«ê‚ğ¶¬‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+//å´©ã‚Œã‚‹è¶³å ´ã‚’ç”Ÿæˆã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 public class TimeGroundCreate : MonoBehaviour
 {
-    //‘«ê‚ÌƒvƒŒƒnƒu
+    //è¶³å ´ã®ãƒ—ãƒ¬ãƒãƒ–
     [SerializeField] GameObject field;
     private TimeLimitGround tg;
     private float totalTime;
@@ -16,14 +15,14 @@ public class TimeGroundCreate : MonoBehaviour
 
     void Start()
     {
-        //‘«ê‚ğì‚é
+        //è¶³å ´ã‚’ä½œã‚‹
         tg = Instantiate(field, transform.position, Quaternion.identity).GetComponent<TimeLimitGround>();
     }
 
 
     void Update()
     {
-        //‘«ê‚ª‚È‚©‚Á‚½‚ç‚·‚®‚É¶‚İo‚³‚¸ˆê’èŠÔ‚·‚¬‚½‚ç‘«ê‚ğÄ¶¬‚·‚é
+        //è¶³å ´ãŒãªã‹ã£ãŸã‚‰ã™ãã«ç”Ÿã¿å‡ºã•ãšä¸€å®šæ™‚é–“ã™ããŸã‚‰è¶³å ´ã‚’å†ç”Ÿæˆã™ã‚‹
         if (tg == null)
         {
             totalTime += Time.deltaTime;

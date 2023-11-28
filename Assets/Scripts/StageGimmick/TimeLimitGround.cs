@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Unity.VisualScripting;
+using System;
+
 using UnityEngine;
 using UnityEngine.UI;
 
-//§ŒÀŠÔ•t‚«‚Ì‘«ê‚Ìˆ—B
+//åˆ¶é™æ™‚é–“ä»˜ãã®è¶³å ´ã®å‡¦ç†ã€‚
 public class TimeLimitGround : MonoBehaviour
 {
     enum State 
@@ -15,14 +16,16 @@ public class TimeLimitGround : MonoBehaviour
         Corpse,
     }
 
-    //‘«ê‚ª•ö‚ê‚é‚Ü‚Å‚ÌŠÔ
+    //è¶³å ´ãŒå´©ã‚Œã‚‹ã¾ã§ã®æ™‚é–“
     [SerializeField] private float timeLimit = 5f;
-    //ƒvƒŒƒCƒ„[‚ª‘«ê‚Éæ‚Á‚Ä‚¢‚éŠÔ
+    [SerializeField] private List<TimeLimitGroundData> _dataList = new();
+    [SerializeField] private SpriteRenderer _spRenderer;
+    
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¶³å ´ã«ä¹—ã£ã¦ã„ã‚‹æ™‚é–“
     private float totalTime = 0f;
     private State state = State.Wait;
     private Collider2D col;
-    [SerializeField] private PlayerEnvroment _env;
-
+    
     public void Start()
     {
         state = State.Wait;
@@ -48,6 +51,17 @@ public class TimeLimitGround : MonoBehaviour
                 Corpse();
                 break;
         }
+        var num = timeLimit / _dataList.Count;
+        for (int i = 0; i < _dataList.Count; i++) 
+        {
+            if (totalTime >= timeLimit) break;
+            Debug.Log(num);
+            if (totalTime < num * (i + 1)) 
+            {
+                _spRenderer.sprite = _dataList[i].Sp;
+                break;
+            }
+        }
     }
 
     private bool ReceiveForce()
@@ -62,7 +76,7 @@ public class TimeLimitGround : MonoBehaviour
 
    
 
-    //ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚©‚çŒÄ‚Ño‚·
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å‘¼ã³å‡ºã™
     private void Corpse()
     {
         Destroy(gameObject);
@@ -82,9 +96,15 @@ public class TimeLimitGround : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp) && col.enabled)
         {
-            totalTime = 0;
             state = State.Wait;
             Debug.Log("Exit");
         }
+    }
+    
+    [Serializable]
+    public class TimeLimitGroundData 
+    {
+        public int ElapsedTime;
+        public Sprite Sp;
     }
 }
