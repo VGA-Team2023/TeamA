@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7239112096800425017}
   - component: {fileID: 5689320080842990851}
   - component: {fileID: 6233022423969699616}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DeadLeavesFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
