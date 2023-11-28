@@ -45,12 +45,14 @@ public class PlayerJump : IPlayerState
         if (0 < col)
         {
             if (_isGround) return;
+            _env.PlayerAnim.JumpAnim(false);
             CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
             _isGround = true;
             _isTwoJumps = true;
         }
         else if(col == 0)
         {
+            _env.PlayerAnim.JumpAnim(true);
             _isGround = false;
         }
     }

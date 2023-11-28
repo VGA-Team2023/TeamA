@@ -29,6 +29,10 @@ public class PlayerAnimation
     {
         _anim.SetBool("Attack", isAttack);
     }
+    public void JumpAnim(bool isJump)
+    {
+        _anim.SetBool("Jump", isJump);
+    }
 
     public void WalkAnim(bool isWalk) 
     {

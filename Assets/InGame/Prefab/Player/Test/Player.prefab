@@ -361,17 +361,37 @@ PrefabInstance:
       propertyPath: _defaultMaxHp
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1364311828291107252, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364311828291107252, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3f653e4fa409a384097c633f5e639724, type: 3}
+    - target: {fileID: 5914294836126278777, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_Size.y
+      value: 3.378044
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914294836126278777, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.08546491
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914294836126278777, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.005635023
+      objectReference: {fileID: 0}
     - target: {fileID: 6354022415595547477, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
       propertyPath: managedReferences[7437309043695681537]._rb
       value: 
       objectReference: {fileID: 8244569265555532905}
     - target: {fileID: 6354022415595547477, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
       propertyPath: managedReferences[7437309043695681540].size.x
-      value: 2.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6354022415595547477, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
       propertyPath: managedReferences[7437309043695681540].size.y
-      value: 2.8
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 6354022415595547477, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
       propertyPath: managedReferences[7437309043695681536]._eimPos
