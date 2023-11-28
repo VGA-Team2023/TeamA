@@ -13,8 +13,8 @@ public class FixedThorns : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
         {
-            playerHp.ApplyDamage(_damageSize, Vector2.zero).Forget();
             _stageBase.PlayerDead();
+            playerHp.ApplyDamage(_damageSize, Vector2.zero).Forget();
         }
     }
 }
