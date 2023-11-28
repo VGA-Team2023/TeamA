@@ -40,6 +40,10 @@ public class BossData : ScriptableObject
     float _longAttackDamageSize = 0f;
     public float LongAttackDamageSize => _longAttackDamageSize;
 
+    [SerializeField, Tooltip("接触時にプレイヤーへ与えるダメージの大きさ")]
+    float _touchedDamageSize = 0f;
+    public float TouchedDamageSize => _touchedDamageSize;
+
     [Header("アニメーション・演出周り")]
     [SerializeField, Tooltip("対応するAnimationOverrideController")]
     AnimatorOverrideController _bossAniCom = default;

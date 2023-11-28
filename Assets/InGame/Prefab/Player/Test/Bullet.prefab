@@ -102,6 +102,8 @@ MonoBehaviour:
   _rb: {fileID: 2943067630165501699}
   _speed: 500
   _groundTag: Ground
+  _damage: 0
+  _effect: {fileID: 8413243910927177071, guid: 5907d556b08576447aab0686c92ee30b, type: 3}
 --- !u!50 &2943067630165501699
 Rigidbody2D:
   serializedVersion: 4

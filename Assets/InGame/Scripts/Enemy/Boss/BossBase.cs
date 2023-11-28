@@ -1,4 +1,5 @@
 //日本語対応
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Animator))]
 
 /// <summary>  敵（ボス）の共通処理を持つ基底クラス  </summary>
-public abstract class BossBase : IEnemyDamaged
+public abstract class BossBase : EnemyBase
 {
     [SerializeField, Tooltip("対応するBossData")] BossData _bossDataSource = default;
     public BossData BossDataSource => _bossDataSource;
@@ -26,7 +27,7 @@ public abstract class BossBase : IEnemyDamaged
 
     [SerializeField, Tooltip("現在のHP")] float _currentHp = 0f;
 
-   [Tooltip("SEを対応させるDictionary")] Dictionary<string, string> _sePairDic = new Dictionary<string, string>();
+    [Tooltip("SEを対応させるDictionary")] Dictionary<string, string> _sePairDic = new Dictionary<string, string>();
 
     /// <summary> ボスの状態を管理するEnum </summary>
     public enum BossState
@@ -46,32 +47,34 @@ public abstract class BossBase : IEnemyDamaged
         _bossAnimator.runtimeAnimatorController = _bossDataSource.BossAniCon;   //Bossの種類に合わせて指定のコントローラーを割り当てる
         _criAudioManager = CriAudioManager.Instance;
         _currentHp = _bossDataSource.DefaultHp;
+    }
 
+    protected override void Start()
+    {
+        base.Start();
         ///SEの名前とFileを対応させる
-        for(int i = 0; i < _bossDataSource.SeTypeList.Count; i++)
+        for (int i = 0; i < _bossDataSource.SeTypeList.Count; i++)
         {
             _sePairDic.Add(_bossDataSource.SeTypeList[i], _bossDataSource.SeFileList[i]);
         }
-        
     }
-    private void Update()
+
+    protected override void Update()
     {
+        base.Update();
         if (_currentbossState == BossState.InBattle)
         {
-            Vector2 pPos = GameManager.Instance.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
-            float distance = MeasureDistance(pPos); //Playerとの距離を測る
-
-            if (pPos != null)
+            if (GManager != null)
             {
-                if (distance > _bossDataSource.BorderDistance) //距離が離れてたら
+                if (Distance > _bossDataSource.BorderDistance) //距離が離れてたら
                 {
                     _bossAnimator.SetBool("Move", true);
-                    MoveToPlayer(pPos); //Playerに近づく
+                    Move(); //Playerに近づく
                 }
                 else
                 {
                     _bossAnimator.SetBool("Move", false);
-                    Attack(distance);   //攻撃する
+                    Attack();   //攻撃する
                 }
             }
         }
@@ -83,51 +86,38 @@ public abstract class BossBase : IEnemyDamaged
     /// <summary> 画面から外れたとき</summary>
     private void OnBecameInvisible() => _onScreen = false;
 
-    /// <summary> Playerとの距離を計算するメソッド </summary>
-    /// <returns>Playerとの距離</returns>
-    private float MeasureDistance(Vector2 playerPos)
-    {
-        float distance = Vector2.Distance(this.transform.position, playerPos);   //Playerとの距離
-        return distance;
-    }
-
     /// <summary> Playerに近づく </summary>
-    /// <param name="playerPos">Playerの座標</param>
-    private void MoveToPlayer(Vector2 playerPos)
+    public override void Move()
     {
+        Vector2 pPos = GManager.PlayerEnvroment.PlayerTransform.position;
         //方向転換
-        if (this.transform.position.x < playerPos.x && transform.eulerAngles.y < 180f)    //右に向く  
+        if (this.transform.position.x < pPos.x && transform.eulerAngles.y < 180f)    //右に向く  
         {
             transform.eulerAngles = new Vector3(0, 180f, 0);
         }
-        else if (this.transform.position.x >= playerPos.x && transform.eulerAngles.y >= 180f)    //左に向く
+        else if (this.transform.position.x >= pPos.x && transform.eulerAngles.y >= 180f)    //左に向く
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        //移動
-        Vector2 moveDir = new Vector2(playerPos.x, transform.position.y).normalized;
-       // _rigidbody2d.AddForce(moveDir * BossDataSource.MoveSpeed);
-        _rigidbody2d.velocity = moveDir * BossDataSource.MoveSpeed;
 
+        //移動
+        Vector2 moveDir = new Vector2(pPos.x, transform.position.y).normalized;
+        _rigidbody2d.velocity = moveDir * BossDataSource.MoveSpeed;
     }
 
-    /// <summary> 戦闘開始時の演出。システムから呼ばれる </summary>
-    public abstract void BattleStart();
-
     /// <summary> 戦闘終了時の演出 。HPが0になったら呼ばれる</summary>
-    public abstract void BattleEnd();
+    public override void Exit()
+    {
+        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
+        _bossAnimator.SetTrigger("BattleEnd");
+    }
 
-    /// <summary> 近距離攻撃。Attackメソッドから呼ばれる </summary>
-    public abstract void ShortRangeAttack();
-
-    /// <summary> 遠距離攻撃。 Attackメソッドから呼ばれる</summary>
-    public abstract void LongRangeAttack();
-
-    /// <summary> 被ダメージ処理。水かプレイヤーから呼ばれる</summary>
+    /// <summary> 被ダメージ処理。水から呼ばれる</summary>
     public override void Damaged()
     {
         if (_currentbossState == BossState.InBattle)
         {
+            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BossDamaged"]);
             _bossAnimator.SetTrigger("Damaged");    //被ダメージアニメーション
 
             //ダメージ計算
@@ -139,24 +129,51 @@ public abstract class BossBase : IEnemyDamaged
 
             if (_currentHp <= 0)  //撃破
             {
-                ChangeBossState();
                 _bossAnimator.SetBool("Move", false);
                 Debug.Log("ボスを撃破した！");
-                BattleEnd();    //戦闘終了演出
+                Exit();    //戦闘終了演出
             }
 
         }
     }
 
     /// <summary> 攻撃。Playerとの距離で種類が変わる </summary>
-    /// <param name="distance">Playerとの距離</param>
-    public void Attack(float distance)
+    public override void Attack()
     {
         _rigidbody2d.velocity = Vector2.zero;
-        if (distance > _bossDataSource.AttackChangeDistance) LongRangeAttack();  //遠距離攻撃
-        else ShortRangeAttack();  //近距離攻撃
+        if (Distance > _bossDataSource.AttackChangeDistance)
+        {
+            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
+            LongRangeAttack();  //遠距離攻撃
+        }
+        else
+        {
+            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
+            ShortRangeAttack();  //近距離攻撃
+        }
     }
 
+    /// <summary> 戦闘開始時の演出。システムから呼ばれる </summary>
+    public abstract void BattleStart();
+
+    /// <summary> 近距離攻撃。Attackメソッドから呼ばれる </summary>
+    public abstract void ShortRangeAttack();
+
+    /// <summary> 遠距離攻撃。 Attackメソッドから呼ばれる</summary>
+    public abstract void LongRangeAttack();
+
+    /// <summary> Player接触時にダメージを与える </summary>
+    /// <param name="collision"></param>
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+        {
+            Vector2 _knockBackDir = playerHp.transform.position - transform.position;
+            playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir).Forget();
+        }
+    }
+
+    /// <summary> 近距離攻撃と遠距離攻撃のボーダーをギズモで描画 </summary>
     private void OnDrawGizmos()
     {
         //近接攻撃の範囲描画
@@ -168,25 +185,6 @@ public abstract class BossBase : IEnemyDamaged
     }
 
     //*****以下はアニメーションイベントから呼ぶ用のメソッド*****
-
-    /// <summary> 近距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
-    public void ShortRangeAttackSE()
-    {
-        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"] );
-    }
-
-    /// <summary> 遠距離攻撃時のSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
-    public void LongRangeAttackSE()
-    {
-        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
-    }
-
-    /// <summary> 被ダメージSEを鳴らす。アニメーションイベントから呼ぶ  </summary>
-    public void DamagedSE()
-    {
-        Debug.Log("被ダメージ時のSEを鳴らす");
-        //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["Damaged"]);
-    }
 
     /// <summary> バトル終了時の（元の姿に戻る）SEを鳴らす。アニメーションイベントから呼ぶ  </summary>
     public void BattleEndSE()

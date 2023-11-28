@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+ï»¿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-/// <summary> ƒMƒ~ƒbƒNF“Å‚Ì‹““® </summary>
-public class Poison : MonoBehaviour
+/// <summary> ã‚®ãƒŸãƒƒã‚¯ï¼šæ¯’ã®æŒ™å‹• </summary>
+public class Poison : WaterGimmickBase
 {
+    [SerializeField, Tooltip("Playerã«ä¸ãˆã‚‹ãƒ€ãƒ¡ãƒ¼ã‚¸")]
+    float _damageSizeToPlayer = 0f;
     Collider2D _collider = default;
     Animator _poisonAnim = default;
     private void Start()
@@ -14,16 +15,18 @@ public class Poison : MonoBehaviour
         _poisonAnim = GetComponent<Animator>();
     }
 
-    /// <summary> Player‚©‚çUŒ‚‚ğó‚¯‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚é </summary>
-    public void Detoxification()
-    {
-        //“Å‚ªÁ‚¦‚Ä’Ê‚ê‚é‚æ‚¤‚É‚È‚éBTrigger‚ÍƒAƒjƒ[ƒVƒ‡ƒ“‚ÅƒIƒ“‚É‚µ‚Ä‚Ü‚·
-        _poisonAnim.SetBool("IsAttacked", true);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Player‚ª“–‚½‚Á‚½‚Æ‚«‚Éƒ_ƒ[ƒW—^‚¦‚é‚Æ‚©
+        //PlayerãŒå½“ãŸã£ãŸã¨ãã«ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸ãˆã‚‹
+        if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+        {
+            playerHp.ApplyDamage(_damageSizeToPlayer, Vector2.zero).Forget();
+        }
     }
 
+    public override void WeightActive()
+    {
+        //æ¯’ãŒæ¶ˆãˆã¦é€šã‚Œã‚‹ã‚ˆã†ã«ãªã‚‹
+        _poisonAnim.SetBool("IsAttacked", true);
+    }
 }
