@@ -1021,6 +1021,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mandragora
       objectReference: {fileID: 0}
+    - target: {fileID: 8366258573184882673, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.1636363
+      objectReference: {fileID: 0}
+    - target: {fileID: 8366258573184882673, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.1636363
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
