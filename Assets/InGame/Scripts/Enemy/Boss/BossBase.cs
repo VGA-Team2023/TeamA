@@ -169,7 +169,7 @@ public abstract class BossBase : EnemyBase
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
         {
             Vector2 _knockBackDir = playerHp.transform.position - transform.position;
-            playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir).Forget();
+            playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir.normalized).Forget();
         }
     }
 
