@@ -27,12 +27,12 @@ public class ZakoForest : ZakoBase
     //アニメーションが間に合わないため仮
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHp>(out var pHp)
-            || collision.gameObject.tag == _tagName)
+        if (collision.gameObject.TryGetComponent<PlayerHp>(out var pHp))
+        //|| collision.gameObject.tag == _tagName)
         {
-            Debug.Log("マンドラゴラの攻撃成功");
-            //Vector2 knockBackDir = pHp.transform.position - transform.position;
-            //pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
+            //Debug.Log("マンドラゴラの攻撃成功");
+            Vector2 knockBackDir = pHp.transform.position - transform.position;
+            pHp.ApplyDamage(EnemyDataSource.AttackValue, knockBackDir.normalized).Forget();
         }
     }
 }
