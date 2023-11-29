@@ -149,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 1}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &1945343766583567477
 GameObject:
@@ -360,8 +360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49b3029af1855a44a2c4c7b0329113a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distance: 0
   _enemyDate: {fileID: 11400000, guid: 3d3211129b8edff41bda70af46cf70a3, type: 2}
   _enemyAnim: {fileID: 0}
-  _playerPos: {fileID: 0}
+  _pPos: {fileID: 0}
+  _state: 0
   _attack: {fileID: 7336442993367064950}
   _tagName: Player

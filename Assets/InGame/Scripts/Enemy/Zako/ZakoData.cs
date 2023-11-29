@@ -32,6 +32,14 @@ public class ZakoData : ScriptableObject
     float _moveSpeed = 0f;
     public float MoveSpeed => _moveSpeed;
 
+    [SerializeField, Tooltip("攻撃後とどまる時間")]
+    float _stopTime = 1.5f;
+    public float StopTime => _stopTime;
+
+    [SerializeField, Tooltip("ノックバックの威力")]
+    float _knockback = 5f;
+    public float Knockback => _knockback;
+
     [SerializeField, Tooltip("HP")]
     float _hp = 0f;
     public float Hp => _hp;
