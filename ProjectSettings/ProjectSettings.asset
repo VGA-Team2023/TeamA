@@ -573,7 +573,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: SOFT2D_URP_PIPELINE
-    Standalone: SOFT2D_URP_PIPELINE;UNITASK_DOTWEEN_SUPPORT
+    Standalone: SOFT2D_URP_PIPELINE
     iPhone: SOFT2D_URP_PIPELINE
   additionalCompilerArguments: {}
   platformArchitecture:
