@@ -20,6 +20,7 @@ public class TimeLimitGround : MonoBehaviour
     [SerializeField] private float timeLimit = 5f;
     [SerializeField] private List<TimeLimitGroundData> _dataList = new();
     [SerializeField] private SpriteRenderer _spRenderer;
+    [SerializeField] private Rigidbody2D _rb;
     
     //プレイヤーが足場に乗っている時間
     private float totalTime = 0f;
@@ -28,6 +29,7 @@ public class TimeLimitGround : MonoBehaviour
     
     public void Start()
     {
+        _rb.velocity = new Vector2(0, 0);
         state = State.Wait;
         col = GetComponent<Collider2D>();
     }
@@ -36,18 +38,18 @@ public class TimeLimitGround : MonoBehaviour
     {
         switch (state) {
             case State.Wait:
-                Debug.Log("Wait");
+                //Debug.Log("Wait");
                 break;
             case State.Init:
-                Debug.Log("Init");
+                //Debug.Log("Init");
                 if (ReceiveForce())
                 {
-                    totalTime = 0;
+                    //totalTime = 0;
                     state = State.Corpse;
                 }
                 break;
             case State.Corpse:
-                Debug.Log("Corpse");
+                //Debug.Log("Corpse");
                 Corpse();
                 break;
         }
@@ -55,9 +57,9 @@ public class TimeLimitGround : MonoBehaviour
         for (int i = 0; i < _dataList.Count; i++) 
         {
             if (totalTime >= timeLimit) break;
-            Debug.Log(num);
             if (totalTime < num * (i + 1)) 
             {
+                if (i == _dataList.Count - 1) _rb.velocity = new Vector2(0, -5);
                 _spRenderer.sprite = _dataList[i].Sp;
                 break;
             }
@@ -79,7 +81,7 @@ public class TimeLimitGround : MonoBehaviour
     //アニメーションイベントから呼び出す
     private void Corpse()
     {
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
         Debug.Log("Corpse");
     }
 
