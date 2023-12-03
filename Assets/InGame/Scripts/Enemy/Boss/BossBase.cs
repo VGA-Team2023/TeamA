@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
 
@@ -207,4 +206,14 @@ public abstract class BossBase : EnemyBase
         else if (_oldState == BossState.InBattle) _currentbossState = BossState.OutBattle;
         Debug.Log($"ボスのステートが変更されました{_oldState} -> {_currentbossState}");
     }
+
+    ///// <summary> スプライト切り替わるたびにコライダー生成し直す </summary>
+    //public void SetNewCollider()
+    //{
+    //    if (TryGetComponent<PolygonCollider2D>(out var oldCol))
+    //    {
+    //        gameObject.AddComponent<PolygonCollider2D>();
+    //        Destroy(oldCol);
+    //    }
+    //}
 }

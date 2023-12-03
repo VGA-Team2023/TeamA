@@ -10,12 +10,15 @@ using UnityEngine;
 
 public class BossForest : BossBase
 {
+    PolygonCollider2D _polygonCollider2D;
+
     public override void BattleStart()
     {
         if (CurrentBossState == BossState.Await)
         {
 
             //バトル開始時の演出：未定 ←一旦アニメーションで作ってるけど、おそらくTimeLineになる
+            _polygonCollider2D = GetComponent<PolygonCollider2D>();
             BossAnimator.SetTrigger("BattleStart");
             Debug.Log("ボス戦闘開始");
             //アニメーションイベント：BossStateをInGameに変える
@@ -25,6 +28,7 @@ public class BossForest : BossBase
 
     public override void ShortRangeAttack()
     {
+        _polygonCollider2D.isTrigger = true;
         //アニメーション
         BossAnimator.SetTrigger("ShortRangeAttack");
         //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ、SE   ←納品後に大幅調整
@@ -33,6 +37,7 @@ public class BossForest : BossBase
 
     public override void LongRangeAttack()
     {
+        _polygonCollider2D.isTrigger = true;
         //アニメーション
         BossAnimator.SetTrigger("LongRangeAttack");
         //アニメーションイベント：コライダーの変化、プレイヤーへのダメージ、SE   ←納品後に大幅調整
