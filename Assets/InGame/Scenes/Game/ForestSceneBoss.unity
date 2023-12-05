@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &172025081 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 86550996613296154, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
+  m_PrefabInstance: {fileID: 2005648569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &241041254
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,8 +408,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.26100016, y: 0.14324999, z: 0}
-    m_Extent: {x: 9.4258, y: 4.68285, z: 0}
+    m_Center: {x: -0.26550007, y: 0.1482501, z: 0}
+    m_Extent: {x: 9.4293, y: 4.68865, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -617,9 +628,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 468354158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa81082c7765a774dba9a095f0a0bb5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b7870ec320440a4a84dbf385661c23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fadeScript: {fileID: 1840471833}
+  _bossBase: {fileID: 1211371697}
+  _bossStartAnimEvent: {fileID: 0}
+  _virtualCamera: {fileID: 172025081}
 --- !u!1 &470292004
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,8 +840,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 12.533751, y: -5.17625, z: 0}
-    m_Extent: {x: 17.22675, y: 14.49115, z: 0}
+    m_Center: {x: 12.53745, y: -5.1776, z: 0}
+    m_Extent: {x: 17.22745, y: 14.4915, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1458,6 +1473,17 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1211371697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8816876339244339064, guid: 32483b58c27852a4d9b0b5b516faa5d6, type: 3}
+  m_PrefabInstance: {fileID: 1665741491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d77cfd013510b248b0117bdd66cdbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1234612530
 GameObject:
   m_ObjectHideFlags: 0

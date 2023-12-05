@@ -16,7 +16,8 @@ public class ForestBossScene : MonoBehaviour
 
     void Start()
     {
-        _bossStartAnimEvent.OnEndAnim.Subscribe(_ => StartBattle().Forget()).AddTo(this);   
+        //_bossStartAnimEvent.OnEndAnim.Subscribe(_ => StartBattle().Forget()).AddTo(this);   
+        StartBattle().Forget();
     }
 
     void Update()
@@ -26,6 +27,7 @@ public class ForestBossScene : MonoBehaviour
 
     public async UniTask StartBattle()
     {
+        Debug.Log("羽島ありました");
         _bossBase.BattleStart();
         await _fadeScript.FadeIn();
     }
