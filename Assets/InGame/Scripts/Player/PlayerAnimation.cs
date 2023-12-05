@@ -44,6 +44,11 @@ public class PlayerAnimation
         _anim.SetBool("Run", isRun);
     }
 
+    public void DamageAnim(bool isDamage) 
+    {
+        _anim.Play("Damage");
+    }
+
     public async UniTask InvincibleTimeAnim(float invincibleTime) 
     {
         //_anim.SetTrigger("KnockBack");
