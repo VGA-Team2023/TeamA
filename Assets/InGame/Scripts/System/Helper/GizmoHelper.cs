@@ -23,7 +23,7 @@ public class GizmoHelper : MonoBehaviour
 
     }
 
-    public static void OnDrawBox(Vector3 mySelf, Vector3 direction, float scale,  float maxDistance, RaycastHit2D hit)
+    public static void OnDrawBox(Vector3 mySelf, Vector3 direction, float scale, float maxDistance, RaycastHit2D hit)
     {
         _transform = mySelf;
         _direction = direction;
@@ -45,4 +45,21 @@ public class GizmoHelper : MonoBehaviour
         Gizmos.DrawWireCube(_transform + _direction * _hit.distance, Vector3.one * _scale);
     }
 
+    public class DrawBoxData
+    {
+        private readonly Vector3 MySelf = default;
+        private readonly Vector3 Direction = default;
+        private readonly float Scale = 0f;
+        private readonly float MaxDistance = 0f;
+        private readonly RaycastHit2D Hit = default;
+
+        public DrawBoxData(Vector3 mySelf, Vector3 direction, float scale, float max, RaycastHit2D hit)
+        {
+            MySelf = mySelf;
+            Direction = direction;
+            Scale = scale;
+            MaxDistance = max;
+            Hit = hit;
+        }
+    }
 }
