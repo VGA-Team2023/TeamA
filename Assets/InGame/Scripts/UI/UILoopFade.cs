@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class UILoopFade : MonoBehaviour
 {
     private Image _image;
 
+    [SerializeField, Range(0, 1)] private float _alpha;
     [SerializeField] private float _duration = 1.0f;
     [SerializeField] private float _delayTime = 1.0f;
 
@@ -22,12 +24,12 @@ public class UILoopFade : MonoBehaviour
     {
         while (true)
         {
-            await FadeImage(0, 1);
+            await FadeImage(_alpha, 1);
 
             // 一定時間待機
             await UniTask.Delay((int)(_delayTime * 1000));
 
-            await FadeImage(1, 0);
+            await FadeImage(1, _alpha);
 
             await UniTask.Delay((int)(_delayTime * 1000));
         }
