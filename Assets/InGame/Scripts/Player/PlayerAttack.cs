@@ -25,6 +25,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
     private readonly ReactiveProperty<float> _maxWaterNum = new ReactiveProperty<float>();
 
     private PlayerEnvroment _env;
+    private bool _isAttack;
 
 
     public void SetUp(PlayerEnvroment env, CancellationToken token)
@@ -47,23 +48,32 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     private async UniTaskVoid Attack()
     {
-        _env.AddState(PlayerStateType.Attack);
-        Debug.Log(InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
 
-        do
+        _env.AddState(PlayerStateType.Attack);
+
+        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack) && 0 < _currentWaterNum.Value 
+               && !_isAttack)
         {
+            _isAttack = true;
+            await UniTask.WaitForSeconds(_waterRate);
             _currentWaterNum.Value -= _waterConsumption;
-            //_env.PlayerAnim.AttackAnim(true);
+            _env.PlayerAnim.AttackAnim(true);
 
             var bulletCs = UnityEngine.Object.
-                Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
+                Instantiate(_bullet, _muzzle.transform.position,
+                Quaternion.FromToRotation(Vector2.left, _env.PlayerTransform.transform.position - _eimPos.transform.position)
+                .normalized).GetComponent<TestBullet>();
+
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
-            CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_attack");
-            await UniTask.WaitForSeconds(_waterRate);
+            _isAttack = false;
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_attack");
         }
-        while (InputProvider.Instance.GetStayInput(InputProvider.InputType.Attack));
+        
         
         _env.RemoveState(PlayerStateType.Attack);
+        _env.PlayerAnim.AttackAnim(false);
     }
 
     private void CancelAttak() 
@@ -74,6 +84,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
     public void Dispose()
     {
+        InputProvider.Instance.LiftEnterInputAsync(InputProvider.InputType.Attack, Attack);
         _maxWaterNum.Dispose();
         _currentWaterNum.Dispose();
     }

@@ -5,11 +5,13 @@ using UnityEngine;
 using System;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using DG.Tweening;
 
 [Serializable]
 public class PlayerAnimation
 {
     [SerializeField] private Animator _anim;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     private CancellationToken _token;
 
     public void SetUp(CancellationToken token) 
@@ -26,5 +28,32 @@ public class PlayerAnimation
     public void AttackAnim(bool isAttack) 
     {
         _anim.SetBool("Attack", isAttack);
+    }
+    public void JumpAnim(bool isJump)
+    {
+        _anim.SetBool("Jump", isJump);
+    }
+
+    public void WalkAnim(bool isWalk) 
+    {
+        _anim.SetBool("Walk", isWalk);
+    }
+
+    public void RunAnim(bool isRun) 
+    {
+        _anim.SetBool("Run", isRun);
+    }
+
+    public void DamageAnim(bool isDamage) 
+    {
+        _anim.Play("Damage");
+    }
+
+    public async UniTask InvincibleTimeAnim(float invincibleTime) 
+    {
+        //_anim.SetTrigger("KnockBack");
+        //await UniTask.WaitUntil(() => _anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98, cancellationToken: _token);
+        await _spriteRenderer.DOFade(0, invincibleTime).SetLoops(3, LoopType.Yoyo);
+        _spriteRenderer.color = new Color(1, 1, 1, 1);
     }
 }

@@ -1,79 +1,47 @@
-//日本語対応
-using System.Collections;
-using System.Collections.Generic;
-using Action2D;
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour
+/// <summary> Enemy（ザコとボス）共通の基底クラス </summary>
+public abstract class EnemyBase : MonoBehaviour, IReceiveWater
 {
-    [SerializeField, Tooltip("雑魚敵のデータ")]
-    EnemyData _enemyDate = default;
-    public EnemyData EnemyDataSource => _enemyDate;
+    [SerializeField, Tooltip("Playerとの距離")]
+    float _distance = 0f;
+    public float Distance => _distance;
+    [Tooltip("GameManagerのインスタンス")]
+    GameManager _gm = default;
+    public GameManager GManager => _gm;
 
-    Rigidbody2D _rb = default;
-
-    Vector2 _pos = default;
-
-    private void Awake()
+    protected virtual void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _pos = gameObject.transform.position;
+        _gm = GameManager.Instance;
+        Debug.Log("test");
+    }
+    protected virtual void Update()
+    {
+        if (_gm != null) _distance = MeasureDistance();
     }
 
-    private void Update()
+    /// <summary> 水があたったときに呼ばれる。 </summary>
+    public void ReceiveWater()
     {
-        //Playerとの距離計算
-        Vector2 pPos = GameManager.Instance.PlayerEnvroment.PlayerTransform.position;
-        float distance = Vector2.Distance(this.transform.position, pPos);
-
-        //距離が離れてたら
-        if (distance > _enemyDate.LookDistance)
-        {
-            //巡回
-            Move();
-        }
-        else
-        {
-            //近くまで移動
-            MoveToPlayer(pPos);
-        }
+        Damaged();
     }
 
-    /// <summary>巡回中の動き</summary>
-    void Move()
-    {
-        {
-
-        }
-    }
-
-    /// <summary> Playerに近づく </summary>
-    /// <param name="playerPos">Playerの座標</param>
-    private void MoveToPlayer(Vector2 playerPos)
-    {
-        //方向転換
-        if (transform.position.x < playerPos.x && transform.eulerAngles.y < 180f)    //右に向く  
-        {
-            transform.eulerAngles = new Vector3(0, 180f, 0);
-        }
-        else if (transform.position.x >= playerPos.x && transform.eulerAngles.y >= 180f)    //左に向く
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        //移動
-        Vector2 moveDir = new Vector2(playerPos.x - transform.position.x, transform.position.y);
-        _rb.velocity = moveDir.normalized * _enemyDate.MoveSpeed;
-
-        //攻撃
-        Attack();
-    }
-
-    /// <summary>攻撃</summary>
+    /// <summary> 攻撃時に呼ぶメソッド </summary>
     public abstract void Attack();
-
-    /// <summary> 被ダメージ </summary>
+    /// <summary> 移動時に呼ぶメソッド </summary>
+    public abstract void Move();
+    /// <summary> 被ダメ時に呼ぶメソッド </summary>
     public abstract void Damaged();
+    /// <summary> 退場時に呼ぶメソッド </summary>
+    public abstract void Exit();
 
-    /// <summary>死亡時</summary>
-    public abstract void Die();
+    /// <summary> Playerとの距離を測る </summary>
+    /// <returns>Playerとの距離</returns>
+    public float MeasureDistance()
+    {
+        Vector2 pPos = _gm.PlayerEnvroment.PlayerTransform.position;   //Playerの座標
+        float distance = Vector2.Distance(this.transform.position, pPos);   //Playerとの距離
+        return distance;
+    }
+
 }

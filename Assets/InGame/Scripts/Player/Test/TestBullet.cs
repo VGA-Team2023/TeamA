@@ -9,10 +9,24 @@ public class TestBullet : MonoBehaviour
     [SerializeField] private float _speed;
     [TagName]
     [SerializeField] private string _groundTag;
+    [SerializeField] private int _damage;
+    [SerializeField] private GameObject _effect;
 
+    private Vector3 _preTransform;
     private Vector2 _playerForward;
 
-    public void SetShotDirection(Vector2 direction) 
+    private void Start()
+    {
+        _preTransform = transform.position;
+    }
+
+    private void Update()
+    {
+        transform.rotation = Quaternion.FromToRotation(Vector3.left, _rb.velocity.normalized * -1);
+        _preTransform = transform.position;
+    }
+
+    public void SetShotDirection(Vector2 direction)
     {
         _playerForward = direction;
         Move();
@@ -24,8 +38,16 @@ public class TestBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(_groundTag)) 
+        if (collision.CompareTag(_groundTag))
         {
+            Debug.Log("きた");
+            Instantiate(_effect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        else if (collision.TryGetComponent<IReceiveWater>(out var damage))
+        {
+            Instantiate(_effect, transform);
+            damage.ReceiveWater();
             Destroy(gameObject);
         }
 

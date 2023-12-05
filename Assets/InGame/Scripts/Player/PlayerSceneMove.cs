@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// 次のシーンに移動する際の処理を書くクラス
 /// </summary>
+[Serializable]
 public class PlayerSceneMove : IPlayerSceneMove, IPlayerState
 {
 
@@ -32,6 +34,6 @@ public class PlayerSceneMove : IPlayerSceneMove, IPlayerState
 
     public void SceneMoveStart()
     {
-        
+        Debug.Log("呼ばれた");
     }
 }

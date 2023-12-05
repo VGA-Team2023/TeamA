@@ -30,15 +30,18 @@ public class PlayerMove : IPlayerState
 
     public void FixedUpdate()
     {
+        if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+
         if (InputProvider.Instance.GetStayInput(InputProvider.InputType.Dash))
         {
             Run();
         }
-        else 
+        else
         {
             Walk();
         }
-       
+
     }
 
     private void Run()
@@ -46,12 +49,15 @@ public class PlayerMove : IPlayerState
         if (_dir == Vector3.zero)
         {
             _env.RemoveState(PlayerStateType.Run);
+            _env.PlayerAnim.RunAnim(false);
         }
         else
         {
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;
+            _env.PlayerAnim.RunAnim(true);
+            _env.PlayerAnim.WalkAnim(false);
         }
 
         _rb.velocity = new Vector2(_dir.x * _dashSpeed, _rb.velocity.y);
@@ -62,13 +68,16 @@ public class PlayerMove : IPlayerState
         if (_dir == Vector3.zero)
         {
             _env.RemoveState(PlayerStateType.Walk);
+            _env.PlayerAnim.WalkAnim(false);
+            _env.PlayerAnim.RunAnim(false);
         }
         else
         {
-            _walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
+            //_walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;
+            _env.PlayerAnim.WalkAnim(true);
         }
 
         _rb.velocity = new Vector2(_dir.x * _walkSpeed, _rb.velocity.y);
@@ -77,19 +86,19 @@ public class PlayerMove : IPlayerState
 
     private void MoveDirSprite()
     {
-        if (_dir.x < -0.5f) 
+        if (_dir.x < -0.5f)
         {
             _env.PlayerTransform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        else if(_dir.x > 0.5f)
+        else if (_dir.x > 0.5f)
         {
             _env.PlayerTransform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        
+
     }
 
     public void Dispose()
     {
-        
+
     }
 }

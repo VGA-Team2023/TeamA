@@ -24,7 +24,7 @@ public class PlayerView : MonoBehaviour
     {
         _currentWater = num;
         AdjustmentWaterBar();
-        Debug.Log($"現在の水の残量は{num}");
+        //Debug.Log($"現在の水の残量は{num}");
     }
 
     public void SetMaxWater(float num)
@@ -35,6 +35,22 @@ public class PlayerView : MonoBehaviour
     public void SetHpView(float num)
     {
         _currentHp = (int)num;
+
+        if(_currentHp < 0) _currentHp = 0;
+
+        //アクティブにするインスタンスがないとき
+        if (_maxHpImage.Count < num)
+        {
+            var sum = num - _maxHpImage.Count;
+
+            //増えた数分プールに増やす
+            for (int j = 0; j < sum; j++)
+            {
+                _maxHpImage.Add(Instantiate(_withoutHpObj, _withoutHpInsPos).GetComponent<Image>());
+                _currentHpImage.Add(Instantiate(_activeHpObj, _activeHpInsPos).GetComponent<Image>());
+            }
+        }
+
         for (int i = 0; i < _currentHp; i++) 
         {
             _currentHpImage[i].enabled = true;
@@ -89,7 +105,6 @@ public class PlayerView : MonoBehaviour
 
     private void AdjustmentWaterBar()
     {
-        Debug.Log(_currentWater / _maxWater);
         _currentWaterImage.DOFillAmount(_currentWater / _maxWater, 0.5f);
     }
 

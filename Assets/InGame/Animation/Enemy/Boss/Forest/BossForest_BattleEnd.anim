@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BossForest_BattleEnd
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 787b695eb33e6a040a636af53bb2b2f7, type: 3}
+    - time: 0.21666667
+      value: {fileID: 21300000, guid: 1a2ea31f97ffdc6428e044fcfe3e3915, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 41a79f67f487e6740aedf658f54ba6bf, type: 3}
+    - time: 0.6333333
+      value: {fileID: 21300000, guid: 214ab1487aab68941939460ceb96087e, type: 3}
+    - time: 0.85
+      value: {fileID: 21300000, guid: 1c95bc3b7e07e7145bb332e5bda60419, type: 3}
+    - time: 1.0666667
+      value: {fileID: 21300000, guid: 8d86eff1b7e31524babde54f35103c45, type: 3}
+    - time: 1.2666667
+      value: {fileID: 21300000, guid: 68b4d529cb348ec4f8320a2aa2e75ddc, type: 3}
+    - time: 1.4833333
+      value: {fileID: 21300000, guid: daadd95506bbb8c40a35c4336af27c68, type: 3}
+    - time: 2.0166667
+      value: {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - time: 2.3
+      value: {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - time: 2.5666666
+      value: {fileID: 21300000, guid: 1836a6155b815e54e9150ec57201da02, type: 3}
+    - time: 2.85
+      value: {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - time: 3.1166666
+      value: {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - time: 3.4166667
+      value: {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - time: 3.7
+      value: {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - time: 3.9666667
+      value: {fileID: 21300000, guid: 1836a6155b815e54e9150ec57201da02, type: 3}
+    - time: 4.25
+      value: {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - time: 4.516667
+      value: {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 787b695eb33e6a040a636af53bb2b2f7, type: 3}
+    - {fileID: 21300000, guid: 1a2ea31f97ffdc6428e044fcfe3e3915, type: 3}
+    - {fileID: 21300000, guid: 41a79f67f487e6740aedf658f54ba6bf, type: 3}
+    - {fileID: 21300000, guid: 214ab1487aab68941939460ceb96087e, type: 3}
+    - {fileID: 21300000, guid: 1c95bc3b7e07e7145bb332e5bda60419, type: 3}
+    - {fileID: 21300000, guid: 8d86eff1b7e31524babde54f35103c45, type: 3}
+    - {fileID: 21300000, guid: 68b4d529cb348ec4f8320a2aa2e75ddc, type: 3}
+    - {fileID: 21300000, guid: daadd95506bbb8c40a35c4336af27c68, type: 3}
+    - {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - {fileID: 21300000, guid: 1836a6155b815e54e9150ec57201da02, type: 3}
+    - {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+    - {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - {fileID: 21300000, guid: 1836a6155b815e54e9150ec57201da02, type: 3}
+    - {fileID: 21300000, guid: 8713ec2167242ef46a86debfca61a7cb, type: 3}
+    - {fileID: 21300000, guid: 0befbbdaea8a36c49bbb06b02cb15dd6, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 4.533334
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 0
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events:
+  - time: 0
+    functionName: ChangeBossState
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4
+    functionName: BattleEndSE
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 4.45
+    functionName: ChangeScene
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
