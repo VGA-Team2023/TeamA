@@ -46,14 +46,14 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.625, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.05
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -123,10 +123,63 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-    physicsShape: []
+    physicsShape:
+    - - {x: 809, y: -123}
+      - {x: 720, y: 48}
+      - {x: 662, y: 83}
+      - {x: 633, y: 83}
+      - {x: 551, y: 17}
+      - {x: 528, y: -69}
+      - {x: 554, y: -100}
+      - {x: 584, y: -106}
+      - {x: 614, y: -81}
+      - {x: 571, y: -60}
+      - {x: 597, y: -12}
+      - {x: 663, y: -110}
+      - {x: 608, y: -157}
+      - {x: 507, y: -66}
+      - {x: 310, y: 36}
+      - {x: 300, y: 95}
+      - {x: 252, y: 131}
+      - {x: 219, y: 131}
+      - {x: 179, y: 89}
+      - {x: 154, y: -9}
+      - {x: 56, y: -126}
+      - {x: -79, y: -173}
+      - {x: -97, y: -168}
+      - {x: -131, y: -153}
+      - {x: -163, y: -143}
+      - {x: -203, y: -142}
+      - {x: -235, y: -156}
+      - {x: -284, y: -216}
+      - {x: -295, y: -254}
+      - {x: -295, y: -313}
+      - {x: -274, y: -343}
+      - {x: -223, y: -367}
+      - {x: -151, y: -377}
+      - {x: -126, y: -358}
+      - {x: -111, y: -316}
+      - {x: -128, y: -294}
+      - {x: -150, y: -294}
+      - {x: -167, y: -300}
+      - {x: -197, y: -327}
+      - {x: -167, y: -256}
+      - {x: -65, y: -331}
+      - {x: 43, y: -392}
+      - {x: 248, y: -403}
+      - {x: 386, y: -393}
+      - {x: 455, y: -407}
+      - {x: 589, y: -407}
+      - {x: 708, y: -372}
+      - {x: 737, y: -353}
+      - {x: 809, y: -168}
+    - - {x: -4, y: -197}
+      - {x: 0, y: -188}
+      - {x: -42, y: -196}
+      - {x: -42, y: -201}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []

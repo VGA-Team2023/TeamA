@@ -28,6 +28,10 @@ public abstract class BossBase : EnemyBase
 
     [Tooltip("SEを対応させるDictionary")] Dictionary<string, string> _sePairDic = new Dictionary<string, string>();
 
+    PolygonCollider2D _currentPolygonCollider2D;
+    public PolygonCollider2D CurrentPolygonCollider2D => _currentPolygonCollider2D;
+
+
     /// <summary> ボスの状態を管理するEnum </summary>
     public enum BossState
     {
@@ -43,8 +47,8 @@ public abstract class BossBase : EnemyBase
     {
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _bossAnimator = GetComponent<Animator>();
+        _currentPolygonCollider2D = GetComponent<PolygonCollider2D>();
         _bossAnimator.runtimeAnimatorController = _bossDataSource.BossAniCon;   //Bossの種類に合わせて指定のコントローラーを割り当てる
-        _criAudioManager = CriAudioManager.Instance;
         _currentHp = _bossDataSource.DefaultHp;
     }
 
@@ -52,6 +56,7 @@ public abstract class BossBase : EnemyBase
     {
         base.Start();
         ///SEの名前とFileを対応させる
+        _criAudioManager = CriAudioManager.Instance;
         for (int i = 0; i < _bossDataSource.SeTypeList.Count; i++)
         {
             _sePairDic.Add(_bossDataSource.SeTypeList[i], _bossDataSource.SeFileList[i]);
@@ -116,7 +121,7 @@ public abstract class BossBase : EnemyBase
     {
         if (_currentbossState == BossState.InBattle)
         {
-            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BossDamaged"]);
+            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["BossDamaged"]);
             _bossAnimator.SetTrigger("Damaged");    //被ダメージアニメーション
 
             //ダメージ計算
@@ -142,12 +147,12 @@ public abstract class BossBase : EnemyBase
         _rigidbody2d.velocity = Vector2.zero;
         if (Distance > _bossDataSource.AttackChangeDistance)
         {
-            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
+            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
             LongRangeAttack();  //遠距離攻撃
         }
         else
         {
-            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
+            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
             ShortRangeAttack();  //近距離攻撃
         }
     }
@@ -207,13 +212,18 @@ public abstract class BossBase : EnemyBase
         Debug.Log($"ボスのステートが変更されました{_oldState} -> {_currentbossState}");
     }
 
-    ///// <summary> スプライト切り替わるたびにコライダー生成し直す </summary>
-    //public void SetNewCollider()
-    //{
-    //    if (TryGetComponent<PolygonCollider2D>(out var oldCol))
-    //    {
-    //        gameObject.AddComponent<PolygonCollider2D>();
-    //        Destroy(oldCol);
-    //    }
-    //}
+    ///// <summary> スプライト切り替わるたびにコライダー生成し直す。アニメーションイベントから呼ぶ </summary>
+    public void DestroyCollider()
+    {
+        if (TryGetComponent<PolygonCollider2D>(out var oldCol))
+        {
+            Destroy(oldCol);
+        }
+    }
+
+    public void SetNewCollider()
+    {
+        _currentPolygonCollider2D = gameObject.AddComponent<PolygonCollider2D>();
+        _currentPolygonCollider2D.isTrigger = true;
+    }
 }

@@ -1,7 +1,5 @@
 //日本語対応
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary> Playerにダメージを与える。攻撃の蔦やヘドロに直接アタッチする  </summary>
@@ -11,13 +9,14 @@ public class DamageBossToPlayer : MonoBehaviour
 
 
     /// <summary> 攻撃の種類を指定するEnum </summary>
-    enum AttackType
+    public enum AttackType
     {
         ShortRangeAttack,
         LongRangeAttack,
     }
 
-    [SerializeField, Tooltip("この攻撃の種類")] AttackType _attackType = AttackType.ShortRangeAttack;
+    [SerializeField, Tooltip("この攻撃の種類")] AttackType _currentAttackType = AttackType.ShortRangeAttack;
+    public AttackType CurrentAttackType { get => _currentAttackType; set => _currentAttackType = value; }
 
     private void Awake()
     {
@@ -26,7 +25,7 @@ public class DamageBossToPlayer : MonoBehaviour
         {
             //攻撃の種類に合わせて与えるダメージ数を取得する
             _damageSize = 
-                (_attackType == AttackType.ShortRangeAttack) ? _bossData.ShortAttackDamageSize : _bossData.LongAttackDamageSize;
+                (_currentAttackType == AttackType.ShortRangeAttack) ? _bossData.ShortAttackDamageSize : _bossData.LongAttackDamageSize;
         }
     }
 

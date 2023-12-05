@@ -46,14 +46,14 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.625, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.05
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -121,40 +121,81 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: aruraune_nagiharai2_0
-      rect:
-        serializedVersion: 2
-        x: 179
-        y: 34
-        width: 1039
-        height: 647
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ceb9e3ef7c61f914db4efd4b22e6b3ac
-      internalID: -875704328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
-    physicsShape: []
+    physicsShape:
+    - - {x: 841, y: -165}
+      - {x: 841, y: -115}
+      - {x: 817, y: -59}
+      - {x: 781, y: 49}
+      - {x: 748, y: 104}
+      - {x: 682, y: 118}
+      - {x: 592, y: 33}
+      - {x: 570, y: -5}
+      - {x: 559, y: -59}
+      - {x: 583, y: -95}
+      - {x: 613, y: -99}
+      - {x: 623, y: -67}
+      - {x: 587, y: -54}
+      - {x: 656, y: 6}
+      - {x: 699, y: -61}
+      - {x: 665, y: -151}
+      - {x: 630, y: -159}
+      - {x: 492, y: -29}
+      - {x: 428, y: -24}
+      - {x: 310, y: 36}
+      - {x: 301, y: 96}
+      - {x: 233, y: 145}
+      - {x: 173, y: 91}
+      - {x: 187, y: 31}
+      - {x: 35, y: -131}
+      - {x: -34, y: -13}
+      - {x: -8, y: -7}
+      - {x: 38, y: 36}
+      - {x: 62, y: 91}
+      - {x: 205, y: 169}
+      - {x: 328, y: 149}
+      - {x: 313, y: 136}
+      - {x: 322, y: 118}
+      - {x: 371, y: 78}
+      - {x: 397, y: 75}
+      - {x: 467, y: 94}
+      - {x: 492, y: 129}
+      - {x: 481, y: 172}
+      - {x: 464, y: 190}
+      - {x: 360, y: 234}
+      - {x: 331, y: 242}
+      - {x: 154, y: 242}
+      - {x: 8, y: 198}
+      - {x: -32, y: 174}
+      - {x: -118, y: 93}
+      - {x: -123, y: 44}
+      - {x: -198, y: -51}
+      - {x: -199, y: -60}
+      - {x: -199, y: -148}
+      - {x: -149, y: -199}
+      - {x: -125, y: -234}
+      - {x: -132, y: -304}
+      - {x: -64, y: -354}
+      - {x: -25, y: -355}
+      - {x: 45, y: -386}
+      - {x: 107, y: -391}
+      - {x: 248, y: -398}
+      - {x: 386, y: -393}
+      - {x: 474, y: -407}
+      - {x: 556, y: -407}
+      - {x: 704, y: -379}
+      - {x: 741, y: -353}
+      - {x: 749, y: -335}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      aruraune_nagiharai2_0: -875704328
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

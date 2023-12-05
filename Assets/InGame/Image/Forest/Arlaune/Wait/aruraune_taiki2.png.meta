@@ -46,14 +46,14 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.625, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.05
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -121,40 +121,74 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: aruraune_taiki2_0
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 34
-        width: 1077
-        height: 792
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f8458045e8afec4d8df8fb911ff5663
-      internalID: -1900637984
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
-    physicsShape: []
+    physicsShape:
+    - - {x: 657, y: 130}
+      - {x: 593, y: 45}
+      - {x: 569, y: -49}
+      - {x: 595, y: -79}
+      - {x: 625, y: -92}
+      - {x: 646, y: -65}
+      - {x: 638, y: -55}
+      - {x: 657, y: 19}
+      - {x: 704, y: -13}
+      - {x: 696, y: -110}
+      - {x: 638, y: -142}
+      - {x: 594, y: -107}
+      - {x: 520, y: -27}
+      - {x: 442, y: -17}
+      - {x: 325, y: 33}
+      - {x: 302, y: 87}
+      - {x: 261, y: 151}
+      - {x: 181, y: 115}
+      - {x: 149, y: -16}
+      - {x: -35, y: -136}
+      - {x: -55, y: -12}
+      - {x: -15, y: 9}
+      - {x: 44, y: 82}
+      - {x: 53, y: 260}
+      - {x: 130, y: 279}
+      - {x: 121, y: 226}
+      - {x: 68, y: 222}
+      - {x: 65, y: 206}
+      - {x: 71, y: 142}
+      - {x: 106, y: 129}
+      - {x: 213, y: 241}
+      - {x: 212, y: 307}
+      - {x: 136, y: 386}
+      - {x: 66, y: 386}
+      - {x: 25, y: 371}
+      - {x: -92, y: 205}
+      - {x: -155, y: 102}
+      - {x: -189, y: 31}
+      - {x: -220, y: -63}
+      - {x: -229, y: -97}
+      - {x: -236, y: -136}
+      - {x: -177, y: -225}
+      - {x: -166, y: -317}
+      - {x: -85, y: -377}
+      - {x: -22, y: -372}
+      - {x: 22, y: -367}
+      - {x: 54, y: -387}
+      - {x: 97, y: -391}
+      - {x: 248, y: -398}
+      - {x: 386, y: -392}
+      - {x: 450, y: -407}
+      - {x: 566, y: -407}
+      - {x: 716, y: -379}
+      - {x: 849, y: -198}
+      - {x: 849, y: -79}
+      - {x: 757, y: 118}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      aruraune_taiki2_0: -1900637984
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

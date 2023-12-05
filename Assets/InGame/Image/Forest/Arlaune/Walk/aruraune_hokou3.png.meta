@@ -46,14 +46,14 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.625, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.05
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -121,40 +121,77 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: aruraune_hokou3_0
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 47
-        width: 1106
-        height: 785
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d53e017c0918d484aa3c60ba3f5cdf30
-      internalID: 31762112
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
-    physicsShape: []
+    physicsShape:
+    - - {x: 866, y: -156}
+      - {x: 866, y: -103}
+      - {x: 855, y: -55}
+      - {x: 762, y: 117}
+      - {x: 692, y: 135}
+      - {x: 648, y: 108}
+      - {x: 592, y: 47}
+      - {x: 577, y: -37}
+      - {x: 595, y: -71}
+      - {x: 639, y: -69}
+      - {x: 648, y: -34}
+      - {x: 621, y: -17}
+      - {x: 659, y: 31}
+      - {x: 715, y: -21}
+      - {x: 704, y: -94}
+      - {x: 645, y: -134}
+      - {x: 541, y: -22}
+      - {x: 415, y: -25}
+      - {x: 309, y: 36}
+      - {x: 300, y: 95}
+      - {x: 233, y: 146}
+      - {x: 179, y: 89}
+      - {x: 158, y: -11}
+      - {x: -37, y: -136}
+      - {x: -45, y: -30}
+      - {x: 29, y: 33}
+      - {x: 60, y: 130}
+      - {x: 40, y: 218}
+      - {x: 53, y: 281}
+      - {x: 102, y: 292}
+      - {x: 142, y: 272}
+      - {x: 122, y: 242}
+      - {x: 65, y: 232}
+      - {x: 69, y: 159}
+      - {x: 109, y: 140}
+      - {x: 203, y: 238}
+      - {x: 208, y: 300}
+      - {x: 165, y: 364}
+      - {x: 145, y: 392}
+      - {x: 55, y: 392}
+      - {x: 18, y: 382}
+      - {x: -30, y: 299}
+      - {x: -85, y: 215}
+      - {x: -152, y: 117}
+      - {x: -195, y: -4}
+      - {x: -240, y: -62}
+      - {x: -240, y: -141}
+      - {x: -169, y: -250}
+      - {x: -173, y: -328}
+      - {x: -134, y: -367}
+      - {x: -46, y: -377}
+      - {x: 6, y: -365}
+      - {x: 44, y: -391}
+      - {x: 87, y: -391}
+      - {x: 186, y: -393}
+      - {x: 619, y: -393}
+      - {x: 718, y: -356}
+      - {x: 740, y: -335}
+      - {x: 833, y: -221}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      aruraune_hokou3_0: 31762112
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
