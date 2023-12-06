@@ -1,14 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using DG.Tweening;
 
 /// <summary> �`�F�b�N�|�C���g��ʉ߂���Ƃ��̏��� </summary>
 public class CheckPoint : MonoBehaviour
 {
     [SerializeField] private float _healHpSize = 0f;
+    [SerializeField] private SpriteRenderer _heartSprite;
+    [Tooltip("ハートをフェードする時間")] float _fadeTime = 1f;
 
     private string _sceneName;
 
@@ -21,6 +20,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.TryGetComponent<PlayerHp>(out var playerHp))
         {
+            _heartSprite.DOFade(0f, _fadeTime).OnComplete(() => _heartSprite.DOFade(1f, _fadeTime));
             playerHp.ApplyHeal(_healHpSize); //Player��HP���񕜂���
             RestartController.Instance.SetRestartPos(transform, _sceneName); //���X�^�[�g�̍��W��ς���
 #if UNITY_EDITOR
