@@ -31,6 +31,8 @@ public abstract class BossBase : EnemyBase
     PolygonCollider2D _currentPolygonCollider2D;
     public PolygonCollider2D CurrentPolygonCollider2D => _currentPolygonCollider2D;
 
+    [Tooltip("攻撃中かどうか")] bool _isAttacking = false;
+
 
     /// <summary> ボスの状態を管理するEnum </summary>
     public enum BossState
@@ -112,7 +114,7 @@ public abstract class BossBase : EnemyBase
     /// <summary> 戦闘終了時の演出 。HPが0になったら呼ばれる</summary>
     public override void Exit()
     {
-        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
+        _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BattleEnd"]);
         _bossAnimator.SetTrigger("BattleEnd");
     }
 
@@ -121,7 +123,7 @@ public abstract class BossBase : EnemyBase
     {
         if (_currentbossState == BossState.InBattle)
         {
-            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["BossDamaged"]);
+            _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BossDamaged"]);
             _bossAnimator.SetTrigger("Damaged");    //被ダメージアニメーション
 
             //ダメージ計算
@@ -145,15 +147,20 @@ public abstract class BossBase : EnemyBase
     public override void Attack()
     {
         _rigidbody2d.velocity = Vector2.zero;
-        if (Distance > _bossDataSource.AttackChangeDistance)
+        if(!_isAttacking)
         {
-            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
-            LongRangeAttack();  //遠距離攻撃
-        }
-        else
-        {
-            //_criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
-            ShortRangeAttack();  //近距離攻撃
+            if (Distance > _bossDataSource.AttackChangeDistance)
+            {
+                _criAudioManager.SE.Play("CueSheet_0", _sePairDic["LongRangeAttack"]);
+                LongRangeAttack();  //遠距離攻撃
+            }
+            else
+            {
+                _criAudioManager.SE.Play("CueSheet_0", _sePairDic["ShortRangeAttack"]);
+                ShortRangeAttack();  //近距離攻撃
+            }
+
+            _isAttacking = true;
         }
     }
 
@@ -200,7 +207,7 @@ public abstract class BossBase : EnemyBase
     public void ChangeScene()
     {
         //イベントシーンへ遷移
-        //SceneManager.LoadScene(_bossDataSource.SceneName);  //フェード等の演出周りはα後に追加する
+        SceneManager.LoadScene(_bossDataSource.SceneName);  //フェード等の演出周りはα後に追加する
     }
 
     /// <summary> ボスの状態（BossState）を変える。アニメーションイベントから呼ぶ </summary>
@@ -226,4 +233,10 @@ public abstract class BossBase : EnemyBase
         _currentPolygonCollider2D = gameObject.AddComponent<PolygonCollider2D>();
         _currentPolygonCollider2D.isTrigger = true;
     }
+
+    public void EndAttack()
+    {
+        _isAttacking = false;
+    }
+
 }

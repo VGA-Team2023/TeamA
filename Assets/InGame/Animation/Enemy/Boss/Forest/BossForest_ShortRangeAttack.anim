@@ -22,7 +22,7 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 5a9fcea4e61b67f4ba65ed7311daab93, type: 3}
-    - time: 0.13333334
+    - time: 0.15
       value: {fileID: 21300000, guid: 5b994b0d71df44646972ea9369cd454e, type: 3}
     - time: 0.31666666
       value: {fileID: 21300000, guid: e53fb5966befdf54e8179bc804fac1d2, type: 3}
@@ -38,6 +38,25 @@ AnimationClip:
       value: {fileID: 21300000, guid: 2b8217eb9ac6a53468c4daae714c9c44, type: 3}
     attribute: m_Sprite
     path: 
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 0}
+    - time: 0.31666666
+      value: {fileID: 21300000, guid: c54680fb82e651d4a85ba7e6a6fc1a45, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: bb99cc481fc7678499db963fcb8b05a0, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 75e0a2886c224ef4bba75fa1a71b923c, type: 3}
+    - time: 0.68333334
+      value: {fileID: 21300000, guid: effbe252d347175428c7b31aa29ed158, type: 3}
+    - time: 0.8666667
+      value: {fileID: 21300000, guid: 2c15e6eae280f654297e417868e45a6d, type: 3}
+    attribute: m_Sprite
+    path: Effect
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -57,6 +76,15 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2982974660
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: 21300000, guid: 5a9fcea4e61b67f4ba65ed7311daab93, type: 3}
     - {fileID: 21300000, guid: 5b994b0d71df44646972ea9369cd454e, type: 3}
@@ -66,6 +94,12 @@ AnimationClip:
     - {fileID: 21300000, guid: e6bd95d2e6253c6418f5412a960480d9, type: 3}
     - {fileID: 21300000, guid: b3a7b90d5470a4d4ba7ebf563eaf245f, type: 3}
     - {fileID: 21300000, guid: 2b8217eb9ac6a53468c4daae714c9c44, type: 3}
+    - {fileID: 0}
+    - {fileID: 21300000, guid: c54680fb82e651d4a85ba7e6a6fc1a45, type: 3}
+    - {fileID: 21300000, guid: bb99cc481fc7678499db963fcb8b05a0, type: 3}
+    - {fileID: 21300000, guid: 75e0a2886c224ef4bba75fa1a71b923c, type: 3}
+    - {fileID: 21300000, guid: effbe252d347175428c7b31aa29ed158, type: 3}
+    - {fileID: 21300000, guid: 2c15e6eae280f654297e417868e45a6d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -198,6 +232,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1
     functionName: SetNewCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0166667
+    functionName: EndAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
