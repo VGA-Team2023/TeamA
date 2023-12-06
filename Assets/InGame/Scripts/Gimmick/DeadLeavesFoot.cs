@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary> ギミック：枯葉 </summary>
-public class DeadLeaves : WaterGimmickBase
+public class DeadLeavesFoot : WaterGimmickBase
 {
     [SerializeField, Tooltip("デフォルトのコライダー")] Collider2D _defaultCollider = default;
     [SerializeField, Tooltip("新しいコライダー")] Collider2D _newCollider = default;
