@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4947654156075619958}
   - component: {fileID: 8328635407674525694}
   - component: {fileID: 3658684278351088959}
-  m_Layer: 0
+  - component: {fileID: 469890401789604057}
+  m_Layer: 7
   m_Name: TimeLimitGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,6 +110,7 @@ MonoBehaviour:
   - ElapsedTime: 0
     Sp: {fileID: 21300000, guid: b60343128d9515e4bbff577ab0ca8a9e, type: 3}
   _spRenderer: {fileID: 4947654156075619958}
+  _rb: {fileID: 469890401789604057}
 --- !u!61 &3658684278351088959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +156,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.0851212, y: 1.2394341}
   m_EdgeRadius: 0
+--- !u!50 &469890401789604057
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940792096868426119}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

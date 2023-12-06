@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5669ae06646c56d429c034905b35ea3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackType: 1
+  _currentAttackType: 0
 --- !u!1 &1880095288162730709
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d77cfd013510b248b0117bdd66cdbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distance: 0
   _bossDataSource: {fileID: 11400000, guid: 30f635c4cbdc288419fbe4629ac6b3b6, type: 2}
   _onScreen: 0
   _currentHp: 0
@@ -3192,7 +3193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5669ae06646c56d429c034905b35ea3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackType: 0
+  _currentAttackType: 0
 --- !u!1 &7228365725633196879
 GameObject:
   m_ObjectHideFlags: 0
@@ -3372,4 +3373,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5669ae06646c56d429c034905b35ea3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackType: 1
+  _currentAttackType: 0

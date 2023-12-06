@@ -40,9 +40,9 @@ public class PlayerKnockback : IPlayerState
     public async UniTask Knockback(Vector2 dir) 
     {
         Invincible().Forget();
+        _env.PlayerAnim.DamageAnim(true);
         _env.AddState(PlayerStateType.Damage);
         _rb.velocity = Vector2.zero;
-        Debug.Log(dir);
         _rb.AddForce(dir * _knockBackSpeed, ForceMode2D.Impulse);
         await UniTask.WaitForSeconds(_stuckTime);
         _env.RemoveState(PlayerStateType.Damage);

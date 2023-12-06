@@ -62,7 +62,10 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
             _env.PlayerAnim.AttackAnim(true);
 
             var bulletCs = UnityEngine.Object.
-                Instantiate(_bullet, _muzzle.transform.position, _muzzle.transform.rotation).GetComponent<TestBullet>();
+                Instantiate(_bullet, _muzzle.transform.position,
+                Quaternion.FromToRotation(Vector2.left, _env.PlayerTransform.transform.position - _eimPos.transform.position)
+                .normalized).GetComponent<TestBullet>();
+
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
             _isAttack = false;
             CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_attack");
