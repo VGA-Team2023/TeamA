@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7193340689536396497}
   - component: {fileID: 1054546511485150886}
   - component: {fileID: 8364851982940774008}
-  - component: {fileID: 6616789551895839936}
+  - component: {fileID: 6414324961463051645}
+  - component: {fileID: 5240823593902636491}
   m_Layer: 0
   m_Name: DeadLeavesWall
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 773b82684b21407439e4ed9febbc79f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27860e7bd40bbcd478adb9cc4d26c596, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,7 +108,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &6616789551895839936
+--- !u!61 &6414324961463051645
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,16 +140,30 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.031974554, y: -0.042631865}
+  m_Offset: {x: 1.265, y: -2.125}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.5, y: 5}
+    pivot: {x: 0, y: 1}
+    oldSize: {x: 2.53, y: 4.25}
     newSize: {x: 3.5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.0359416, y: 4.9472995}
+  m_Size: {x: 2.53, y: 4.25}
   m_EdgeRadius: 0
+--- !u!114 &5240823593902636491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7860182475775051941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0667c75808534804f9bf73d082115d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxWeight: 1
+  _nowWeight: 0
