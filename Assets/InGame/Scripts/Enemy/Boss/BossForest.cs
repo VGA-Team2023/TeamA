@@ -10,16 +10,15 @@ public class BossForest : BossBase
 {
     DamageBossToPlayer _damageBossToPlayer;
 
-    //あとでStart消す
-    protected override void Start()
-    {
-        base.Start();
-        //バトル開始時の演出：
-        _damageBossToPlayer = GetComponent<DamageBossToPlayer>();
-        BossAnimator.SetTrigger("BattleStart");
-        Debug.Log("ボス戦闘開始");
-
-    }
+    ////あとでStart消す
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    バトル開始時の演出：
+    //    _damageBossToPlayer = GetComponent<DamageBossToPlayer>();
+    //    BossAnimator.SetTrigger("BattleStart");
+    //    Debug.Log("ボス戦闘開始");
+    //}
 
     public override void BattleStart()
     {

@@ -43,6 +43,23 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 0}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 60ed8b90b72b82c42926da19ce03af13, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: ee8e38b2744221d4d9cff96304575a3e, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: bafbeec4ab5983441af1a19d9de707fe, type: 3}
+    - time: 1.1666666
+      value: {fileID: 0}
+    attribute: m_Sprite
+    path: Effect
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -52,6 +69,15 @@ AnimationClip:
     genericBindings:
     - serializedVersion: 2
       path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 2982974660
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -69,12 +95,17 @@ AnimationClip:
     - {fileID: 21300000, guid: f1f2c90af0881934fb3b9cab6fe9cdce, type: 3}
     - {fileID: 21300000, guid: 237b82ef97a8c6641bb89cbbd84fae36, type: 3}
     - {fileID: 21300000, guid: 9c551220e067516458c9f64c98719d86, type: 3}
+    - {fileID: 0}
+    - {fileID: 21300000, guid: 60ed8b90b72b82c42926da19ce03af13, type: 3}
+    - {fileID: 21300000, guid: ee8e38b2744221d4d9cff96304575a3e, type: 3}
+    - {fileID: 21300000, guid: bafbeec4ab5983441af1a19d9de707fe, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.35
+    m_StopTime: 1.3666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -206,15 +237,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3166667
+  - time: 1.3333334
     functionName: DestroyCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.3333334
+  - time: 1.35
     functionName: SetNewCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.3666667
+    functionName: EndAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
