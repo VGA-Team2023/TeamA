@@ -9,9 +9,10 @@ public class TimeGroundCreate : MonoBehaviour
 {
     //足場のプレハブ
     [SerializeField] GameObject field;
-    private TimeLimitGround tg;
+    [SerializeField] private TimeLimitGround tg;
     private float totalTime;
-    private float timeInterval = 5f;
+    [Tooltip("生成のインターバル")]
+    [SerializeField] private float timeInterval = 5f;
 
     void Start()
     {

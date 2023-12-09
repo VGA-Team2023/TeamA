@@ -41,7 +41,7 @@ public class TimeLimitGround : MonoBehaviour
                 //Debug.Log("Wait");
                 break;
             case State.Init:
-                //Debug.Log("Init");
+                Debug.Log("Init");
                 if (ReceiveForce())
                 {
                     //totalTime = 0;
@@ -49,7 +49,7 @@ public class TimeLimitGround : MonoBehaviour
                 }
                 break;
             case State.Corpse:
-                //Debug.Log("Corpse");
+                Debug.Log("Corpse");
                 Corpse();
                 break;
         }
@@ -59,7 +59,11 @@ public class TimeLimitGround : MonoBehaviour
             if (totalTime >= timeLimit) break;
             if (totalTime < num * (i + 1)) 
             {
-                if (i == _dataList.Count - 1) _rb.velocity = new Vector2(0, -5);
+                if (i == _dataList.Count - 1) 
+                {
+                    Destroy(gameObject, 1f);
+                    _rb.velocity = new Vector2(0, -5);
+                } 
                 _spRenderer.sprite = _dataList[i].Sp;
                 break;
             }
@@ -69,8 +73,10 @@ public class TimeLimitGround : MonoBehaviour
     private bool ReceiveForce()
     {
         totalTime += Time.deltaTime;
+        Debug.Log($"Limit{timeLimit}gennzai{totalTime}佳さん");
         if (timeLimit <= totalTime)
         {
+            Debug.Log("a");
             return true;
         }
         return false;
