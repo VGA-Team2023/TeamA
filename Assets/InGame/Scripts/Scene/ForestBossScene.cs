@@ -11,13 +11,12 @@ public class ForestBossScene : MonoBehaviour
 {
     [SerializeField] private FadeScript _fadeScript;
     [SerializeField] private BossBase _bossBase;
-    [SerializeField] private BossStartAnimEvent _bossStartAnimEvent;
+    [SerializeField] private ForestBossAnimController _bossStartAnimEvent;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     void Start()
     {
-        //_bossStartAnimEvent.OnEndAnim.Subscribe(_ => StartBattle().Forget()).AddTo(this);   
-        StartBattle().Forget();
+        _bossStartAnimEvent.OnParticleEnd.Subscribe(_ => StartBattle().Forget()).AddTo(this);   
     }
 
     void Update()
