@@ -20,6 +20,9 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.TryGetComponent<PlayerHp>(out var playerHp))
         {
+            var playerRoot = collision.GetComponent<IPlayerRoot>();
+            playerRoot.SeachState<PlayerAttack>().RestoreWater();
+
             _heartSprite.transform.DOScale(0f, _fadeTime)
                 .SetEase(Ease.InBack)
                 .SetLink(gameObject);
