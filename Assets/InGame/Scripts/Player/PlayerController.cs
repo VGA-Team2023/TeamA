@@ -11,6 +11,10 @@ using UniRx;
 /// </summary>
 public class PlayerController : MonoBehaviour, IPlayerRoot
 {
+
+    public IHealth PlayerHp => _playerHp;
+    public PlayerEnvroment Envroment => _playerEnvroment;
+
     [SerializeReference, SubclassSelector]
     private List<IPlayerState> _playerStateList = new List<IPlayerState>();
     [SerializeField] private PlayerAnimation _playerAnim;
@@ -21,20 +25,15 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
     private CancellationToken _token;
     private ReactiveProperty<Collider2D> _onTriggerEnter = new();
 
-    void Start()
-    {
-        _token = this.GetCancellationTokenOnDestroy();
-        SetUp();
-        BindView();
-    }
-
     #region SetUp
     public void SetUp()
     {
+        _token = this.GetCancellationTokenOnDestroy();
         SetUpEnv();
         SetUpState();
         _playerAnim.SetUp(_token);
         _playerHp.SetUp(_playerEnvroment, SeachState<PlayerKnockback>());
+        BindView();
     }
 
     private void SetUpState()
