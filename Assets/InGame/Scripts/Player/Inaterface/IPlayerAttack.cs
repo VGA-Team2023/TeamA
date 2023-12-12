@@ -8,4 +8,5 @@ public interface IPlayerAttack
 {
     public IReadOnlyReactiveProperty<float> CurrentWaterNum { get; }
     public IReadOnlyReactiveProperty<float> MaxWaterNum { get; }
+    public void RestoreWater();
 }
