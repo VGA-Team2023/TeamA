@@ -490,8 +490,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.25559998, y: 0.14775014, z: 0}
-    m_Extent: {x: 9.4353, y: 4.68985, z: 0}
+    m_Center: {x: -0.26204967, y: 0.1475501, z: 0}
+    m_Extent: {x: 9.43985, y: 4.68435, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fadeScript: {fileID: 1840471833}
   _bossBase: {fileID: 1211371697}
-  _bossStartAnimEvent: {fileID: 0}
+  _bossStartAnimEvent: {fileID: 1468298897}
   _virtualCamera: {fileID: 172025081}
 --- !u!1 &470292004
 GameObject:
@@ -922,8 +922,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 12.52525, y: -5.1756496, z: 0}
-    m_Extent: {x: 17.23195, y: 14.49305, z: 0}
+    m_Center: {x: 12.5298, y: -5.1762996, z: 0}
+    m_Extent: {x: 17.2374, y: 14.485399, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
