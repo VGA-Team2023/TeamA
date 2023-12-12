@@ -82,6 +82,14 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
         _env.RemoveState(PlayerStateType.Attack);
     }
 
+    /// <summary>
+    /// 水の量を元に戻す
+    /// </summary>
+    public void RestoreWater()
+    {
+        _currentWaterNum.Value = _maxWaterNum.Value;
+    }
+
     public void Dispose()
     {
         InputProvider.Instance.LiftEnterInputAsync(InputProvider.InputType.Attack, Attack);

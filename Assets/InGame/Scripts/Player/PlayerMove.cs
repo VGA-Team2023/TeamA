@@ -15,7 +15,7 @@ public class PlayerMove : IPlayerState
 
     private Vector3 _dir;
     private PlayerEnvroment _env;
-    private int _walkSE;
+    private int _walkSE = -1;
 
     public void SetUp(PlayerEnvroment env, CancellationToken token)
     {
@@ -70,10 +70,20 @@ public class PlayerMove : IPlayerState
             _env.RemoveState(PlayerStateType.Walk);
             _env.PlayerAnim.WalkAnim(false);
             _env.PlayerAnim.RunAnim(false);
+            if (_walkSE != -1) 
+            {
+                Debug.Log("止まった");
+                //CriAudioManager.Instance.SE.Stop(_walkSE);
+                _walkSE = -1;
+            }
         }
         else
         {
-            //_walkSE = CriAudioManager.Instance.PlaySE("CueSheet_0", "SE_prayer_FS_1");
+            if (_walkSE == -1) 
+            {
+                Debug.Log("ある");
+                //_walkSE = CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_FS_1");
+            }
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;
