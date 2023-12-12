@@ -66,6 +66,7 @@ public class PlayerJump : IPlayerState
         else if (_isTwoJumps) 
         {
             _isTwoJumps = false;
+            _rb.velocity = Vector3.zero;
             _rb.AddForce(Vector3.up * _jumpPower, ForceMode2D.Impulse);
         }
     }
