@@ -2,30 +2,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
-    public static GameManager Instance;
+    public static GameManager Instance => _instance;
 
     public PlayerEnvroment PlayerEnvroment { get; set; }
+    public IPlayerRoot PlayerRoot { get; set; }
 
     private Vector2 _respawnTransform;
     private string _sceneName;
+    private static GameManager _instance;
 
     public Vector2 RespawnTransform => _respawnTransform;
     public string SceneName => _sceneName;
 
-    private void Awake()
+    public GameManager()
     {
-        if (Instance == null)
+        Debug.Log("‚«‚½");
+        if (_instance == null) 
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            _instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        _sceneName = SceneManager.GetActiveScene().name;
     }
 
     public Transform GetRespawnTransform()
