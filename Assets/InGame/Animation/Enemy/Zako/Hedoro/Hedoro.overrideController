@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hedoro
+  m_Controller: {fileID: 9100000, guid: 7d530f07152483e40a9c6e7f05837b3d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: a684e5988751feb428644e3d3e992a31, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6833322db7089e94bb2029a9ae5283e2, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9885d7046a50afb4f8070053f48574d5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7bcae083c270e6244a5a1ab399e8f087, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f21363e716a8d2943a72c6625e7569b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9b690d384b3969644907235ddee7db42, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c5eb08d46e7fabb4a9ad1ff8b4514fb1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f49d07684759f694487e38a9aceb4d6a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 56f06fd78e0b23e4081634bb2dfd6d65, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5467d45be033ff04d909459ed64753bf, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c6c872de2d3ebc644967efeaa7a8de26, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6f043f0c3efd5524e87073067867170b, type: 2}

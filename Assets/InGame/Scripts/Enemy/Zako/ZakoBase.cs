@@ -1,6 +1,7 @@
 //日本語対応
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,30 +17,36 @@ public abstract class ZakoBase : EnemyBase
     public Animator EnemyAnimator => _enemyAnim;
     [SerializeField]
     GameObject _pPos = default;
+    public GameObject Pos => _pPos;
 
     Rigidbody2D _rb = default;
+    public Rigidbody2D Rb => _rb;
+    [Tooltip("始まりの位置")]
+    Vector2 _pos = default;
+    public Vector2 StartPos => _pos;
+
     [SerializeField, Tooltip("ステート")]
-    ZakoState _state = ZakoState.Wander;
+    ZakoState _state = ZakoState.Wait;
     [Tooltip("エネミーのスピード")]
     float _moveSpeed = 0f;
     [Tooltip("いまのHP ")]
     float _enemyHp = 0f;
-    [Tooltip("始まりの位置")]
-    Vector2 _pos = default;
     [Tooltip("右向きか")]
     bool _isRight = true;
-    [Tooltip("時間はかる")]
+    [SerializeField, Tooltip("時間はかる")]
     float _time = 999;
     float _idleTime = 0f;
     int _seNum = -1;
     bool _isAttack = false;
     enum ZakoState
     {
-        /// <summary>巡回</summary>
+        /// <summary>最初の待機</summary>
+        Wait,
+        /// <summary>巡回(動き)</summary>
         Wander,
         /// <summary>攻撃</summary>
         Attack,
-        /// <summary>何してもいい</summary>
+        /// <summary>動きを止める</summary>
         Idle,
     }
 
@@ -61,61 +68,84 @@ public abstract class ZakoBase : EnemyBase
     protected override void Update()
     {
         base.Update();
+        Debug.Log(_state);
 
-        //体力ある時
+        //体力がある
         if (_enemyHp > 0)
         {
             Vector2 pPos = GManager != null ? GManager.PlayerEnvroment.PlayerTransform.position : _pPos.transform.position;
 
-            //距離が離れているとき巡回させる
-            if (Distance > _enemyDate.LookDistance)
+            //プレイヤーに姿を見せる演出
+            if (_state == ZakoState.Wait && Wait())
             {
-                if (_seNum == -1)
+                _enemyAnim.SetBool("Start", true);
+                StateCheng(ZakoState.Wander);
+            }
+            //巡回
+            else if (_state == ZakoState.Wander)
+            {
+                //距離が離れている
+                if (Distance > _enemyDate.LookDistance)
                 {
-                    Debug.Log("流した");
-                    _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+                    //足音がループのため
+                    if (_seNum == -1)
+                    {
+                        Debug.Log("流した");
+                        _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+                    }
+                    Wander();
+                    //巡回後すぐ攻撃に移るため
+                    _time = EnemyDataSource.AttackInterval;
                 }
-
-                Wander();
-                _time = _enemyDate.AttackInterval;
+                //攻撃
+                else if (transform.position.x - pPos.x < _enemyDate.AttackDistance && Distance < _enemyDate.AttackDistance)
+                {
+                    //攻撃するときは足音を止める
+                    if (_seNum != -1)
+                    {
+                        Debug.Log("止めた");
+                        CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                        _seNum = -1;
+                    }
+                    StateCheng(ZakoState.Attack);
+                }
+                //距離が近いため近づく
+                else
+                {
+                    Debug.Log("近づく");
+                    MoveToPlayer(pPos);
+                }
             }
 
-            //見つけられる距離かつプレイヤーとの距離が近い場合,攻撃
-            else if (transform.position.x - pPos.x < _enemyDate.AttackDistance && Distance < _enemyDate.AttackDistance)
+            //攻撃
+            else if (_state == ZakoState.Attack)
             {
-                if (_seNum != -1)
-                {
-                    Debug.Log("止めた");
-                    CriAudioManager.Instance.SE.Stop(_seNum + 1);
-                    _seNum = -1;
-                }
-
                 _time += Time.deltaTime;
                 //攻撃するときは移動を中止
                 _rb.velocity = Vector2.zero;
                 _enemyAnim.SetBool("Move", false);
                 //プレイヤーに向く
                 LookAtPlayer(pPos);
-                if (_time > _enemyDate.AttackInterval && !_isAttack) { Attack(); _time = 0f; _state = ZakoState.Idle; _isAttack = true; }
+                //攻撃できるか
+                if (_time > _enemyDate.AttackInterval && !_isAttack)
+                { Attack(); _time = 0f; _isAttack = true; StateCheng(ZakoState.Idle); }
             }
 
-            //距離が離れていて見つけているとき,プレイヤーに近づく
-            else
-            {
-                if (_state == ZakoState.Wander) MoveToPlayer(pPos);
-            }
-
+            //待機
             if (_state == ZakoState.Idle)
             {
                 _idleTime += Time.deltaTime;
 
+                //攻撃後
                 if (_isAttack)
                 {
+                    //止まり終えたら巡回に戻る
                     if (StopEnemy(_idleTime, _enemyDate.StopTime + 1))
                     {
                         _idleTime = 0f;
                         _isAttack = false;
-                        _state = ZakoState.Wander;
+                        StateCheng(ZakoState.Wander);
+                        Debug.Log("攻撃で止まる");
                     }
                 }
                 else
@@ -124,7 +154,7 @@ public abstract class ZakoBase : EnemyBase
                     if (StopEnemy(_idleTime, 1f))
                     {
                         _idleTime = 0f;
-                        _state = ZakoState.Wander;
+                        StateCheng(ZakoState.Wander);
                     }
                 }
             }
@@ -137,6 +167,16 @@ public abstract class ZakoBase : EnemyBase
         }
     }
 
+    //ステートの変更
+    void StateCheng(ZakoState state)
+    {
+        _state = state;
+    }
+
+    /// <summary>時間が超えたのか</summary>
+    /// <param name="now">経過時間</param>
+    /// <param name="t">制限時間</param>
+    /// <returns>第一引数が越えたら</returns>
     bool StopEnemy(float now, float t)
     {
         return now >= t;
@@ -145,7 +185,6 @@ public abstract class ZakoBase : EnemyBase
     /// <summary>巡回中の動き</summary>
     void Wander()
     {
-        Debug.Log("巡回");
         Move();
 
         //反転
@@ -193,7 +232,6 @@ public abstract class ZakoBase : EnemyBase
     public void AttackEnd()
     {
         _isAttack = true;
-        Debug.Log(_isAttack);
     }
 
     #region enemy実装
@@ -204,18 +242,19 @@ public abstract class ZakoBase : EnemyBase
 
         float horizontalInput = _isRight ? 1 : -1;
         Vector2 moveDir = new Vector2(horizontalInput, 0).normalized;
-        _rb.velocity = new Vector2(moveDir.x * _moveSpeed, _rb.velocity.y);
+        _rb.velocity = new Vector2(moveDir.x * _moveSpeed, 0);
     }
     public override void Damaged()
     {
         if (_enemyHp > 0)
         {
             _rb.velocity = Vector2.zero;
-            _state = ZakoState.Idle;
+            StateCheng(ZakoState.Idle);
             _idleTime = 0;
             _enemyHp--;
             //自分がダメージを食らうときの音やエフェクト
             _enemyAnim.SetTrigger("Damage");
+            //ノックバック
             Vector2 dir = transform.position - GManager.PlayerEnvroment.PlayerTransform.position;
             dir.y = 3;
             dir.Normalize();
@@ -232,6 +271,7 @@ public abstract class ZakoBase : EnemyBase
     }
     #endregion
 
+    //アニメーションイベント死んだら消す処理
     public void Die()
     {
         gameObject.SetActive(false);
@@ -247,4 +287,8 @@ public abstract class ZakoBase : EnemyBase
             pHp.ApplyDamage(1, knockBackDir.normalized).Forget();
         }
     }
+
+    /// <summary>敵の動きはじめ</summary>
+    /// <returns>開始の条件</returns>
+    public abstract bool Wait();
 }

@@ -8,6 +8,7 @@ public class ZakoForest : ZakoBase
     BoxCollider2D _attack = default;
     [SerializeField, Tooltip("仮のタグ")]
     string _tagName = string.Empty;
+    bool _isStart = false;
 
     public override void Attack()
     {
@@ -22,6 +23,13 @@ public class ZakoForest : ZakoBase
         Debug.Log("マンドラゴラ浄化");
         EnemyAnimator.SetBool("Move", false);
         EnemyAnimator.SetBool("Die", true);
+    }
+    private void OnBecameVisible() => _isStart = true;
+
+    private void OnBecameInvisible() => _isStart = false;
+    public override bool Wait()
+    {
+        return _isStart;
     }
 
     //アニメーションが間に合わないため仮
