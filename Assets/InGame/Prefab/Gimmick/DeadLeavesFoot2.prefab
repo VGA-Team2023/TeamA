@@ -103,7 +103,7 @@ MonoBehaviour:
   _maxWeight: 1
   _nowWeight: 0
   _defaultCollider: {fileID: 8995748935335719060}
-  _newCollider: {fileID: 0}
+  _newCollider: {fileID: 5118852878170699531}
 --- !u!95 &5689320080842990851
 Animator:
   serializedVersion: 5
