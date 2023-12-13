@@ -46,7 +46,7 @@ public class PlayerJump : IPlayerState
         {
             if (_isGround) return;
             _env.PlayerAnim.JumpAnim(false);
-            //CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
             _isGround = true;
             _isTwoJumps = true;
         }

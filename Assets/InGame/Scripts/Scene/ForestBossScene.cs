@@ -7,7 +7,7 @@ using Cinemachine;
 using UniRx;
 using Cysharp.Threading.Tasks;
 
-public class ForestBossScene : MonoBehaviour
+public class ForestBossScene : StageBase
 {
     [SerializeField] private FadeScript _fadeScript;
     [SerializeField] private BossBase _bossBase;

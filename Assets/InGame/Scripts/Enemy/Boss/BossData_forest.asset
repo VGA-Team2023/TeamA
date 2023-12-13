@@ -31,6 +31,6 @@ MonoBehaviour:
   - BossDamaged
   _seFileList:
   - Enemy_boss_purification
-  - Enemy_boss_attack_1
-  - Enemy_attack_boss_2
+  - SE_enemy_A_attack01
+  - SE_enemy_A_attack02
   - Enemy_damage_prayer

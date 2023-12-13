@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System;
-
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +26,7 @@ public class TimeLimitGround : MonoBehaviour
     private float totalTime = 0f;
     private State state = State.Wait;
     private Collider2D col;
+    private bool _isFall;
     
     public void Start()
     {
@@ -59,15 +60,22 @@ public class TimeLimitGround : MonoBehaviour
             if (totalTime >= timeLimit) break;
             if (totalTime < num * (i + 1)) 
             {
-                if (i == _dataList.Count - 1) 
+                if (i == _dataList.Count - 1 && !_isFall)
                 {
-                    Destroy(gameObject, 1f);
-                    _rb.velocity = new Vector2(0, -5);
-                } 
+                    Fall();
+                }
                 _spRenderer.sprite = _dataList[i].Sp;
                 break;
             }
         }
+    }
+
+    private void Fall()
+    {
+        Destroy(gameObject, 1f);
+        CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_gimmick_rubble");
+        _rb.velocity = new Vector2(0, -5);
+        _isFall = true;
     }
 
     private bool ReceiveForce()
@@ -81,8 +89,6 @@ public class TimeLimitGround : MonoBehaviour
         }
         return false;
     }
-
-   
 
     //アニメーションイベントから呼び出す
     private void Corpse()
