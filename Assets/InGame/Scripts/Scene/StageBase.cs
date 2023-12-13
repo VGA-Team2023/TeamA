@@ -14,6 +14,7 @@ public abstract class StageBase : MonoBehaviour
     [SerializeField] private string _cueName;
     [SerializeField] Transform _playerInsPos;
     [SerializeField] PolygonCollider2D _polygonCollider;
+    [SerializeField] bool _isCine;
 
     private IDisposable _onDeadDisposable;
 
@@ -31,7 +32,12 @@ public abstract class StageBase : MonoBehaviour
         var root = playerIns.GetComponentInChildren<IPlayerRoot>();
         GameManager.Instance.PlayerRoot = root;
         root.SetUp();
-        playerIns.GetComponentInChildren<CinemachineConfiner2D>().m_BoundingShape2D = _polygonCollider;
+        playerIns.GetComponentInChildren<CinemachineVirtualCamera>().enabled = _isCine;
+        var cine = playerIns.GetComponentInChildren<CinemachineConfiner2D>();
+        if (cine) 
+        {
+            cine.m_BoundingShape2D = _polygonCollider;
+        }
         _onDeadDisposable = playerIns.GetComponentInChildren<IHealth>().OnDead.Subscribe(_ => PlayerDead());
     }
 
