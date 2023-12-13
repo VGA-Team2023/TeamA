@@ -28666,6 +28666,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7239112096800425017, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+      propertyPath: _defaultCollider
+      value: 
+      objectReference: {fileID: 1461981546}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30063,6 +30067,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5900881565263943683, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30544,6 +30552,11 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!60 &653124736 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8429993899197109444, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+  m_PrefabInstance: {fileID: 1776825860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &665646686
 GameObject:
   m_ObjectHideFlags: 0
@@ -31690,6 +31703,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7239112096800425017, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+      propertyPath: _defaultCollider
+      value: 
+      objectReference: {fileID: 2042374175}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -35206,6 +35223,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 990516279646528951, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
   m_PrefabInstance: {fileID: 1356923852}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1370822782 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7996642544128390420, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+  m_PrefabInstance: {fileID: 1776825860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1382222171
 GameObject:
   m_ObjectHideFlags: 0
@@ -35527,6 +35549,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 990516279646528951, guid: b29837a67e6c62640977999606fd8bbd, type: 3}
   m_PrefabInstance: {fileID: 1454097741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!60 &1461981546 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8429993899197109444, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+  m_PrefabInstance: {fileID: 358960219}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1476364035
 GameObject:
@@ -41688,6 +41715,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7239112096800425017, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+      propertyPath: _newCollider
+      value: 
+      objectReference: {fileID: 1370822782}
+    - target: {fileID: 7239112096800425017, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+      propertyPath: _defaultCollider
+      value: 
+      objectReference: {fileID: 653124736}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -43627,6 +43662,11 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!60 &2042374175 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8429993899197109444, guid: f8a96d99d8a06604b8487c4a2330cbb2, type: 3}
+  m_PrefabInstance: {fileID: 834923046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2048467460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44191,6 +44231,7 @@ MonoBehaviour:
   _cueName: "BGM_stage\uFF11"
   _playerInsPos: {fileID: 1822543387}
   _polygonCollider: {fileID: 1945865055}
+  _isCine: 1
 --- !u!1001 &2119143418
 PrefabInstance:
   m_ObjectHideFlags: 0
