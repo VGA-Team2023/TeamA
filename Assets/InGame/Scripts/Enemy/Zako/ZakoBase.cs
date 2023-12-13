@@ -84,8 +84,24 @@ public abstract class ZakoBase : EnemyBase
             //巡回
             else if (_state == ZakoState.Wander)
             {
-                //距離が離れている
-                if (Distance > _enemyDate.LookDistance)
+
+                if (Distance < _enemyDate.AttackDistance)
+                {
+                    //攻撃するときは足音を止める
+                    if (_seNum != -1)
+                    {
+                        Debug.Log("止めた");
+                        CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                        _seNum = -1;
+                    }
+                    StateCheng(ZakoState.Attack);
+                }
+                else if (Distance < _enemyDate.LookDistance)
+                {
+                    Debug.Log("近づく");
+                    MoveToPlayer(pPos);
+                }
+                else
                 {
                     //足音がループのため
                     if (_seNum == -1)
@@ -97,25 +113,42 @@ public abstract class ZakoBase : EnemyBase
                     //巡回後すぐ攻撃に移るため
                     _time = EnemyDataSource.AttackInterval;
                 }
-                //攻撃
-                else if (transform.position.x - pPos.x < _enemyDate.AttackDistance && Distance < _enemyDate.AttackDistance)
-                {
-                    //攻撃するときは足音を止める
-                    if (_seNum != -1)
-                    {
-                        Debug.Log("止めた");
-                        CriAudioManager.Instance.SE.Stop(_seNum + 1);
-                        _seNum = -1;
-                    }
-                    StateCheng(ZakoState.Attack);
-                }
-                //距離が近いため近づく
-                else
-                {
-                    Debug.Log("近づく");
-                    MoveToPlayer(pPos);
-                }
             }
+
+
+
+            //    //距離が離れている
+            //    if (Distance > _enemyDate.LookDistance)
+            //    {
+            //        //足音がループのため
+            //        if (_seNum == -1)
+            //        {
+            //            Debug.Log("流した");
+            //            _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+            //        }
+            //        Wander();
+            //        //巡回後すぐ攻撃に移るため
+            //        _time = EnemyDataSource.AttackInterval;
+            //    }
+            //    //攻撃
+            //    else if (/*transform.position.x - pPos.x < _enemyDate.AttackDistance && */Distance < _enemyDate.AttackDistance)
+            //    {
+            //        //攻撃するときは足音を止める
+            //        if (_seNum != -1)
+            //        {
+            //            Debug.Log("止めた");
+            //            CriAudioManager.Instance.SE.Stop(_seNum + 1);
+            //            _seNum = -1;
+            //        }
+            //        StateCheng(ZakoState.Attack);
+            //    }
+            //    //距離が近いため近づく
+            //    else
+            //    {
+            //        Debug.Log("近づく");
+            //        MoveToPlayer(pPos);
+            //    }
+            //}
 
             //攻撃
             else if (_state == ZakoState.Attack)
@@ -128,7 +161,12 @@ public abstract class ZakoBase : EnemyBase
                 LookAtPlayer(pPos);
                 //攻撃できるか
                 if (_time > _enemyDate.AttackInterval && !_isAttack)
-                { Attack(); _time = 0f; _isAttack = true; StateCheng(ZakoState.Idle); }
+                {
+                    StateCheng(ZakoState.Idle);
+                    Attack();
+                    _time = 0f;
+                    _isAttack = true;
+                }
             }
 
             //待機
@@ -258,7 +296,7 @@ public abstract class ZakoBase : EnemyBase
             Vector2 dir = transform.position - GManager.PlayerEnvroment.PlayerTransform.position;
             dir.y = 3;
             dir.Normalize();
-            _rb.AddForce(dir * _enemyDate.Knockback, ForceMode2D.Impulse);
+            _rb.AddForce(dir.normalized * _enemyDate.Knockback, ForceMode2D.Impulse);
         }
 
         Debug.Log("プレイヤーに攻撃されてる");
@@ -291,4 +329,15 @@ public abstract class ZakoBase : EnemyBase
     /// <summary>敵の動きはじめ</summary>
     /// <returns>開始の条件</returns>
     public abstract bool Wait();
+
+    private void OnDrawGizmos()
+    {
+        //攻撃の範囲
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, _enemyDate.AttackDistance);
+        //接近と巡回のボーダー
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(this.transform.position, _enemyDate.LookDistance);
+    }
+
 }

@@ -10,11 +10,15 @@ public class SludgeBullet : MonoBehaviour
     [SerializeField, Tooltip("Playerに与えるダメージの大きさ")] float _damageSize = 1.0f;
     [Tooltip("ヘドロを飛ばすベクトル")] Vector2 _shootDir = default;
     GameManager _gm = default;
+    SpriteRenderer _spriteRenderer;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        GameObject _hedoro = transform.parent.gameObject.transform.parent.gameObject;
+        _spriteRenderer.flipX = (_hedoro.transform.rotation.y % 360 == 180)? true : false;
     }
 
     private void Start()
@@ -33,6 +37,11 @@ public class SludgeBullet : MonoBehaviour
             Vector2 _knockBackDir = playerHp.transform.position - transform.position;
             playerHp.ApplyDamage(_damageSize, _knockBackDir.normalized).Forget();
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
     }
 
 }

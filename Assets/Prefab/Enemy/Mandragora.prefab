@@ -365,5 +365,6 @@ MonoBehaviour:
   _enemyAnim: {fileID: 0}
   _pPos: {fileID: 0}
   _state: 0
+  _time: 999
   _attack: {fileID: 7336442993367064950}
   _tagName: Player
