@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2813130674897536221}
   - component: {fileID: 4369714086169985585}
   - component: {fileID: 1834074565872733515}
+  - component: {fileID: 2847499940781711115}
   m_Layer: 7
   m_Name: Twig
   m_TagString: Untagged
@@ -164,7 +165,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: -7.797479, y: -6.7058334}
   m_SpriteTilingProperty:
@@ -179,3 +180,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 12.8855505, y: 1.9339294}
   m_EdgeRadius: 0
+--- !u!251 &2847499940781711115
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158838288467321785}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 140
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
