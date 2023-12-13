@@ -102,8 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxWeight: 1
   _nowWeight: 0
-  _defaultCollider: {fileID: 0}
-  _newCollider: {fileID: 0}
+  _defaultCollider: {fileID: 8429993899197109444}
+  _newCollider: {fileID: 5900881565263943683}
 --- !u!95 &5689320080842990851
 Animator:
   serializedVersion: 5
