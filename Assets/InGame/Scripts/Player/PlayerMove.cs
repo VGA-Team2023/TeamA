@@ -26,6 +26,12 @@ public class PlayerMove : IPlayerState
     {
         _dir = InputProvider.Instance.MoveDir;
         MoveDirSprite();
+
+        if (_dir == Vector3.zero) 
+        {
+            _env.PlayerAnim.WalkAnim(false);
+            _env.PlayerAnim.RunAnim(false);
+        }
     }
 
     public void FixedUpdate()
@@ -49,7 +55,6 @@ public class PlayerMove : IPlayerState
         if (_dir == Vector3.zero)
         {
             _env.RemoveState(PlayerStateType.Run);
-            _env.PlayerAnim.RunAnim(false);
         }
         else
         {
@@ -68,8 +73,6 @@ public class PlayerMove : IPlayerState
         if (_dir == Vector3.zero)
         {
             _env.RemoveState(PlayerStateType.Walk);
-            _env.PlayerAnim.WalkAnim(false);
-            _env.PlayerAnim.RunAnim(false);
             if (_walkSE != -1) 
             {
                 Debug.Log("止まった");
@@ -88,6 +91,7 @@ public class PlayerMove : IPlayerState
             _env.AddState(PlayerStateType.Walk);
             _env.LastDir = _dir;
             _env.PlayerAnim.WalkAnim(true);
+            _env.PlayerAnim.RunAnim(false);
         }
 
         _rb.velocity = new Vector2(_dir.x * _walkSpeed, _rb.velocity.y);
