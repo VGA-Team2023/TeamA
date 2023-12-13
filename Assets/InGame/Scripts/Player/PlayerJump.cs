@@ -1,4 +1,5 @@
 //日本語対応
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,11 @@ using System.Threading;
 public class PlayerJump : IPlayerState
 {
     [SerializeField] private Rigidbody2D _rb;
-    [Header("ジャンプの強さ")]
-    [SerializeField] private float _jumpPower;
-    [Header("着地判定の大きさ")]
-    [SerializeField] private Vector2 size;
+    [Header("ジャンプの強さ")] [SerializeField] private float _jumpPower;
+    [Header("着地判定の大きさ")] [SerializeField] private Vector2 size;
     [SerializeField] private LayerMask _groundLayer;
+    [Header("エフェクト")] [SerializeField] private Transform _particleInstantiatePosition;
+    [SerializeField] private ParticleSystem _waterParticle;
 
     private PlayerEnvroment _env;
     private bool _isTwoJumps;
@@ -31,7 +32,6 @@ public class PlayerJump : IPlayerState
 
     public void FixedUpdate()
     {
-
     }
 
     private void GroundCheck()
@@ -49,8 +49,12 @@ public class PlayerJump : IPlayerState
             CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_landing");
             _isGround = true;
             _isTwoJumps = true;
+
+            _waterParticle.transform.position = new Vector2(_particleInstantiatePosition.position.x + 0.5f,
+                _particleInstantiatePosition.position.y);
+            _waterParticle.Play();
         }
-        else if(col == 0)
+        else if (col == 0)
         {
             _env.PlayerAnim.JumpAnim(true);
             _isGround = false;
@@ -63,7 +67,7 @@ public class PlayerJump : IPlayerState
         {
             _rb.AddForce(Vector3.up * _jumpPower, ForceMode2D.Impulse);
         }
-        else if (_isTwoJumps) 
+        else if (_isTwoJumps)
         {
             _isTwoJumps = false;
             _rb.velocity = Vector3.zero;

@@ -68,7 +68,6 @@ public abstract class ZakoBase : EnemyBase
     protected override void Update()
     {
         base.Update();
-        Debug.Log(_state);
 
         //体力がある
         if (_enemyHp > 0)

@@ -49,11 +49,11 @@ AnimationClip:
       value: {fileID: 0}
     - time: 0.6666667
       value: {fileID: 21300000, guid: 60ed8b90b72b82c42926da19ce03af13, type: 3}
-    - time: 0.8333333
+    - time: 0.81666666
       value: {fileID: 21300000, guid: ee8e38b2744221d4d9cff96304575a3e, type: 3}
-    - time: 1
+    - time: 0.8333333
       value: {fileID: 21300000, guid: bafbeec4ab5983441af1a19d9de707fe, type: 3}
-    - time: 1.1666666
+    - time: 1
       value: {fileID: 0}
     attribute: m_Sprite
     path: Effect

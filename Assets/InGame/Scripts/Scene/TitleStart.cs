@@ -9,9 +9,10 @@ public class TitleStart : MonoBehaviour
     [SerializeField] private Image _fadePanel;
     [SerializeField] private float _duration = 1f;
     [SerializeField,SceneName()] private string _sceneName;
-
+    
     public async void OnStartGame()
     {
+        CriAudioManager.Instance.SE.Play("CueSheet_0","SE_UI_startbotann");
        await FadeOut();
        LoadScene(_sceneName);
     }
