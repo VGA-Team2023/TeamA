@@ -7,9 +7,10 @@ public class RestartController : MonoBehaviour
 {
     public static RestartController Instance;
 
-    [SerializeField] private PlayerController _playerController = default;
+    [SerializeField] private IPlayerRoot _playerController = default;
 
-    private Transform _restartPos = default;
+    private IHealth _playerHealth;
+    private Transform _restartPos;
     private string _sceneName = default;
     public Transform ReStartPos => _restartPos;
     public string SceneName => _sceneName;
@@ -22,12 +23,15 @@ public class RestartController : MonoBehaviour
         }
 
         Instance = this;
+        _restartPos = transform;
     }
 
     private void Start()
     {
         _restartPos = (GameManager.Instance.GetRespawnTransform().position != Vector3.zero) ? GameManager.Instance.GetRespawnTransform() : _restartPos;
         _sceneName = GameManager.Instance.SceneName;
+        _playerController = GameManager.Instance.PlayerRoot;
+        _playerHealth = _playerController.PlayerHp;
 
 #if UNITY_EDITOR
         Debug.Log($"GameManagerから読み込んだRespawnTransform:{_restartPos}");
@@ -36,7 +40,7 @@ public class RestartController : MonoBehaviour
 
         if (_sceneName == SceneManager.GetActiveScene().name)
         {
-            _playerController.transform.position = _restartPos.position;
+            _playerController.Envroment.PlayerTransform.position = _restartPos.position;
         }
     }
 
@@ -48,10 +52,10 @@ public class RestartController : MonoBehaviour
             SceneManager.LoadScene(_sceneName);
         }
 
-        //Destroy(_playerObj);
-        //_playerObj = Instantiate(_playerPrefab, _restartPos.position, _restartPos.rotation); //Player�̃X�|�[��
-        _playerController.transform.position = _restartPos.position;
-        return _playerController.gameObject;
+        _playerController.Envroment.PlayerTransform.position = _restartPos.position;
+        _playerHealth.ApplyHeal(5);
+        _playerController.SeachState<IPlayerAttack>()?.RestoreWater();
+        return _playerController.Envroment.PlayerTransform.gameObject;
     }
 
     /// <summary> �`�F�b�N�|�C���g��ʉ߂����Ƃ��ɌĂ΂�� </summary>

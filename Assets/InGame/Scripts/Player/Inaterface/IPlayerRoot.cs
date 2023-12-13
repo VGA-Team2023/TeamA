@@ -5,5 +5,9 @@ using UnityEngine;
 
 public interface IPlayerRoot
 {
+    public IHealth PlayerHp { get;}
+    public PlayerEnvroment Envroment { get;}
+
+    public void SetUp();
     public T SeachState<T>() where T : class;
 }
