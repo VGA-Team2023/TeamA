@@ -84,7 +84,6 @@ public class PlayerMove : IPlayerState
         {
             if (_walkSE == -1) 
             {
-                Debug.Log("ある");
                 //_walkSE = CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_FS_1");
             }
             _env.RemoveState(PlayerStateType.Run);

@@ -17,7 +17,6 @@ public class ZakoHedoro : ZakoBase
 
     public override bool Wait()
     {
-        Debug.Log(EnemyDataSource.LookDistance > Distance);
         //出てくるときに当たり判定の追加
         if (EnemyDataSource.LookDistance > Distance)
         { GetComponent<PolygonCollider2D>().enabled = true; }
