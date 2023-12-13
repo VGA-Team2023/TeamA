@@ -1,4 +1,4 @@
-//日本語対応
+//日本語対応 
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -10,22 +10,19 @@ public class SludgeBullet : MonoBehaviour
     [SerializeField, Tooltip("Playerに与えるダメージの大きさ")] float _damageSize = 1.0f;
     [Tooltip("ヘドロを飛ばすベクトル")] Vector2 _shootDir = default;
     GameManager _gm = default;
-    SpriteRenderer _spriteRenderer;
 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        GameObject _hedoro = transform.parent.gameObject.transform.parent.gameObject;
-        _spriteRenderer.flipX = (_hedoro.transform.rotation.y % 360 == 180)? true : false;
     }
 
     private void Start()
     {
         _gm = GameManager.Instance;
-        _shootDir = (_gm.PlayerEnvroment.PlayerTransform.position - transform.position).normalized;
+        _shootDir = (_gm.PlayerEnvroment.PlayerTransform.position.x < transform.position.x) ? Vector2.left : Vector2.right;
         _rb.velocity = _shootDir * _shootSpeed;
+        transform.parent = null;
     }
 
     /// <summary> Playerに攻撃が当たったときにダメージを与える </summary>

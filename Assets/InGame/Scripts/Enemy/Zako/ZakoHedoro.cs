@@ -34,7 +34,6 @@ public class ZakoHedoro : ZakoBase
     //アニメーションイベントで弾を出す
     public void Bullet()
     {
-        //Instantiate(_bullet, _bulletPos.position, Quaternion.identity, gameObject.transform);
-        Instantiate(_bullet, _bulletPos);
+         Instantiate(_bullet, _bulletPos);
     }
 }
