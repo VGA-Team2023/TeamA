@@ -12,6 +12,7 @@ public class PlayerAnimation
 {
     [SerializeField] private Animator _anim;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    
     private CancellationToken _token;
 
     public void SetUp(CancellationToken token) 
@@ -44,9 +45,12 @@ public class PlayerAnimation
         _anim.SetBool("Run", isRun);
     }
 
-    public void DamageAnim(bool isDamage) 
+    public async void DamageAnim(float time) 
     {
+        _anim.SetBool("Damage",true);
         _anim.Play("Damage");
+        await UniTask.Delay(TimeSpan.FromSeconds(time));
+        _anim.SetBool("Damage",false);
     }
 
     public async UniTask InvincibleTimeAnim(float invincibleTime) 
