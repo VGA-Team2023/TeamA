@@ -37,16 +37,17 @@ public class ZakoData : ScriptableObject
     public float StopTime => _stopTime;
 
     [SerializeField, Tooltip("ノックバックの威力")]
-    float _knockback = 5f;
+    float _knockback = 3f;
     public float Knockback => _knockback;
 
     [SerializeField, Tooltip("HP")]
     float _hp = 0f;
     public float Hp => _hp;
 
-    [SerializeField, Tooltip("SEのリスト")]
-    List<AudioClip> _seList = default;
-    public List<AudioClip> SEList => _seList;
+    [Header("1,足音 2,攻撃 3,被ダメ の順番にコピペ")]
+    [SerializeField, Tooltip("SEのリスト,1,足音 2,攻撃 3,被ダメ")]
+    List<string> _seList = default;
+    public List<string> SEList => _seList;
 
     [SerializeField, Tooltip("AnimationOverrideController")]
     AnimatorOverrideController _enemyAnimCom = default;

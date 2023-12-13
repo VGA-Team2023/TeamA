@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Forest_Hormet
+  m_Controller: {fileID: 9100000, guid: 7d530f07152483e40a9c6e7f05837b3d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 56f06fd78e0b23e4081634bb2dfd6d65, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68cd48914e25d214692cc0fe08b25d98, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c5eb08d46e7fabb4a9ad1ff8b4514fb1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68cd48914e25d214692cc0fe08b25d98, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a684e5988751feb428644e3d3e992a31, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68cd48914e25d214692cc0fe08b25d98, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c6c872de2d3ebc644967efeaa7a8de26, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 68cd48914e25d214692cc0fe08b25d98, type: 2}
