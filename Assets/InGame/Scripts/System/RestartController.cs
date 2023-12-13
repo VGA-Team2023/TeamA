@@ -40,7 +40,7 @@ public class RestartController : MonoBehaviour
 
         if (_sceneName == SceneManager.GetActiveScene().name)
         {
-            _playerController.Envroment.PlayerTransform.position = _restartPos.position;
+            //_playerController.Envroment.PlayerTransform.position = _restartPos.position;
         }
     }
 
