@@ -24,11 +24,43 @@ public class PlayerEimPoint : IPlayerState
     public void Update()
     {
         if (_env.PlayerState.HasFlag(PlayerStateType.Damage) ||
-            _env.PlayerState.HasFlag(PlayerStateType.Inoperable)) return;
+            _env.PlayerState.HasFlag(PlayerStateType.Inoperable))
+        {
+            _dir = Vector2.zero;
+            return;
+        }
 
-        _dir = InputProvider.Instance.EimDir;
+        Move();
+        MovementRestrictions();
+    }
+
+    /// <summary>
+    /// 移動処理
+    /// </summary>
+    private void Move()
+    {
+        _dir = InputProvider.Instance.EimDir.normalized;
+
+
         _eimPos.position = _eimPos.transform.position + _env.PlayerTransform.position - _savePos;
         _savePos = _env.PlayerTransform.position;
+    }
+
+    /// <summary>
+    /// EimPointの移動を制限する
+    /// </summary>
+    private void MovementRestrictions()
+    {
+
+        //左下
+        Vector3 screenLeftBottom = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        //右上
+        Vector3 screenRightTop = Camera.main.ScreenToWorldPoint(
+        new Vector3(Screen.width, Screen.height, 0));
+
+        _eimPos.transform.position = new Vector2(
+            Mathf.Clamp(_eimPos.position.x, screenLeftBottom.x, screenRightTop.x),
+            Mathf.Clamp(_eimPos.position.y, screenLeftBottom.y, screenRightTop.y));
     }
 
     public void FixedUpdate()
