@@ -1,4 +1,4 @@
-//日本語対応
+//日本語対応 
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -20,8 +20,9 @@ public class SludgeBullet : MonoBehaviour
     private void Start()
     {
         _gm = GameManager.Instance;
-        _shootDir = (_gm.PlayerEnvroment.PlayerTransform.position - transform.position).normalized;
+        _shootDir = (_gm.PlayerEnvroment.PlayerTransform.position.x < transform.position.x) ? Vector2.left : Vector2.right;
         _rb.velocity = _shootDir * _shootSpeed;
+        transform.parent = null;
     }
 
     /// <summary> Playerに攻撃が当たったときにダメージを与える </summary>
@@ -33,6 +34,11 @@ public class SludgeBullet : MonoBehaviour
             Vector2 _knockBackDir = playerHp.transform.position - transform.position;
             playerHp.ApplyDamage(_damageSize, _knockBackDir.normalized).Forget();
         }
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
     }
 
 }

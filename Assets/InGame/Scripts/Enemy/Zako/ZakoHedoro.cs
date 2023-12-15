@@ -26,11 +26,14 @@ public class ZakoHedoro : ZakoBase
     public override void Exit()
     {
         //死んだときのアニメーションやエフェクト,死んだ個体の処理
+        EnemyAnimator.SetBool("Move", false);
+        EnemyAnimator.SetBool("Die", true);
+
     }
 
     //アニメーションイベントで弾を出す
     public void Bullet()
     {
-        Instantiate(_bullet, _bulletPos.position, Quaternion.identity, gameObject.transform);
+         Instantiate(_bullet, _bulletPos);
     }
 }

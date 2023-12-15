@@ -12,8 +12,7 @@ public class ZakoHornet : ZakoBase
     public override void Attack()
     {
         _dis = GManager.PlayerEnvroment.PlayerTransform.position - transform.position;
-        _dis.Normalize();
-        Rb.AddForce(_dis * _power, ForceMode2D.Impulse);
+        Rb.AddForce(_dis.normalized * _power, ForceMode2D.Impulse);
     }
 
     public override bool Wait()

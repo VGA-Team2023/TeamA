@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: EnemyForestHedoro
   m_EditorClassIdentifier: 
   _moveDistance: 3
-  _lookDistance: 4
-  _attackDistance: 8
+  _lookDistance: 10
+  _attackDistance: 7
   _attackInterval: 2
   _attackValue: 1
   _moveSpeed: 2
   _stopTime: 1.5
   _knockback: 5
-  _hp: 5
+  _hp: 1
   _seList: []
   _enemyAnimCom: {fileID: 22100000, guid: 80f0ae645bcd0ae47a9f75b61677da19, type: 2}
