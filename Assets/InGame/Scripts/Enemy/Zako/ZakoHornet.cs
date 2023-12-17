@@ -30,5 +30,8 @@ public class ZakoHornet : ZakoBase
     public override void Exit()
     {
         //死んだときのアニメーションやエフェクト,死んだ個体の処理
+        EnemyAnimator.SetBool("Move", false);
+        EnemyAnimator.SetBool("Die", true);
+
     }
 }

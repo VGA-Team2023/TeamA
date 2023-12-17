@@ -80,16 +80,19 @@ public abstract class ZakoBase : EnemyBase
                 _enemyAnim.SetBool("Start", true);
                 StateCheng(ZakoState.Wander);
             }
+
+            else if (RidePlayer())
+            {
+                Move();
+            }
             //巡回
             else if (_state == ZakoState.Wander)
             {
-
                 if (Distance < _enemyDate.AttackDistance)
                 {
                     //攻撃するときは足音を止める
                     if (_seNum != -1)
                     {
-                        Debug.Log("止めた");
                         CriAudioManager.Instance.SE.Stop(_seNum + 1);
                         _seNum = -1;
                     }
@@ -97,7 +100,6 @@ public abstract class ZakoBase : EnemyBase
                 }
                 else if (Distance < _enemyDate.LookDistance)
                 {
-                    Debug.Log("近づく");
                     MoveToPlayer(pPos);
                 }
                 else
@@ -105,7 +107,6 @@ public abstract class ZakoBase : EnemyBase
                     //足音がループのため
                     if (_seNum == -1)
                     {
-                        Debug.Log("流した");
                         _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
                     }
                     Wander();
@@ -113,41 +114,6 @@ public abstract class ZakoBase : EnemyBase
                     _time = EnemyDataSource.AttackInterval;
                 }
             }
-
-
-
-            //    //距離が離れている
-            //    if (Distance > _enemyDate.LookDistance)
-            //    {
-            //        //足音がループのため
-            //        if (_seNum == -1)
-            //        {
-            //            Debug.Log("流した");
-            //            _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
-            //        }
-            //        Wander();
-            //        //巡回後すぐ攻撃に移るため
-            //        _time = EnemyDataSource.AttackInterval;
-            //    }
-            //    //攻撃
-            //    else if (/*transform.position.x - pPos.x < _enemyDate.AttackDistance && */Distance < _enemyDate.AttackDistance)
-            //    {
-            //        //攻撃するときは足音を止める
-            //        if (_seNum != -1)
-            //        {
-            //            Debug.Log("止めた");
-            //            CriAudioManager.Instance.SE.Stop(_seNum + 1);
-            //            _seNum = -1;
-            //        }
-            //        StateCheng(ZakoState.Attack);
-            //    }
-            //    //距離が近いため近づく
-            //    else
-            //    {
-            //        Debug.Log("近づく");
-            //        MoveToPlayer(pPos);
-            //    }
-            //}
 
             //攻撃
             else if (_state == ZakoState.Attack)
@@ -182,12 +148,10 @@ public abstract class ZakoBase : EnemyBase
                         _idleTime = 0f;
                         _isAttack = false;
                         StateCheng(ZakoState.Wander);
-                        Debug.Log("攻撃で止まる");
                     }
                 }
                 else
                 {
-                    Debug.Log("攻撃で止まる");
                     if (StopEnemy(_idleTime, 1f))
                     {
                         _idleTime = 0f;
@@ -265,6 +229,35 @@ public abstract class ZakoBase : EnemyBase
         transform.eulerAngles = rotation;
     }
 
+
+    bool RidePlayer()
+    {
+
+        //乗ってるか
+        bool isRide = false;
+        RaycastHit2D hitInfoRide = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y - 1.5f), Vector2.one, 0f, Vector2.down);    //数値要調整
+        isRide = hitInfoRide.collider.gameObject.TryGetComponent<PlayerHp>(out var pHp);
+        if (isRide)
+        {
+            Debug.Log("乗ってる");
+            return true;
+        }
+
+        //乗られてるか
+        bool isRidden = false;
+        RaycastHit2D hitInfoRidden = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + 1.5f), Vector2.one, 0f, Vector2.up);    //数値要調整
+        isRidden = hitInfoRidden.collider.gameObject.TryGetComponent<PlayerHp>(out var playerHp);
+        Debug.Log(hitInfoRidden.collider.gameObject.name);
+        if (isRidden)
+        {
+            Debug.Log("乗られてる");
+            return true;
+        }
+
+        return false;
+    }
+
+
     /// <summary>アニメーションイベント</summary>
     public void AttackEnd()
     {
@@ -298,12 +291,10 @@ public abstract class ZakoBase : EnemyBase
             _rb.AddForce(dir.normalized * _enemyDate.Knockback, ForceMode2D.Impulse);
         }
 
-        Debug.Log("プレイヤーに攻撃されてる");
     }
 
     public override void Exit()
     {
-        Debug.Log("エネミー退場");
         _enemyAnim.SetBool("Die", true);
     }
     #endregion
@@ -315,13 +306,14 @@ public abstract class ZakoBase : EnemyBase
     }
 
     //自分自身に当たった時
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerHp>(out var pHp))
         {
-            Debug.Log("Playerが当たってきた");
-            Vector2 knockBackDir = pHp.transform.position - transform.position;
-            pHp.ApplyDamage(1, knockBackDir.normalized).Forget();
+            Vector2 knockBackDir = (pHp.transform.position - transform.position).normalized;
+            //上から当たってきた場合、強めに横に弾く
+            knockBackDir.x += Vector2.Dot(Vector2.up, collision.contacts[0].normal);
+            pHp.ApplyDamage(1, knockBackDir).Forget();
         }
     }
 
@@ -337,6 +329,11 @@ public abstract class ZakoBase : EnemyBase
         //接近と巡回のボーダー
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(this.transform.position, _enemyDate.LookDistance);
+
+        //Playerに乗る・乗られる判定の範囲
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Vector3.one);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z), Vector3.one);
     }
 
 }
