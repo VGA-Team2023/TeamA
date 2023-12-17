@@ -147,6 +147,7 @@ public abstract class ZakoBase : EnemyBase
                     {
                         _idleTime = 0f;
                         _isAttack = false;
+                        _rb.velocity = Vector2.zero;
                         StateCheng(ZakoState.Wander);
                     }
                 }
@@ -155,6 +156,7 @@ public abstract class ZakoBase : EnemyBase
                     if (StopEnemy(_idleTime, 1f))
                     {
                         _idleTime = 0f;
+                        _rb.velocity = Vector2.zero;
                         StateCheng(ZakoState.Wander);
                     }
                 }
@@ -257,13 +259,6 @@ public abstract class ZakoBase : EnemyBase
         return false;
     }
 
-
-    /// <summary>アニメーションイベント</summary>
-    public void AttackEnd()
-    {
-        _isAttack = true;
-    }
-
     #region enemy実装
 
     public override void Move()
@@ -272,7 +267,7 @@ public abstract class ZakoBase : EnemyBase
 
         float horizontalInput = _isRight ? 1 : -1;
         Vector2 moveDir = new Vector2(horizontalInput, 0).normalized;
-        _rb.velocity = new Vector2(moveDir.x * _moveSpeed, 0);
+        _rb.velocity = new Vector2(moveDir.x * _moveSpeed, _rb.velocity.y);
     }
     public override void Damaged()
     {
@@ -286,7 +281,7 @@ public abstract class ZakoBase : EnemyBase
             _enemyAnim.SetTrigger("Damage");
             //ノックバック
             Vector2 dir = transform.position - GManager.PlayerEnvroment.PlayerTransform.position;
-            dir.y = 3;
+            dir.y = _enemyDate.Knockback;
             dir.Normalize();
             _rb.AddForce(dir.normalized * _enemyDate.Knockback, ForceMode2D.Impulse);
         }
