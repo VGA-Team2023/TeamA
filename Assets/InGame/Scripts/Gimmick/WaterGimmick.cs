@@ -1,8 +1,5 @@
 //日本語対応
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 //ウツボカズラ,重り
@@ -28,8 +25,12 @@ public class WaterGimmick : WaterGimmickBase
 
         //作動するときのアニメーション
         _weightAnim = gameObject.GetComponent<Animator>();
-        _weightAnim.SetBool("IsWeightActive", true);    
+        _weightAnim.SetBool("IsWeightActive", true);
+    }
 
+    //閉じるのを遅らせるため
+    void Close()
+    {
         _defaltCollider.enabled = false;
         _changeCollider.enabled = true;
     }
