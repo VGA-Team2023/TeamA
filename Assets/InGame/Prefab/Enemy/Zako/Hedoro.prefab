@@ -235,5 +235,8 @@ MonoBehaviour:
   _pPos: {fileID: 0}
   _state: 0
   _time: 999
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _bullet: {fileID: 8514396678269074022, guid: 63f1d89cdc66c014192e463377e2928d, type: 3}
   _bulletPos: {fileID: 4418136278985412111}
