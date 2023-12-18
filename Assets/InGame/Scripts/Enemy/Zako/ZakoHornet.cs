@@ -17,14 +17,13 @@ public class ZakoHornet : ZakoBase
 
     public override bool Wait()
     {
-        //出てくるときに当たり判定の追加
-        if (EnemyDataSource.LookDistance > Distance)
+        if (!_isStart)
         {
             Debug.Log("開始");
-            GetComponent<PolygonCollider2D>().enabled = true; ;
-            Rb.AddForce(Vector2.up * _power, ForceMode2D.Impulse);
+            gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+            _isStart = true;
         }
-        return EnemyDataSource.LookDistance > Distance;
+        return _isStart;
     }
 
     public override void Exit()

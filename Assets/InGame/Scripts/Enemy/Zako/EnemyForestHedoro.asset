@@ -21,5 +21,8 @@ MonoBehaviour:
   _stopTime: 1.5
   _knockback: 5
   _hp: 1
-  _seList: []
+  _seList:
+  - 
+  - 
+  - 
   _enemyAnimCom: {fileID: 22100000, guid: 80f0ae645bcd0ae47a9f75b61677da19, type: 2}
