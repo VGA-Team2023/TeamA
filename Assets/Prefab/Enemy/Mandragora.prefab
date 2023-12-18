@@ -366,5 +366,8 @@ MonoBehaviour:
   _pPos: {fileID: 0}
   _state: 0
   _time: 999
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _attack: {fileID: 7336442993367064950}
   _tagName: Player

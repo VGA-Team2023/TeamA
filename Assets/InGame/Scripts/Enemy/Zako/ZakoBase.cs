@@ -38,6 +38,8 @@ public abstract class ZakoBase : EnemyBase
     float _idleTime = 0f;
     int _seNum = -1;
     bool _isAttack = false;
+
+    [SerializeField] LayerMask _playerLayer = default;
     enum ZakoState
     {
         /// <summary>最初の待機</summary>
@@ -238,7 +240,9 @@ public abstract class ZakoBase : EnemyBase
 
         //乗ってるか
         bool isRide = false;
-        RaycastHit2D hitInfoRide = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y - 1.5f), Vector2.one, 0f, Vector2.down);    //数値要調整
+        RaycastHit2D hitInfoRide
+            = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y - 2.0f), transform.localScale, 0f, Vector2.down, 3.0f, _playerLayer);    //数値要調整
+        if (!hitInfoRide) return false;
         isRide = hitInfoRide.collider.gameObject.TryGetComponent<PlayerHp>(out var pHp);
         if (isRide)
         {
@@ -248,7 +252,9 @@ public abstract class ZakoBase : EnemyBase
 
         //乗られてるか
         bool isRidden = false;
-        RaycastHit2D hitInfoRidden = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + 1.5f), Vector2.one, 0f, Vector2.up);    //数値要調整
+        RaycastHit2D hitInfoRidden
+            = Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + 2.0f), transform.localScale, 0f, Vector2.up, 3.0f, _playerLayer);    //数値要調整
+        if (!hitInfoRidden) return false;
         isRidden = hitInfoRidden.collider.gameObject.TryGetComponent<PlayerHp>(out var playerHp);
         Debug.Log(hitInfoRidden.collider.gameObject.name);
         if (isRidden)
@@ -329,8 +335,8 @@ public abstract class ZakoBase : EnemyBase
 
         //Playerに乗る・乗られる判定の範囲
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Vector3.one);
-        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z), Vector3.one);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 2.0f, transform.position.z), transform.localScale);
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 2.0f, transform.position.z), transform.localScale);
     }
 
 }

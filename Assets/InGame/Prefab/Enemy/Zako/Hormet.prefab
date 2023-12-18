@@ -264,5 +264,8 @@ MonoBehaviour:
   _pPos: {fileID: 0}
   _state: 0
   _time: 999
+  _playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   _hight: 3
   _power: 3
