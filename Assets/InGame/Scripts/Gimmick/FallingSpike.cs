@@ -84,7 +84,8 @@ public class FallingSpike : MonoBehaviour
             Debug.Log("刺が当たった");
             Vector2 knockBackDir = pHp.transform.position - transform.position;
             pHp.ApplyDamage(_attackValue, knockBackDir.normalized).Forget();
-            _isHit = true;
+            pHp.ApplyDamage(_attackValue, knockBackDir.normalized).Forget();
         }
+        _isHit = true;
     }
 }
