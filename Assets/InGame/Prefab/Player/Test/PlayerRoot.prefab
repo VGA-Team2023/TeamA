@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5914294836126278777}
   - component: {fileID: 2655534580916577381}
   - component: {fileID: 8416521812250085170}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,6 +40,8 @@ Transform:
   - {fileID: 2575316085354253647}
   - {fileID: 5961518559525482018}
   - {fileID: 6942327457629240967}
+  - {fileID: 5769834315499611947}
+  - {fileID: 3027477755329324910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1364311828291107252
@@ -116,6 +118,7 @@ MonoBehaviour:
   - rid: 7437309191701659648
   _playerAnim:
     _anim: {fileID: 8416521812250085170}
+    _effectAnim: {fileID: 7914863433960334613}
     _spriteRenderer: {fileID: 1364311828291107252}
   _playerView: {fileID: 4244580185595192257}
   _playerHp: {fileID: 1097736323819194479}
@@ -160,6 +163,8 @@ MonoBehaviour:
         _groundLayer:
           serializedVersion: 2
           m_Bits: 128
+        _particleInstantiatePosition: {fileID: 5769834315499611947}
+        _waterParticle: {fileID: 0}
     - rid: 7437309108187037697
       type: {class: PlayerSceneMove, ns: , asm: Assembly-CSharp}
       data: 
@@ -295,7 +300,7 @@ GameObject:
   - component: {fileID: 6942327457629240967}
   - component: {fileID: 8965842922326188112}
   - component: {fileID: 2385555636081978068}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MaskSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7858383338369981254}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +467,7 @@ GameObject:
   - component: {fileID: 4950340510481532689}
   - component: {fileID: 7539567604966010816}
   - component: {fileID: 848833879502169420}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CurrentWaterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +542,7 @@ GameObject:
   - component: {fileID: 290179710473781961}
   - component: {fileID: 2802987578095945960}
   - component: {fileID: 5003247859570331525}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CurrentWaterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +617,7 @@ GameObject:
   - component: {fileID: 6392095039169703954}
   - component: {fileID: 4100647690552535841}
   - component: {fileID: 4822163772689470345}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CurrentImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -687,7 +692,7 @@ GameObject:
   - component: {fileID: 6180348111196738903}
   - component: {fileID: 3610571905514189092}
   - component: {fileID: 5994681769518060180}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HpOrnament
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +767,7 @@ GameObject:
   - component: {fileID: 3250235462122167607}
   - component: {fileID: 4163633296378242834}
   - component: {fileID: 2399677635098144227}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HpImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -836,7 +841,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6943156674502383545}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +876,7 @@ GameObject:
   - component: {fileID: 7201799965285990117}
   - component: {fileID: 6467435111601302752}
   - component: {fileID: 4505947029012380241}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OutLineImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +949,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2941571615310934268}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,7 +987,7 @@ GameObject:
   - component: {fileID: 2600064551740122985}
   - component: {fileID: 1276729649734614512}
   - component: {fileID: 1188841432772007154}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,6 +1077,37 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &5863355363933082750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5769834315499611947}
+  m_Layer: 10
+  m_Name: WaterParticlePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5769834315499611947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5863355363933082750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468305923925287450}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5907592506481734530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1120,7 @@ GameObject:
   - component: {fileID: 5617847402369771053}
   - component: {fileID: 7858597867422443588}
   - component: {fileID: 5262263989001547444}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OverlayCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,6 +1211,112 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &6042327413845146085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3027477755329324910}
+  - component: {fileID: 7914863433960334613}
+  - component: {fileID: 8525098179974894672}
+  m_Layer: 10
+  m_Name: EffectAnim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3027477755329324910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042327413845146085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 468305923925287450}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7914863433960334613
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042327413845146085}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2cfdf0f91584dd14a876aea467ceac9e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &8525098179974894672
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042327413845146085}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.2, y: 0.2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &7290986768322645455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8519721979407205177}
   - component: {fileID: 2653918027462390402}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CurrentHpImageInsPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1247,7 +1389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4991589991434875932}
   - component: {fileID: 5903009561866677967}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WithoutHpImageInsPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
