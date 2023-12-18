@@ -47,6 +47,7 @@ public class ZakoData : ScriptableObject
     [Header("1,足音 2,攻撃 3,被ダメ の順番にコピペ")]
     [SerializeField, Tooltip("SEのリスト,1,足音 2,攻撃 3,被ダメ")]
     List<string> _seList = default;
+    /// <summary>1,足音 2,攻撃 3,被ダメ</summary>
     public List<string> SEList => _seList;
 
     [SerializeField, Tooltip("AnimationOverrideController")]

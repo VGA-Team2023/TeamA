@@ -107,7 +107,7 @@ public abstract class ZakoBase : EnemyBase
                     //足音がループのため
                     if (_seNum == -1)
                     {
-                        _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", "Enemy_FS_ZAKO");
+                        _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[0]);
                     }
                     Wander();
                     //巡回後すぐ攻撃に移るため
@@ -129,6 +129,7 @@ public abstract class ZakoBase : EnemyBase
                 {
                     StateCheng(ZakoState.Idle);
                     Attack();
+                    CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[1]);
                     _time = 0f;
                     _isAttack = true;
                 }
@@ -279,6 +280,7 @@ public abstract class ZakoBase : EnemyBase
             _enemyHp--;
             //自分がダメージを食らうときの音やエフェクト
             _enemyAnim.SetTrigger("Damage");
+            //CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[2]);
             //ノックバック
             Vector2 dir = transform.position - GManager.PlayerEnvroment.PlayerTransform.position;
             dir.y = _enemyDate.Knockback;

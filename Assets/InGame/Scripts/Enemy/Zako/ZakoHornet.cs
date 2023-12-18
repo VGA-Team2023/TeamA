@@ -7,7 +7,6 @@ public class ZakoHornet : ZakoBase
     float _hight = 3f;
     [SerializeField, Tooltip("強さ")]
     float _power = 3f;
-    [SerializeField, Tooltip("飛び出すか")]
     bool _isStart = false;
     Vector2 _dis;
     public override void Attack()
@@ -18,21 +17,13 @@ public class ZakoHornet : ZakoBase
 
     public override bool Wait()
     {
-        //出てくるときに当たり判定の追加
-        if (_isStart && EnemyDataSource.LookDistance > Distance)
+        if (!_isStart)
         {
             Debug.Log("開始");
             gameObject.GetComponent<PolygonCollider2D>().enabled = true;
-            //上にある程度動く
-            Rb.AddForce(Vector2.up * _power, ForceMode2D.Impulse);
-            _isStart = false;
+            _isStart = true;
         }
-        else if (!_isStart)
-        {
-            Debug.Log("開始");
-            gameObject.GetComponent<PolygonCollider2D>().enabled = true;
-        }
-        return !_isStart;
+        return _isStart;
     }
 
     public override void Exit()
