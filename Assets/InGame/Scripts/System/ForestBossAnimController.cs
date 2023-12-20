@@ -16,6 +16,11 @@ public class ForestBossAnimController : MonoBehaviour
     private Subject<Unit> _onParticleEnd = new Subject<Unit>();
     public IObservable<Unit> OnParticleEnd => _onParticleEnd;
 
+    private void Start()
+    {
+        CriAudioManager.Instance.BGM.Play("CueSheet_0", "Boss_BGM_OP");
+    }
+
     private void Update()
     {
         if (!_finish)
@@ -36,6 +41,7 @@ public class ForestBossAnimController : MonoBehaviour
         img.SetActive(true); 
         yield return new WaitForSeconds(time);
         img.SetActive(false);
+        CriAudioManager.Instance.BGM.StopAll();
         _onParticleEnd.OnNext(new Unit());
     }
 

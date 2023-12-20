@@ -7,7 +7,7 @@ public class ForestStage : StageBase
 {
     void Start()
     {
-        
+        CriAudioManager.Instance.BGM.Play("CueSheet_0", _cueName);
     }
 
     void Update()

@@ -11,7 +11,7 @@ public abstract class StageBase : MonoBehaviour
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private RestartController _restartController;
-    [SerializeField] private string _cueName;
+    [SerializeField] protected string _cueName;
     [SerializeField] Transform _playerInsPos;
     [SerializeField] PolygonCollider2D _polygonCollider;
     [SerializeField] bool _isCine;
@@ -22,13 +22,14 @@ public abstract class StageBase : MonoBehaviour
     {
         new GameManager();
         PlayerIns();
-        CriAudioManager.Instance.BGM.Play("CueSheet_0", _cueName);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void PlayerIns()
     {
 
-        var playerIns = Instantiate(_playerPrefab, _playerInsPos);
+        var playerIns = Instantiate(_playerPrefab, _playerInsPos.transform.position, _playerInsPos.transform.rotation);
         var root = playerIns.GetComponentInChildren<IPlayerRoot>();
         GameManager.Instance.PlayerRoot = root;
         root.SetUp();

@@ -479,8 +479,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.25774956, y: 0.15044999, z: 0}
-    m_Extent: {x: 9.43645, y: 4.6929502, z: 0}
+    m_Center: {x: -0.26399994, y: 0.15614986, z: 0}
+    m_Extent: {x: 9.4345, y: 4.68125, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 5785290364280943334, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
   _restartController: {fileID: 1027572409}
-  _cueName: boss_BGM
+  _cueName: "BGM\uFF3Fboss"
   _playerInsPos: {fileID: 2026819597}
   _polygonCollider: {fileID: 1234612532}
   _isCine: 0
@@ -1047,8 +1047,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 12.52145, y: -5.17535, z: 0}
-    m_Extent: {x: 17.22875, y: 14.48065, z: 0}
+    m_Center: {x: 12.5288, y: -5.18305, z: 0}
+    m_Extent: {x: 17.2322, y: 14.48575, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -8315,7 +8315,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.1700306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -8326,7 +8326,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 44.4, y: 1}
+  m_Size: {x: 44.4, y: 0.6599388}
   m_EdgeRadius: 0
 --- !u!4 &1945979134
 Transform:
@@ -8609,7 +8609,7 @@ Transform:
   m_GameObject: {fileID: 2026819596}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.73, y: -5.3, z: 0}
+  m_LocalPosition: {x: -10.47, y: -5.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

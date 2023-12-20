@@ -31726,8 +31726,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 71.5711, y: -5.7641525, z: 0}
-    m_Extent: {x: 75.050606, y: 69.81965, z: 0}
+    m_Center: {x: 71.563896, y: -5.7717476, z: 0}
+    m_Extent: {x: 75.0546, y: 69.82095, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -32163,8 +32163,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 8.45435, y: -13.626001, z: 0}
-    m_Extent: {x: 28.924152, y: 26.0473, z: 0}
+    m_Center: {x: 8.4554, y: -13.62475, z: 0}
+    m_Extent: {x: 28.9205, y: 26.051352, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -32403,8 +32403,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 16.50465, y: -12.75545, z: 0}
-    m_Extent: {x: 30.92915, y: 32.48705, z: 0}
+    m_Center: {x: 16.50515, y: -12.75545, z: 0}
+    m_Extent: {x: 30.92825, y: 32.48665, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -35401,8 +35401,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 2.8232498, y: -13.96155, z: 0}
-    m_Extent: {x: 27.11075, y: 23.369051, z: 0}
+    m_Center: {x: 2.8218994, y: -13.965349, z: 0}
+    m_Extent: {x: 27.1133, y: 23.376749, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -37688,8 +37688,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 71.1764, y: -3.374401, z: 0}
-    m_Extent: {x: 56.64, y: 48.6436, z: 0}
+    m_Center: {x: 71.1765, y: -3.3785992, z: 0}
+    m_Extent: {x: 56.638, y: 48.6392, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -37770,8 +37770,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 5.036151, y: -10.76055, z: 0}
-    m_Extent: {x: 23.81705, y: 23.96755, z: 0}
+    m_Center: {x: 5.0359, y: -10.76145, z: 0}
+    m_Extent: {x: 23.8045, y: 23.96935, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -38001,8 +38001,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 3.26305, y: 1.5847998, z: 0}
-    m_Extent: {x: 96.84175, y: 20.226799, z: 0}
+    m_Center: {x: 3.268402, y: 1.5883007, z: 0}
+    m_Extent: {x: 96.8375, y: 20.2323, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -47859,7 +47859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 5785290364280943334, guid: bc602d6122dff7845ab8f14ef9a63bf6, type: 3}
   _restartController: {fileID: 796551479}
-  _cueName: "BGM_stage\uFF11"
+  _cueName: BGM_stage_1
   _playerInsPos: {fileID: 1822543387}
   _polygonCollider: {fileID: 1945865055}
   _isCine: 1
