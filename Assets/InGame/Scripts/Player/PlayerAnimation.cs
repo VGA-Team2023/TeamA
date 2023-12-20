@@ -11,6 +11,7 @@ using DG.Tweening;
 public class PlayerAnimation
 {
     [SerializeField] private Animator _anim;
+    [SerializeField] private Animator _effectAnim;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     
     private CancellationToken _token;
@@ -49,6 +50,7 @@ public class PlayerAnimation
     {
         _anim.SetBool("Damage",true);
         _anim.Play("Damage");
+        _effectAnim.Play("Hit");
         await UniTask.Delay(TimeSpan.FromSeconds(time));
         _anim.SetBool("Damage",false);
     }

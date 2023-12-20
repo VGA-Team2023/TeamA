@@ -28,6 +28,7 @@ public class ForestBossScene : StageBase
     {
         Debug.Log("羽島ありました");
         _bossBase.BattleStart();
+        CriAudioManager.Instance.BGM.Play("CueSheet_0", _cueName);
         await _fadeScript.FadeIn();
     }
 

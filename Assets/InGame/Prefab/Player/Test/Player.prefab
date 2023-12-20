@@ -549,6 +549,22 @@ PrefabInstance:
       propertyPath: managedReferences[7437309043695681540]._particleInstantiatePosition.y
       value: -1.7
       objectReference: {fileID: 0}
+    - target: {fileID: 6942327457629240967, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 103.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942327457629240967, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 98.89904
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942327457629240967, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.2426088
+      objectReference: {fileID: 0}
+    - target: {fileID: 6942327457629240967, guid: 17406fc1f6db11a4cb92a7980e0ed9a8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
