@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using System;
+using UniRx.Triggers;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -35,9 +36,12 @@ public abstract class ZakoBase : EnemyBase
     bool _isRight = true;
     [SerializeField, Tooltip("時間はかる")]
     float _time = 999;
+    [SerializeField, Tooltip("画面に映っているか")]
+    bool _onScreen = false;
     float _idleTime = 0f;
     int _seNum = -1;
     bool _isAttack = false;
+    Renderer _renderer = default;
 
     [SerializeField] LayerMask _playerLayer = default;
     enum ZakoState
@@ -60,6 +64,7 @@ public abstract class ZakoBase : EnemyBase
         _pos = gameObject.transform.position;
         _moveSpeed = _enemyDate.MoveSpeed;
         _enemyHp = _enemyDate.Hp;
+        _renderer = GetComponent<Renderer>();
     }
 
     protected override void Start()
@@ -67,10 +72,22 @@ public abstract class ZakoBase : EnemyBase
         base.Start();
     }
 
+    private void OnBecameVisible()
+    {
+        _onScreen = true;
+        Debug.Log(_onScreen);
+    }
+
+    private void OnBecameInvisible()
+    {
+        _onScreen = false;
+        Debug.Log(_onScreen);
+    }
+
     protected override void Update()
     {
         base.Update();
-
+        //Debug.Log(_onScreen);
         //体力がある
         if (_enemyHp > 0)
         {
@@ -95,6 +112,7 @@ public abstract class ZakoBase : EnemyBase
                     //攻撃するときは足音を止める
                     if (_seNum != -1)
                     {
+                        Debug.Log("足音");
                         CriAudioManager.Instance.SE.Stop(_seNum + 1);
                         _seNum = -1;
                     }
@@ -107,8 +125,9 @@ public abstract class ZakoBase : EnemyBase
                 else
                 {
                     //足音がループのため
-                    if (_seNum == -1)
+                    if (_seNum == -1 && _onScreen)
                     {
+                        Debug.Log("足音");
                         _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[0]);
                     }
                     Wander();
@@ -170,6 +189,17 @@ public abstract class ZakoBase : EnemyBase
         else if (_enemyHp <= 0)
         {
             Exit();
+        }
+
+        //画面外の時音を止める
+        if (!_onScreen)
+        {
+            if (_seNum != -1)
+            {
+                Debug.Log("足音を止める");
+                CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                _seNum = -1;
+            }
         }
     }
 
