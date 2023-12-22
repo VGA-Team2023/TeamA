@@ -81,7 +81,6 @@ public class TimeLimitGround : MonoBehaviour
     private bool ReceiveForce()
     {
         totalTime += Time.deltaTime;
-        Debug.Log($"Limit{timeLimit}gennzai{totalTime}佳さん");
         if (timeLimit <= totalTime)
         {
             Debug.Log("a");
