@@ -16,7 +16,7 @@ MonoBehaviour:
   _borderDistance: 8
   _moveSpeed: 3
   _dafaultHp: 10
-  _receiveDamageSize: 100
+  _receiveDamageSize: 1
   _shortAttackDamageSize: 1
   _longAttackDamageSize: 1
   _touchedDamageSize: 0

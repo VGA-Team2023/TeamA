@@ -34,6 +34,7 @@ public class ForestBossAnimController : MonoBehaviour
         _finish = true;
 
         if (_bossName != null) { StartCoroutine(OnBossNameImage(_activeTime, _bossName)); }
+        _onParticleEnd.OnNext(new Unit());
     }
 
     private IEnumerator OnBossNameImage(float time, GameObject img)
@@ -42,7 +43,6 @@ public class ForestBossAnimController : MonoBehaviour
         yield return new WaitForSeconds(time);
         img.SetActive(false);
         CriAudioManager.Instance.BGM.StopAll();
-        _onParticleEnd.OnNext(new Unit());
     }
 
     private void OnDestroy()
