@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7c43b59f5190540be20eaf7f8a7488, type: 3}
   m_Name: EnemyForestHedoro
   m_EditorClassIdentifier: 
-  _moveDistance: 3
-  _lookDistance: 10
+  _moveDistance: 2
+  _lookDistance: 7
   _attackDistance: 7
-  _attackInterval: 2
+  _attackInterval: 3
   _attackValue: 1
   _moveSpeed: 2
   _stopTime: 1.5
-  _knockback: 5
+  _knockback: 0
   _hp: 1
   _seList:
   - 

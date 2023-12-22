@@ -19,8 +19,8 @@ MonoBehaviour:
   _attackValue: 1
   _moveSpeed: 5
   _stopTime: 0.5
-  _knockback: 3
-  _hp: 3
+  _knockback: 1
+  _hp: 2
   _seList:
   - SE_enemy_H_flight
   - SE_enemy_H_attack-01

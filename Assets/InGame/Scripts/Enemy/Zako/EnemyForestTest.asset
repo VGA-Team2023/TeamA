@@ -19,7 +19,7 @@ MonoBehaviour:
   _attackValue: 1
   _moveSpeed: 2
   _stopTime: 1.5
-  _knockback: 3
-  _hp: 5
+  _knockback: 2
+  _hp: 3
   _seList: []
   _enemyAnimCom: {fileID: 22100000, guid: b1f6e920f0efdc34aa37e007920b919e, type: 2}
