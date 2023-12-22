@@ -22,9 +22,18 @@ public class ZakoForest : ZakoBase
         EnemyAnimator.SetBool("Move", false);
         EnemyAnimator.SetBool("Die", true);
     }
-    private void OnBecameVisible() => _isStart = true;
+    protected override void OnBecameVisible() 
+    {
+        base.OnBecameVisible();
+        _isStart = true;
+    }
 
-    private void OnBecameInvisible() => _isStart = false;
+
+    protected override void OnBecameInvisible()
+    {
+        base.OnBecameInvisible();
+        _isStart = false;
+    } 
     public override bool Wait()
     {
         return _isStart;

@@ -72,13 +72,13 @@ public abstract class ZakoBase : EnemyBase
         base.Start();
     }
 
-    private void OnBecameVisible()
+    protected virtual void OnBecameVisible()
     {
         _onScreen = true;
         Debug.Log(_onScreen);
     }
 
-    private void OnBecameInvisible()
+    protected virtual void OnBecameInvisible()
     {
         _onScreen = false;
         Debug.Log(_onScreen);
@@ -113,7 +113,7 @@ public abstract class ZakoBase : EnemyBase
                     if (_seNum != -1)
                     {
                         Debug.Log("足音");
-                        CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                        CriAudioManager.Instance.SE.Stop(_seNum);
                         _seNum = -1;
                     }
                     StateCheng(ZakoState.Attack);
@@ -197,7 +197,7 @@ public abstract class ZakoBase : EnemyBase
             if (_seNum != -1)
             {
                 Debug.Log("足音を止める");
-                CriAudioManager.Instance.SE.Stop(_seNum + 1);
+                CriAudioManager.Instance.SE.Stop(_seNum);
                 _seNum = -1;
             }
         }
@@ -347,6 +347,14 @@ public abstract class ZakoBase : EnemyBase
             //上から当たってきた場合、強めに横に弾く
             knockBackDir.x += Vector2.Dot(Vector2.up, collision.contacts[0].normal);
             pHp.ApplyDamage(1, knockBackDir).Forget();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_seNum != -1)
+        {
+            CriAudioManager.Instance.SE.Stop(_seNum);
         }
     }
 
