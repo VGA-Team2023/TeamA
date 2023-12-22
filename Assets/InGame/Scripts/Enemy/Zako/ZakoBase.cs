@@ -350,7 +350,7 @@ public abstract class ZakoBase : EnemyBase
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (_seNum != -1)
         {
