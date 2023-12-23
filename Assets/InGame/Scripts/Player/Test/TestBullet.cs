@@ -40,7 +40,6 @@ public class TestBullet : MonoBehaviour
     {
         if (collision.CompareTag(_groundTag))
         {
-            Debug.Log("きた");
             Instantiate(_effect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

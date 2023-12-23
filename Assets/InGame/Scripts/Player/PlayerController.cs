@@ -36,6 +36,11 @@ public class PlayerController : MonoBehaviour, IPlayerRoot
         BindView();
     }
 
+    private void Start()
+    {
+
+    }
+
     private void SetUpState()
     {
         for (int i = 0; i < _playerStateList.Count; i++)

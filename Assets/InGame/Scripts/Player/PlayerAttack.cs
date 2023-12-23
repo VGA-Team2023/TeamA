@@ -68,7 +68,7 @@ public class PlayerAttack : IPlayerState, IPlayerAttack
 
             bulletCs.SetShotDirection((_eimPos.transform.position - _env.PlayerTransform.transform.position).normalized);
             _isAttack = false;
-            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_prayer_attack-01");
+            CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_HIt");
         }
         
         
