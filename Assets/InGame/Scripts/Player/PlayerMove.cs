@@ -63,6 +63,12 @@ public class PlayerMove : IPlayerState
             _env.LastDir = _dir;
             _env.PlayerAnim.RunAnim(true);
             _env.PlayerAnim.WalkAnim(false);
+            if (_walkSE != -1)
+            {
+                Debug.Log("止まった");
+                CriAudioManager.Instance.SE.Stop(_walkSE);
+                _walkSE = -1;
+            }
         }
 
         _rb.velocity = new Vector2(_dir.x * _dashSpeed, _rb.velocity.y);
@@ -76,7 +82,7 @@ public class PlayerMove : IPlayerState
             if (_walkSE != -1) 
             {
                 Debug.Log("止まった");
-                //CriAudioManager.Instance.SE.Stop(_walkSE);
+                CriAudioManager.Instance.SE.Stop(_walkSE);
                 _walkSE = -1;
             }
         }
@@ -84,7 +90,8 @@ public class PlayerMove : IPlayerState
         {
             if (_walkSE == -1) 
             {
-                //_walkSE = CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_FS_1");
+                Debug.Log("歩き始めました");
+                _walkSE = CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_player_FS_loop");
             }
             _env.RemoveState(PlayerStateType.Run);
             _env.AddState(PlayerStateType.Walk);
