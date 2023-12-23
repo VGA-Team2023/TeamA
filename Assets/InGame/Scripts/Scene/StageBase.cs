@@ -55,5 +55,7 @@ public abstract class StageBase : MonoBehaviour
     private void OnDestroy()
     {
        _onDeadDisposable?.Dispose();
+        CriAudioManager.Instance.BGM.StopAll();
+        CriAudioManager.Instance.SE.StopAll();
     }
 }
