@@ -115,7 +115,7 @@ public abstract class BossBase : EnemyBase
     public override void Exit()
     {
         _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BattleEnd"]);
-        _bossAnimator.SetTrigger("BattleEnd");
+        _bossAnimator.Play("BattleEnd");
     }
 
     /// <summary> 被ダメージ処理。水から呼ばれる</summary>
