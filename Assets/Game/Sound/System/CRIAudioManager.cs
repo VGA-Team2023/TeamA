@@ -1,5 +1,4 @@
 // 日本語対応
-
 using CriWare;
 using System;
 using System.Collections.Concurrent;
@@ -82,6 +81,8 @@ public class CriAudioManager
             Source.SetVelocity(movedVec.x, movedVec.y, movedVec.z);
             Source.Update();
         }
+
+        public CancellationTokenSource CancellationTokenSource { get; set; }
     }
 
     /// <summary>チャンネルを作るために必要な情報をまとめたクラス</summary>
@@ -125,6 +126,12 @@ public class CriAudioManager
             _volume.OnVolumeChanged -= UpdateVolume;
             _masterVolume.OnVolumeChanged -= UpdateMasterVolume;
             _player.Dispose();
+
+            foreach (var VARIABLE in _cueData)
+            {
+                VARIABLE.Value.CancellationTokenSource.Cancel();
+                VARIABLE.Value.Source.Dispose();
+            }
         }
 
         private void UpdateVolume(float volume)
@@ -147,7 +154,50 @@ public class CriAudioManager
             }
         }
 
-        protected async void PlaybackDestroyWaitForPlayEnd(int index)
+        protected int CueDataAdd(CriPlayerData playerData)
+        {
+            if (playerData.IsLoop)
+            {
+                if (_removedCueDataIndex.Count > 0)
+                {
+                    int tempIndex;
+                    if (_removedCueDataIndex.TryTake(out tempIndex))
+                    {
+                        _cueData.TryAdd(tempIndex, playerData);
+                    }
+
+                    return tempIndex;
+                }
+                else
+                {
+                    _currentMaxCount++;
+                    _cueData.TryAdd(_currentMaxCount, playerData);
+                    return _currentMaxCount;
+                }
+            }
+            else if (_removedCueDataIndex.Count > 0)
+            {
+                int tempIndex;
+                if (_removedCueDataIndex.TryTake(out tempIndex))
+                {
+                    _cueData.TryAdd(tempIndex, playerData);
+                }
+
+                PlaybackDestroyWaitForPlayEnd(tempIndex, playerData.CancellationTokenSource.Token);
+                return tempIndex;
+            }
+            else
+            {
+                _currentMaxCount++;
+                _cueData.TryAdd(_currentMaxCount, playerData);
+
+                PlaybackDestroyWaitForPlayEnd(_currentMaxCount, playerData.CancellationTokenSource.Token);
+                return _currentMaxCount;
+            }
+
+        }
+
+        protected async void PlaybackDestroyWaitForPlayEnd(int index, CancellationToken cancellationToken)
         {
             // ループしていたら抜ける
             if (_cueData[index].IsLoop)
@@ -155,11 +205,11 @@ public class CriAudioManager
                 return;
             }
 
-            await Task.Delay((int)_cueData[index].CueInfo.length, _tokenSource.Token);
+            await Task.Delay((int)_cueData[index].CueInfo.length, _cueData[index].CancellationTokenSource.Token);
 
             while (true)
             {
-                if (_cueData.TryRemove(index, out CriPlayerData outData))
+                if (_cueData[index].Playback.GetStatus() == CriAtomExPlayback.Status.Removed && _cueData.TryRemove(index, out CriPlayerData outData))
                 {
                     _removedCueDataIndex.Add(index);
                     outData.Source?.Dispose();
@@ -167,7 +217,7 @@ public class CriAudioManager
                 }
                 else
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(0.05D), _tokenSource.Token);
+                    await Task.Delay(TimeSpan.FromSeconds(0.05D), _cueData[index].CancellationTokenSource.Token);
                 }
             }
         }
@@ -385,26 +435,9 @@ public class CriAudioManager
             _player.Set3dSource(null);
             _player.SetVolume(volume * _volume * _masterVolume);
             newAtomPlayer.Playback = _player.Start();
+            newAtomPlayer.CancellationTokenSource = new CancellationTokenSource();
 
-            if (_removedCueDataIndex.Count > 0)
-            {
-                int tempIndex;
-                if (_removedCueDataIndex.TryTake(out tempIndex))
-                {
-                    _cueData.TryAdd(tempIndex, newAtomPlayer);
-                }
-
-                PlaybackDestroyWaitForPlayEnd(tempIndex);
-            }
-            else
-            {
-                _currentMaxCount++;
-                _cueData.TryAdd(_currentMaxCount, newAtomPlayer);
-
-                PlaybackDestroyWaitForPlayEnd(_currentMaxCount);
-            }
-
-            return _cueData.Count - 1;
+            return CueDataAdd(newAtomPlayer);
         }
 
         public int Play3D(Vector3 playSoundWorldPos, string cueSheetName, string cueName, float volume)
@@ -427,28 +460,9 @@ public class CriAudioManager
             _player.SetVolume(_volume * _masterVolume * volume);
             _player.SetStartTime(0L);
             tempPlayerData.Playback = _player.Start();
+            tempPlayerData.CancellationTokenSource = new CancellationTokenSource();
 
-            _cueData[_cueData.Count - 1] = tempPlayerData;
-
-            if (_removedCueDataIndex.Count > 0)
-            {
-                int tempIndex;
-                if (_removedCueDataIndex.TryTake(out tempIndex))
-                {
-                    _cueData.TryAdd(tempIndex, tempPlayerData);
-                }
-
-                PlaybackDestroyWaitForPlayEnd(tempIndex);
-            }
-            else
-            {
-                _currentMaxCount++;
-                _cueData.TryAdd(_currentMaxCount, tempPlayerData);
-
-                PlaybackDestroyWaitForPlayEnd(_currentMaxCount);
-            }
-
-            return _cueData.Count - 1;
+            return CueDataAdd(tempPlayerData);
         }
 
         public void Update3DPos(Vector3 playSoundWorldPos, int index)
@@ -474,23 +488,61 @@ public class CriAudioManager
 
         public void Stop(int index)
         {
-            if (index <= -1) return;
+            if (!_cueData.ContainsKey(index))
+            {
+                return;
+            }
+            else 
+            {
+                Debug.Log("そんなキーないよ");
+            }
 
             _cueData[index].Playback.Stop(false);
+
+            if (_cueData.Remove(index, out CriPlayerData outData))
+            {
+                _removedCueDataIndex.Add(index);
+                outData.Playback.Stop(false);
+                outData.Source?.Dispose();
+                outData.CancellationTokenSource?.Cancel();
+            }
+
         }
 
         public void StopAll()
         {
             _player.Stop(false);
+
+            foreach (var VARIABLE in _cueData)
+            {
+                VARIABLE.Value.CancellationTokenSource?.Cancel();
+                VARIABLE.Value.CancellationTokenSource?.Dispose();
+            }
+
+            _cueData.Clear();
+            _removedCueDataIndex.Clear();
         }
 
         public void StopLoopCue()
         {
+            var indexList = new List<int>();
+
             foreach (var n in _cueData)
             {
                 if (n.Value.IsLoop)
                 {
                     n.Value.Playback.Stop(false);
+                }
+
+                indexList.Add(n.Key);
+            }
+
+            foreach (var VARIABLE in indexList)
+            {
+                if (_cueData.Remove(VARIABLE, out CriPlayerData outData))
+                {
+                    _removedCueDataIndex.Add(VARIABLE);
+                    outData.Source?.Dispose();
                 }
             }
         }
