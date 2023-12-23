@@ -16,6 +16,8 @@ public class TitleStart : MonoBehaviour
 
     private void Start()
     {
+        CriAudioManager.Instance.BGM.StopAll();
+        CriAudioManager.Instance.SE.StopAll();
         InputProvider.Instance.SetEnterInput(InputProvider.InputType.Jump, OnStartGame);
     }
 
@@ -28,7 +30,7 @@ public class TitleStart : MonoBehaviour
 
         _isStart = true;
         _animator.Play("TitleClick");
-        CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_UI_startbotann");
+        CriAudioManager.Instance.SE.Play("CueSheet_0", "SE_startbotann");
         await FadeOut();
         LoadScene(_sceneName);
     }
