@@ -87,7 +87,7 @@ public abstract class ZakoBase : EnemyBase
     protected override void Update()
     {
         base.Update();
-        //Debug.Log(_onScreen);
+        Debug.Log(_seNum);
         //体力がある
         if (_enemyHp > 0)
         {
@@ -112,7 +112,6 @@ public abstract class ZakoBase : EnemyBase
                     //攻撃するときは足音を止める
                     if (_seNum != -1)
                     {
-                        Debug.Log("足音");
                         CriAudioManager.Instance.SE.Stop(_seNum);
                         _seNum = -1;
                     }
@@ -127,7 +126,7 @@ public abstract class ZakoBase : EnemyBase
                     //足音がループのため
                     if (_seNum == -1 && _onScreen)
                     {
-                        Debug.Log("足音");
+                        Debug.Log("足音あり");
                         _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[0]);
                     }
                     Wander();
@@ -150,7 +149,7 @@ public abstract class ZakoBase : EnemyBase
                 {
                     StateCheng(ZakoState.Idle);
                     Attack();
-                    CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[1]);
+                    _seNum = CriAudioManager.Instance.SE.Play("CueSheet_0", _enemyDate.SEList[1]);
                     _time = 0f;
                     _isAttack = true;
                 }
@@ -165,7 +164,7 @@ public abstract class ZakoBase : EnemyBase
                 if (_isAttack)
                 {
                     //止まり終えたら巡回に戻る
-                    if (StopEnemy(_idleTime, _enemyDate.StopTime + 1))
+                    if (StopEnemy(_idleTime, _enemyDate.StopTime))
                     {
                         _idleTime = 0f;
                         _isAttack = false;
@@ -196,7 +195,7 @@ public abstract class ZakoBase : EnemyBase
         {
             if (_seNum != -1)
             {
-                Debug.Log("足音を止める");
+                Debug.Log("画面外");
                 CriAudioManager.Instance.SE.Stop(_seNum);
                 _seNum = -1;
             }
@@ -335,6 +334,11 @@ public abstract class ZakoBase : EnemyBase
     //アニメーションイベント死んだら消す処理
     public void Die()
     {
+        if (_seNum != -1)
+        {
+            CriAudioManager.Instance.SE.Stop(_seNum);
+            _seNum = -1;
+        }
         gameObject.SetActive(false);
     }
 

@@ -22,7 +22,7 @@ MonoBehaviour:
   _knockback: 0
   _hp: 1
   _seList:
-  - 
-  - 
-  - 
+  - SE_enemy_HD_attack
+  - SE_enemy_HD_attack
+  - SE_enemy_HD_attack
   _enemyAnimCom: {fileID: 22100000, guid: 80f0ae645bcd0ae47a9f75b61677da19, type: 2}
