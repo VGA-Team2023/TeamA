@@ -32,6 +32,7 @@ public abstract class BossBase : EnemyBase
     public PolygonCollider2D CurrentPolygonCollider2D => _currentPolygonCollider2D;
 
     [Tooltip("攻撃中かどうか")] bool _isAttacking = false;
+    [Tooltip("倒されたかどうかか")] bool _isDead = false;
 
 
     /// <summary> ボスの状態を管理するEnum </summary>
@@ -115,6 +116,7 @@ public abstract class BossBase : EnemyBase
     public override void Exit()
     {
         _criAudioManager.SE.Play("CueSheet_0", _sePairDic["BattleEnd"]);
+        _isDead = true;
         _bossAnimator.Play("BattleEnd");
     }
 
@@ -177,10 +179,13 @@ public abstract class BossBase : EnemyBase
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+        if (_isDead) 
         {
-            Vector2 _knockBackDir = playerHp.transform.position - transform.position;
-            playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir.normalized).Forget();
+            if (collision.gameObject.TryGetComponent<PlayerHp>(out var playerHp))
+            {
+                Vector2 _knockBackDir = playerHp.transform.position - transform.position;
+                playerHp.ApplyDamage(_bossDataSource.TouchedDamageSize, _knockBackDir.normalized).Forget();
+            }
         }
     }
 
