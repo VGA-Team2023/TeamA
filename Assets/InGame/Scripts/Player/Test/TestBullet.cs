@@ -38,7 +38,9 @@ public class TestBullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(_groundTag))
+        if (collision.CompareTag(_groundTag) || 
+            collision.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             Instantiate(_effect, transform.position, Quaternion.identity);
             Destroy(gameObject);
